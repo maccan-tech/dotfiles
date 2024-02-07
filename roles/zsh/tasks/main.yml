@@ -1,10 +1,10 @@
-- name: Check if .oh-my-zsh exists
+- name: ZSH | Check if .oh-my-zsh exists
   ansible.builtin.stat:
     path: ~/.oh-my-zsh
   register: stat_oh_my_zsh_result
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
 
-- name: Cloning oh-my-zsh
+- name: ZSH | Cloning oh-my-zsh
   ansible.builtin.git:
     repo: https://github.com/robbyrussell/oh-my-zsh
     dest: ~/.oh-my-zsh
@@ -12,7 +12,7 @@
     - not stat_oh_my_zsh_result.stat.exists
     - ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
 
-- name: Check oh-my-zsh folder owner
+- name: ZSH | Check oh-my-zsh folder owner
   ansible.builtin.file:
     path: '~/.oh-my-zsh'
     state: directory
@@ -21,37 +21,51 @@
     recurse: true
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
 
-- name: Cloning zsh-autosuggestions
+- name: ZSH | Cloning zsh-autosuggestions
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-autosuggestions
     dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
   # when: not stat_oh_my_zsh_result.stat.exists
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
 
-- name: Cloning zsh-syntax-highlighting
+- name: ZSH | Cloning zsh-syntax-highlighting
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting
     dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
   # when: not stat_oh_my_zsh_result.stat.exists
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
 
-- name: Create zsh maccan theme
+- name: ZSH | Create zsh maccan theme
   ansible.builtin.copy:
     src: maccan.zsh-theme
     dest: ~/.oh-my-zsh/custom/themes/maccan.zsh-theme
     mode: "0644"
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
 
-- name: "Copy .zshrc"
+- name: ZSH | "Copy .zshrc"
   ansible.builtin.copy:
     src: "zshrc"
     dest: "{{ ansible_user_dir }}/.zshrc"
     mode: "0644"
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
 
-- name: Set default shell for users
+- name: ZSH | Set default shell for users
   become: true
   ansible.builtin.user:
     name: '{{ host_user }}'
     shell: /usr/bin/zsh
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+
+- name: "ZSH | bin folder"
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  ansible.builtin.file:
+    mode: "0755"
+    path: "{{ ansible_user_dir }}/bin"
+    state: directory
+
+- name: ZSH | "Copy notetaker script"
+  ansible.builtin.copy:
+    src: "notetaker"
+    dest: "{{ ansible_user_dir }}/bin/notetaker"
+    mode: "0755"
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
