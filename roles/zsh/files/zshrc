@@ -1,0 +1,170 @@
+# If you come from bash you might have to change your $PATH.
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH="/home/maccan/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# ZSH_THEME="robbyrussell"
+ZSH_THEME="maccan"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Which plugins would you like to load?
+plugins=(
+    git
+    ssh-agent
+    docker-compose
+    docker
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+)
+
+source $ZSH/oh-my-zsh.sh
+
+#######################################################
+# User configuration
+#######################################################
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='nvim'
+else
+  export EDITOR='nvim'
+fi
+
+#######################################################
+# GENERAL ALIAS'S
+#######################################################
+
+# Alias's to modified commands
+alias rm='trash -v'
+alias mkdir='mkdir -p'
+alias ps='ps auxf'
+alias cls='clear'
+alias apt-get='sudo apt-get'
+alias vi="nvim"
+alias vim="nvim"
+
+# Change directory aliases
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
+# List alias
+# Requres apt install exa
+# alias ll='exa --long --group-directories-first'
+# alias ls='exa --icons -a --group-directories-first'
+# alias lt='exa --long --tree'
+# alias le='exa --long --tree'
+# alias la='exa -abghlS --group-directories-first'
+
+# Remove a directory and all files
+# alias rmd='/bin/rm  --recursive --force --verbose '
+
+# Disk space
+alias folders='du -h --max-depth=1'
+alias treed='tree -CAFd'
+
+# Set personal aliases
+alias zshconfig="vi ~/.zshrc"
+alias vifmconfig="vi ~/.config/vifm/vifmrc"
+alias vf="vifm ."
+alias notes="nvim $HOME/Nextcloud/Notes/"
+alias fd="find . -iname $1"
+alias nv="nvim ."
+
+# Bind <ctrl>o to open vifm
+bindkey -s '^o' 'vifm .\n'
+#Bind <ctrl>e to open vifm
+bindkey -s '^e' 'vifm .\n'
+#Bind <ctrl>n to open ~/bin/notetaker
+bindkey -s '^n' '~/bin/notetaker\n'
+
+# Searches for text in all files in the current folder
+ftext ()
+{
+	# -i case-insensitive
+	# -I ignore binary files
+	# -H causes filename to be printed
+	# -r recursive search
+	# -n causes line number to be printed
+	# optional: -F treat search term as a literal, not a regular expression
+	# optional: -l only print filenames and not the matching lines ex. grep -irl "$1" *
+	grep -iIHrn --color=always "$1" . | less -r
+}
+
+# Copy file with a progress bar
+cpp()
+{
+	set -e
+	strace -q -ewrite cp -- "${1}" "${2}" 2>&1 \
+	| awk '{
+	count += $NF
+	if (count % 10 == 0) {
+		percent = count / total_size * 100
+		printf "%3d%% [", percent
+		for (i=0;i<=percent;i++)
+			printf "="
+			printf ">"
+			for (i=percent;i<100;i++)
+				printf " "
+				printf "]\r"
+			}
+		}
+	END { print "" }' total_size="$(stat -c '%s' "${1}")" count=0
+}
+
+# Show current network information
+# missin macassress
+netinfo ()
+{
+	echo "---------------- Network Information ----------------"
+  echo ""
+  printf "%-17s %-17s %s\n" "Interface" "IP" "Mask"
+  printf "%-17s %-17s %s\n" "-----" "-----" "-----"
+  /sbin/ip a | awk -f ~/bin/ip_a_formating.awk 
+  echo ""
+	echo "-----------------------------------------------------"
+}
+
+# GitHub Additions
+gcom() {
+	git add .
+	git commit -m "$1"
+	}
+lazyg() {
+	git add .
+	git commit -m "$1"
+	git push
+}
+
+# Show neofetch
+if [ -f /usr/bin/fastfetch ]; then fastfetch; fi
+
+# Auto load auto-completions
+autoload -U compinit; compinit
+
+# SSH auto completion with hosts
+zstyle ':completion:*:ssh:*' hosts
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
