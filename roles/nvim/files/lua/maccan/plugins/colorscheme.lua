@@ -1,3 +1,4 @@
+-- changes to collorschema requires changes to bufferline and lualine files.
 return {
   {
     "shaunsingh/nord.nvim", -- color scheme
@@ -33,7 +34,16 @@ return {
           },
         }
       })
-      vim.cmd([[colorscheme catppuccin]])
+      -- vim.cmd([[colorscheme catppuccin]])
+    end,
+  },
+  {
+    -- https://github.com/rose-pine/neovim?tab=readme-ov-file
+    "rose-pine/neovim",
+    name = "rose-pine",
+    priority = 1002,
+    config = function()
+      vim.cmd([[colorscheme rose-pine]])
     end,
   },
 }

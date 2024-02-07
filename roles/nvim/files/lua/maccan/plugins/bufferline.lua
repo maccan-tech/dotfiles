@@ -5,7 +5,9 @@ return {
 
   config = function()
     local bufferline = require("bufferline")
-    local mocha = require("catppuccin.palettes").get_palette "mocha"
+    -- local mocha = require("catppuccin.palettes").get_palette "mocha"
+    local highlights = require('rose-pine.plugins.bufferline')
+    require('bufferline').setup({ highlights = highlights })
 
     bufferline.setup({
       options = {
@@ -14,20 +16,20 @@ return {
         indicator = {
           style = 'underline',
         },
-        highlights = require("catppuccin.groups.integrations.bufferline").get {
-        styles = { "italic", "bold" },
-          custom = {
-            all = {
-                fill = { bg = "#000000" },
-            },
-            mocha = {
-                background = { fg = mocha.text },
-            },
-            latte = {
-                background = { fg = "#000000" },
-            },
-          },
-        },
+        -- highlights = require("catppuccin.groups.integrations.bufferline").get {
+        -- styles = { "italic", "bold" },
+        --   custom = {
+        --     all = {
+        --         fill = { bg = "#000000" },
+        --     },
+        --     mocha = {
+        --         background = { fg = mocha.text },
+        --     },
+        --     latte = {
+        --         background = { fg = "#000000" },
+        --     },
+        --   },
+        -- },
         -- highlights = highlights, -- for theme nord
           -- offsets = {
           -- {

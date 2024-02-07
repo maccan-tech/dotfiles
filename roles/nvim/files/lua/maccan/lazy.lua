@@ -18,10 +18,10 @@ require("lazy").setup(
     { import = "maccan.plugins.lsp" }
   },
   {
-    install = {
+    -- install = {
       -- colorscheme = { "north" },
-      colorscheme = { "catppuccin" },
-    },
+      -- colorscheme = { "catppuccin" },
+    -- },
     ui = {
       -- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
       border = "single",

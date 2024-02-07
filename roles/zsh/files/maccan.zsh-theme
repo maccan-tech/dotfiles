@@ -1,9 +1,8 @@
 if [[ -n $SSH_CONNECTION ]]; then
     PROMPT="%{$fg[red]%}%n%{$fg[green]%}@%{$fg[yellow]%}%M"
 else
-    PROMPT="%{$fg[green]%}@%{$fg[yellow]%}%M"
+    PROMPT="%{$fg[green]%}"
 fi
-#PROMPT="%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M"
 PROMPT+=' %{$fg[cyan]%}%~%{$reset_color%} '
 PROMPT+='%{$fg[red]%}>%{$reset_color%}>%{$fg[green]%}> '
 
