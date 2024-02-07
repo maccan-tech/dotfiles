@@ -1,5 +1,0 @@
----
-default_roles:
-  - zsh
-  - nvim
-  - vifm
