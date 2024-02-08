@@ -15,8 +15,9 @@
 <!--toc:end-->
 
 
-## Cheatcheat
+## Cheatcheat & Help
 *<leader>ch* open this cheatcheat 
+*<leader>h* open Telescope help search 
 
 ## Window navigation
 *<leader>sv* split window vertically

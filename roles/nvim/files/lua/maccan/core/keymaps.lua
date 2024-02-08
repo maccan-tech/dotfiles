@@ -71,4 +71,5 @@ keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>") -- list available 
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-
+-- Help search Telescope
+keymap.set("n", "<leader>h", ":Telescope help_tags") -- open new tab
