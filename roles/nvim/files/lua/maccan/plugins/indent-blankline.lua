@@ -3,7 +3,7 @@ return{
   event = { "BufReadPre", "BufNewFile" },
   main = "ibl",
   config = function()
-    local highlight = {"CursorColumn","Whitespace",}
+    -- local highlight = {"CursorColumn","Whitespace",}
 
     local ibl = require("ibl")
     ibl.setup({
