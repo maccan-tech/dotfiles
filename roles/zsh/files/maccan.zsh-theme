@@ -1,5 +1,7 @@
 if [[ -n $SSH_CONNECTION ]]; then
     PROMPT="%{$fg[red]%}%n%{$fg[green]%}@%{$fg[yellow]%}%M"
+elif [[ $HOSTNAME = toolbox ]]; then
+    PROMPT="%{$fg[yellow]%}@%{$fg[red]%}%M"
 else
     PROMPT="%{$fg[green]%}"
 fi
