@@ -157,7 +157,7 @@ lazyg() {
 	git push
 }
 
-# Show neofetch
+# Show fastfetch
 if [ -f /usr/bin/fastfetch ]; then fastfetch; fi
 
 # Auto load auto-completions
