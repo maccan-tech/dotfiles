@@ -1,4 +1,6 @@
 ---
+# vim: set filetype=yaml.ansible : #
+
 - name: "Neovim | Dependencies Debian"
   when: ansible_os_family == 'Debian'
   ansible.builtin.apt:
