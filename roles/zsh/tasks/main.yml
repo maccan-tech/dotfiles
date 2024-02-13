@@ -69,9 +69,16 @@
     path: "{{ ansible_user_dir }}/bin"
     state: directory
 
-- name: ZSH | "Copy notetaker script"
+- name: ZSH | Copy notetaker script
   ansible.builtin.copy:
     src: "notetaker"
     dest: "{{ ansible_user_dir }}/bin/notetaker"
+    mode: "0755"
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+
+- name: ZSH | Copy netinfo script
+  ansible.builtin.copy:
+    src: "ip_a_formating.awk"
+    dest: "{{ ansible_user_dir }}/bin/ip_a_formating.awk"
     mode: "0755"
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
