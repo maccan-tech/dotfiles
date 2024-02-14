@@ -70,8 +70,8 @@
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
 
 - name: ZSH | "Copy .zshrc"
-  ansible.builtin.copy:
-    src: "zshrc"
+  ansible.builtin.template:
+    src: "zshrc.j2"
     dest: "{{ ansible_user_dir }}/.zshrc"
     mode: "0644"
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
