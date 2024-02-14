@@ -1,6 +1,27 @@
 ---
 # vim: set filetype=yaml.ansible : #
 
+- name: ZSH | Dependencies Debian
+  when: ansible_os_family == 'Debian'
+  ansible.builtin.apt:
+    name:
+      - zsh
+    state: present
+  become: true
+
+- name: ZSH | Dependencies RedHat
+  when: ansible_os_family == 'RedHat'
+  ansible.builtin.dnf:
+    name:
+      - zsh
+      - tldr
+      - fd-find
+      - git
+      - trash-cli
+      - tree
+    state: present
+  become: true
+
 - name: ZSH | Check if .oh-my-zsh exists
   ansible.builtin.stat:
     path: ~/.oh-my-zsh
