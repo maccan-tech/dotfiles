@@ -108,7 +108,7 @@ fi
 
 # Install Pip3
 echo "Checking to see if pip3 is already installed"
-if ! hash python 2>/dev/null ; then
+if ! hash pip 2>/dev/null ; then
   if [ "$ID" == "fedora" ]; then
     _task "Installing Pip3"
     _cmd "sudo dnf install -y python3-pip"
