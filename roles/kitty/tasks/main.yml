@@ -1,0 +1,30 @@
+---
+# vim: set filetype=yaml.ansible : #
+
+- name: "Kitty | Install Debian"
+  when: ansible_os_family == 'Debian'
+  ansible.builtin.apt:
+    name: kitty
+    state: present
+  become: true
+
+- name: "Kitty | Install RedHat"
+  when: ansible_os_family == 'Debian'
+  ansible.builtin.dnf:
+    name: kitty
+    state: present
+  become: true
+
+- name: "Kitty | Config folder"
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  ansible.builtin.file:
+    mode: "0755"
+    path: "{{ ansible_user_dir }}/.config/kitty"
+    state: directory
+
+- name: "Kitty | Copy config files"
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/"
+    dest: "{{ ansible_user_dir }}/.config/kitty"
+    mode: "0644"

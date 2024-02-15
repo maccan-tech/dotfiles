@@ -4,3 +4,4 @@ default_roles:
   - nvim
   - vifm
   - nerdfonts
+  - kitty
