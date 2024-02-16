@@ -34,7 +34,7 @@ opt.splitbelow = true
 
 -- misc
 opt.iskeyword:append("-")
-ope.scrolloff = 10
+opt.scrolloff = 10
 
 -- filetypes
 vim.filetype.add({
