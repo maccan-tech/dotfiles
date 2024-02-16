@@ -44,7 +44,7 @@ return {
     priority = 1002,
     config = function()
       require('rose-pine').setup({
-        -- disable_background = true,
+        disable_background = true,
       })
 
       vim.cmd("colorscheme rose-pine")
