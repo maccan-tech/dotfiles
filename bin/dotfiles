@@ -123,10 +123,10 @@ echo "Checking to see if Ansible is already installed"
 if ! hash ansible 2>/dev/null ; then
   if [ "$ID" == "fedora" ]; then
     _task "Installing Ansible"
-    _cmd "sudo pip install ansible ansible-lint"
+    _cmd "sudo pip install ansible ansible-lint netaddr"
   elif [ "$ID" == "ubuntu" ]; then
     _task "Installing Ansible"
-    _cmd "sudo pip3 install ansible ansible-lint"
+    _cmd "sudo pip3 install ansible ansible-lint netaddr"
   fi
 fi
 
