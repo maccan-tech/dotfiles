@@ -89,7 +89,8 @@ alias zshconfig="vi ~/.zshrc"
 alias vifmconfig="vi ~/.config/vifm/vifmrc"
 alias vf="vifm ."
 alias notes="nvim $HOME/Nextcloud/Notes/"
-alias fd="find . -iname $1"
+# alias fd="find . -iname $1"
+alias fd="fzf --preview 'bat --color=always {}' --preview-window '~3'"
 alias nv="nvim ."
 
 # Bind <ctrl>o to open vifm
