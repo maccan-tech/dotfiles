@@ -24,3 +24,11 @@ If you only want to run specific roles use tags.
 ```bash
 ./dotfiles --ask-become-pass --tags nvim
 ```
+
+Available roles
+* zsh
+* nerdfonts
+* kitty
+* nvim
+* tmux
+* vifm
