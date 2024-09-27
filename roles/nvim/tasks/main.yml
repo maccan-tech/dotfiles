@@ -13,6 +13,7 @@
       - gcc
       - nodejs
       - neovim
+      - figlet
     state: present
   become: true
 
@@ -29,6 +30,7 @@
       - gcc-c++
       - nodejs
       - neovim
+      - figlet
     state: present
   become: true
 
