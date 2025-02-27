@@ -40,11 +40,11 @@ return {
         ['<Down>'] = cmp.mapping(function(fallback)
           cmp.close()
         	fallback()
-        	end, { "i" }),
+        end, { "i" }),
         ['<Up>'] = cmp.mapping(function(fallback)
         	cmp.close()
         	fallback()
-          	end, { "i" }),
+        end, { "i" }),
       }),
       -- sources for autocompletion
       sources = cmp.config.sources({
