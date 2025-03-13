@@ -19,8 +19,9 @@
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
   ansible.builtin.file:
     mode: "0755"
-    path: "{{ ansible_user_dir }}/.config/kitty"
+    path: "{{ ansible_user_dir }}/.config/kitty/themes"
     state: directory
+    recurse: true
 
 - name: "Kitty | Copy config files"
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
@@ -28,3 +29,4 @@
     src: "{{ role_path }}/files/"
     dest: "{{ ansible_user_dir }}/.config/kitty"
     mode: "0644"
+    directory_mode: "0755"
