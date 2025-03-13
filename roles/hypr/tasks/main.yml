@@ -99,7 +99,7 @@
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
   ansible.builtin.copy:
     src: "{{ role_path }}/files/hypr"
-    dest: "{{ ansible_user_dir }}/.config/hypr"
+    dest: "{{ ansible_user_dir }}/.config"
     mode: "0644"
     directory_mode: "0755"
 
@@ -107,7 +107,7 @@
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
   ansible.builtin.copy:
     src: "{{ role_path }}/files/rofi"
-    dest: "{{ ansible_user_dir }}/.config/rofi"
+    dest: "{{ ansible_user_dir }}/.config"
     mode: "0644"
     directory_mode: "0755"
 
@@ -115,7 +115,7 @@
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
   ansible.builtin.copy:
     src: "{{ role_path }}/files/swappy"
-    dest: "{{ ansible_user_dir }}/.config/swappy"
+    dest: "{{ ansible_user_dir }}/.config"
     mode: "0644"
     directory_mode: "0755"
 
@@ -123,7 +123,7 @@
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
   ansible.builtin.copy:
     src: "{{ role_path }}/files/waybar"
-    dest: "{{ ansible_user_dir }}/.config/waybar"
+    dest: "{{ ansible_user_dir }}/.config"
     mode: "0644"
     directory_mode: "0755"
 
@@ -131,7 +131,7 @@
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
   ansible.builtin.copy:
     src: "{{ role_path }}/files/wlogout"
-    dest: "{{ ansible_user_dir }}/.config/wlogout"
+    dest: "{{ ansible_user_dir }}/.config"
     mode: "0644"
     directory_mode: "0755"
 
@@ -139,6 +139,6 @@
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
   ansible.builtin.copy:
     src: "{{ role_path }}/files/wallpaper"
-    dest: "{{ ansible_user_dir }}/wallpaper"
+    dest: "{{ ansible_user_dir }}"
     mode: "0644"
     directory_mode: "0755"
