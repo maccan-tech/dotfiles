@@ -1,0 +1,13 @@
+@define-color bar-bg rgba(0, 0, 0, 0);
+
+/* Burnt orange */
+/* @define-color main-bg #9c531f; */
+/* Blackish */
+@define-color main-bg #363636;
+@define-color main-fg #f3f3f3;
+
+@define-color wb-act-bg #e6792c;
+@define-color wb-act-fg #f3f3f3;
+
+@define-color wb-hvr-bg #e6792c;
+@define-color wb-hvr-fg #f3f3f3;
