@@ -1,32 +1,52 @@
 ---
 # vim: set filetype=yaml.ansible : #
-
-- name: "Hyer | Install Debian"
-  when: ansible_os_family == 'Debian'
-  ansible.builtin.apt:
-    name:
-      - hyprland
-      - hyprlock
-      - hypridle
-      - hyprpolkitagent
-      - hyprpaper
-      - hyprsysteminfo
-      - waybar
-      - SwayNotificationCenter
-      - cliphist
-      - grim
-      - slurp
-      - swappy
-      - rofi-wayland
-      - wlogout
-      - Thunar
+#
+- name: Hypr | Install dnf-plugins-core to handle copr
+  when: ansible_os_family == 'RedHat'
+  ansible.builtin.dnf:
+    name: dnf-plugins-core
     state: present
   become: true
 
+- name: Hypr | Add solopasha/hyprland copr-repo
+  when: ansible_os_family == 'RedHat'
+  ansible.builtin.command: dnf copr enable solopasha/hyprland -y
+  register: copr_result
+  changed_when: "'already enabled' not in copr_result.stdout"
+  become: true
+
+- name: Hypr | Update dnf cache
+  when: ansible_os_family == 'RedHat'
+  ansible.builtin.dnf:
+    update_cache: true
+  become: true
+
+# - name: "Hypr | Install Debian packages"
+#   when: ansible_os_family == 'Debian'
+#   ansible.builtin.apt:
+#     name:
+#       - hyprland
+#       - hyprlock
+#       - hypridle
+#       - hyprpolkitagent
+#       - hyprpaper
+#       - hyprsysteminfo
+#       - waybar
+#       - SwayNotificationCenter
+#       - cliphist
+#       - grim
+#       - slurp
+#       - swappy
+#       - rofi-wayland
+#       - wlogout
+#       - Thunar
+#     state: present
+#   become: true
+
   # Install com.sidevesh.Luminance from git
 
-- name: "Hyper | Install RedHat"
-  when: ansible_os_family == 'Debian'
+- name: "Hypr | Install RedHat packages"
+  when: ansible_os_family == 'RedHat'
   ansible.builtin.dnf:
     name:
       - hyprland
@@ -47,36 +67,36 @@
     state: present
   become: true
 
-- name: "Hyper | Copy config files"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+- name: "Hypr | Copy config files"
+  when: ansible_os_family == 'RedHat'
   ansible.builtin.copy:
     src: "{{ role_path }}/files/"
     dest: "{{ ansible_user_dir }}/.config"
     mode: "0644"
     directory_mode: "0755"
 
-- name: "Hyper | chmod script files"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+- name: "Hypr | chmod script files"
+  when: ansible_os_family == 'RedHat'
   ansible.builtin.file:
     path: "{{ item }}"
     mode: "a+x"
   with_fileglob:
     - "{{ ansible_user_dir }}/.config/hypr/scripts/*"
 
-- name: "Hyper | chmod gtk.sh files"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+- name: "Hypr | chmod gtk.sh files"
+  when: ansible_os_family == 'RedHat'
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config/hypr/gtk.sh"
     mode: "a+x"
 
-- name: "Hyper | chmod sratrhypr.sh files"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+- name: "Hypr | chmod sratrhypr.sh files"
+  when: ansible_os_family == 'RedHat'
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config/hypr/starthypr.sh"
     mode: "a+x"
 
-- name: "Hyper | chmod launch.sh files"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+- name: "Hypr | chmod launch.sh files"
+  when: ansible_os_family == 'RedHat'
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config/waybar/launch.sh"
     mode: "a+x"
