@@ -47,59 +47,11 @@
     state: present
   become: true
 
-- name: "Hyper | Config folder"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
-  ansible.builtin.file:
-    mode: "0755"
-    path: "{{ ansible_user_dir }}/.config/hypr"
-    state: directory
-    recurse: true
-
-- name: "Hyper | Rofi config folder"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
-  ansible.builtin.file:
-    mode: "0755"
-    path: "{{ ansible_user_dir }}/.config/rofi"
-    state: directory
-    recurse: true
-
-- name: "Hyper | Swappy config folder"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
-  ansible.builtin.file:
-    mode: "0755"
-    path: "{{ ansible_user_dir }}/.config/swappy"
-    state: directory
-    recurse: true
-
-- name: "Hyper | Waybar config folder"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
-  ansible.builtin.file:
-    mode: "0755"
-    path: "{{ ansible_user_dir }}/.config/waybar"
-    state: directory
-    recurse: true
-
-- name: "Hyper | Wlogout config folder"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
-  ansible.builtin.file:
-    mode: "0755"
-    path: "{{ ansible_user_dir }}/.config/wlogout"
-    state: directory
-    recurse: true
-
-- name: "Hyper | Wallpaper folder"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
-  ansible.builtin.file:
-    mode: "0755"
-    path: "{{ ansible_user_dir }}/wallpaper"
-    state: directory
-    recurse: true
-
 - name: "Hyper | Copy config files"
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
   ansible.builtin.copy:
-    src: "{{ role_path }}/files/hypr/"
-    dest: "{{ ansible_user_dir }}/.config/hypr"
+    src: "{{ role_path }}/files/"
+    dest: "{{ ansible_user_dir }}/.config"
     mode: "0644"
     directory_mode: "0755"
 
@@ -123,48 +75,8 @@
     path: "{{ ansible_user_dir }}/.config/hypr/starthypr.sh"
     mode: "a+x"
 
-- name: "Hyper | Rofi files"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
-  ansible.builtin.copy:
-    src: "{{ role_path }}/files/rofi/"
-    dest: "{{ ansible_user_dir }}/.config/rofi"
-    mode: "0644"
-    directory_mode: "0755"
-
-- name: "Hyper | Swappy files"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
-  ansible.builtin.copy:
-    src: "{{ role_path }}/files/swappy/"
-    dest: "{{ ansible_user_dir }}/.config/swappy"
-    mode: "0644"
-    directory_mode: "0755"
-
-- name: "Hyper | Waybar files"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
-  ansible.builtin.copy:
-    src: "{{ role_path }}/files/waybar/"
-    dest: "{{ ansible_user_dir }}/.config/waybar"
-    mode: "0644"
-    directory_mode: "0755"
-
-- name: "Hyper | chmod sratrhypr.sh files"
+- name: "Hyper | chmod launch.sh files"
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config/waybar/launch.sh"
     mode: "a+x"
-
-- name: "Hyper | Wlogout files"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
-  ansible.builtin.copy:
-    src: "{{ role_path }}/files/wlogout/"
-    dest: "{{ ansible_user_dir }}/.config/wlogout"
-    mode: "0644"
-    directory_mode: "0755"
-
-- name: "Hyper | Wallpaper files"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
-  ansible.builtin.copy:
-    src: "{{ role_path }}/files/wallpaper/"
-    dest: "{{ ansible_user_dir }}/wallpaper"
-    mode: "0644"
-    directory_mode: "0755"
