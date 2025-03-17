@@ -54,6 +54,8 @@
       - hypridle
       - hyprpolkitagent
       - hyprpaper
+      - hyprutils
+      - hyprcursor
       - hyprsysteminfo
       - waybar
       - SwayNotificationCenter
