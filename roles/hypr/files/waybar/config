@@ -22,7 +22,6 @@
 	"modules-left": [
     "custom/padd",
     "custom/l_end",
-    "custom/power",
     "custom/appmenu",
     "custom/r_end",
 
@@ -45,14 +44,17 @@
     "tray",
     "custom/r_end",
     "custom/l_end",
-    "custom/notification",
     "custom/luminance",
     "battery",
     "network",
     "bluetooth",
     "pulseaudio",
-    "pulseaudio#microphone",
+    //"pulseaudio#microphone",
+    "custom/r_end",
+    "custom/l_end",
+    "custom/notification",
     "clock",
+    "custom/power",
     "custom/r_end",
     "custom/padd
   "],

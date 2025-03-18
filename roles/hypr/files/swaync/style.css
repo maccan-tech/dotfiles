@@ -8,7 +8,8 @@
 /* @define-color noti-bg-hover @background; */
 /* @define-color text-color @foreground; */
 
-@import "../../.config/waybar/themes/rose-pine-moon.css";
+/* @import "../../.config/waybar/themes/rose-pine-moon.css"; */
+@import "../../.config/waybar/themes/maccan.css";
 /* @define-color noti-bg rgba(42, 39, 63, 0.8); */
 @define-color noti-bg rgba(35, 33, 54, 0.8);
 @define-color noti-border-color @pine;
