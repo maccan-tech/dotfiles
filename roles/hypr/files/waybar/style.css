@@ -17,9 +17,9 @@
     min-height: 10px;
 }
 
-/* @import "/home/maccan/.config/waybar/themes/maccan.css"; */
+@import "/home/maccan/.config/waybar/themes/maccan.css";
 /* @import "/home/maccan/.config/waybar/themes/Gruvbox-Retro.css"; */
-@import "/home/maccan/.config/waybar/themes/rose-pine-moon.css";
+/* @import "/home/maccan/.config/waybar/themes/rose-pine-moon.css"; */
 
 window#waybar {
     background: @bar-bg;

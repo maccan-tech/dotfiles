@@ -85,20 +85,26 @@
   with_fileglob:
     - "{{ ansible_user_dir }}/.config/hypr/scripts/*"
 
-- name: "Hypr | chmod gtk.sh files"
+- name: "Hypr | chmod gtk.sh file"
   when: ansible_os_family == 'RedHat'
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config/hypr/gtk.sh"
     mode: "a+x"
 
-- name: "Hypr | chmod sratrhypr.sh files"
+- name: "Hypr | chmod sratrhypr.sh file"
   when: ansible_os_family == 'RedHat'
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config/hypr/starthypr.sh"
     mode: "a+x"
 
-- name: "Hypr | chmod launch.sh files"
+- name: "Hypr | chmod launch.sh file"
   when: ansible_os_family == 'RedHat'
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config/waybar/launch.sh"
+    mode: "a+x"
+
+- name: "Hypr | chmod logoutlaunch.sh file"
+  when: ansible_os_family == 'RedHat'
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/wlogout/logoutlaunch.sh"
     mode: "a+x"
