@@ -37,6 +37,9 @@ keymap.set("n", "<leader>tq", ":tabclose<CR>") -- close current tab
 keymap.set("n", "<tab>", ":tabnext<CR>") --  go to next tab
 keymap.set("n", "<S-tab>", ":tabprevious<CR>") --  go to previous tab
 
+--Zenmode
+keymap.set("n", "<leader>z", ":ZenMode<CR>")
+
 -- Terminal
 -- map <Leader>tt :new term://zsh<CR>
 keymap.set("n", "<leader>tt", ":new term://zsh<CR>") --  go to previous tab
