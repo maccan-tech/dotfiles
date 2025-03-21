@@ -1,5 +1,8 @@
 local opt = vim.opt -- for conciseness
 
+-- Markdown files behave like Obsidian, *italic*, **bold** and even [links](https...) are hidden.
+opt.conceallevel = 2
+
 -- line numbers
 opt.number = true
 opt.relativenumber = true
