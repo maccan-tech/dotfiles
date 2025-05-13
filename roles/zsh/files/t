@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Define the format string for tmux list-sessions.
+# This string specifies how each session will be displayed in the fzf list.
+# #{session_name}:     The name of the session, followed by a colon (used for easy cutting later)
+# #{session_windows}:  The number of windows in the session
+# #{?session_attached, [ATTACHED],}: Conditional output - shows "[ATTACHED]" if the session is attached anywhere
+# created: #{session_created}: Timestamp when the session was created
+TMUX_FZF_FORMAT='#{session_name}: #{session_windows} windows #{?session_attached,[ATTACHED],}, created: #{session_created}'
+# TMUX_FZF_FORMAT='#{session_name}: #{session_windows} windows #{?session_attached,[ATTACHED],}, created: #{strftime:%a %b %d %H:%M:%S %Y,#{session_created}}'
+
+# List tmux sessions using the custom format and pipe the output to fzf with popup settings.
+# fzf is a command-line fuzzy finder. This section configures its appearance and behavior.
+# --ansi: Enables ANSI color codes in the input. Useful if the tmux format string includes colors.
+# --height=50%: Sets the height of the fzf window to 50% of the terminal height.
+# --border=rounded: Adds a rounded border around the fzf window.
+# --margin=5,10: Adds a margin of 5 lines top/bottom and 10 columns left/right.
+# This combination of height, border, and margin creates a popup effect near the center of the screen.
+# --border-label="Active tmux Sessions": Sets the text displayed in the border of the fzf window.
+# --print-query: Prints the search string entered by the user as the first line of fzf's output.
+# The entire output from fzf (including the search string and the selected session line) is stored in the fzf_output variable.
+fzf_output=$(
+  tmux list-sessions -F "$TMUX_FZF_FORMAT" |
+  fzf --ansi \
+      --height=50% \
+      --border=rounded \
+      --margin=5,10 \
+      --border-label="Active tmux Sessions" \
+      --print-query # Include the search string in the output
+)
+
+# Extract the search string from the first line of fzf's output.
+# awk 'NR == 1' selects the first line.
+search_string=$(echo "$fzf_output" | awk 'NR == 1')
+
+# Extract the session name from the second line of fzf's output.
+# awk 'NR == 2' selects the second line (the selected session).
+# cut -d ':' -f 1 splits the line by the colon delimiter and takes the first field, which is the session name.
+session_string=$(echo "$fzf_output" | awk 'NR == 2' | cut -d ':' -f 1)
+
+# Check if a session string was extracted (meaning a session was selected in fzf).
+if [[ -n "$session_string" ]]; then
+    # If a session was selected, check if we are already inside a tmux session.
+    if [[ -n "$TMUX" ]]; then
+        # If inside a tmux session, switch to the selected session.
+        # This prevents nesting sessions.
+        tmux switch-client -t "$session_string"
+    else
+        # If not inside a tmux session, attach to the selected session.
+        tmux attach-session -t "$session_string"
+    fi
+# Otherwise, check if a search string was entered (meaning the user typed a name for a new session).
+elif [[ -n "$search_string" ]]; then
+    # Check if we are already inside a tmux session.
+    if [[ -n "$TMUX" ]]; then
+        # If inside a tmux session, create the new session in detached mode
+        # and then switch the client to it.
+        tmux new -d -s "$search_string"
+        tmux switch-client -t "$search_string"
+    else
+        # If not inside a tmux session, create and attach to the new session.
+        tmux new -s "$search_string"
+    fi
+fi

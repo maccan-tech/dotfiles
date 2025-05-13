@@ -103,3 +103,10 @@
     dest: "{{ ansible_user_dir }}/bin/ip_a_formating.awk"
     mode: "0755"
   when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+
+- name: ZSH | Copy tmux script
+  ansible.builtin.copy:
+    src: "t"
+    dest: "{{ ansible_user_dir }}/bin/t"
+    mode: "0755"
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
