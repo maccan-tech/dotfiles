@@ -64,7 +64,7 @@
           "actions": [
               {
                   "label": "󰐥",
-                  "command": "bash -c wlogout"
+                  "command": "~/.config/wlogout/logoutlaunch.sh 2"
               },
               {
                   "label": "󰌾",
