@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to wallpaper directory
-WALLPAPER_DIR="$HOME/wallpaper"
+WALLPAPER_DIR="$HOME/.config/wallpaper"
 
 # Check if the wallpaper directory exists
 if [ ! -d "$WALLPAPER_DIR" ]; then

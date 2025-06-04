@@ -21,33 +21,9 @@
     update_cache: true
   become: true
 
-# - name: "Hypr | Install Debian packages"
-#   when: ansible_os_family == 'Debian'
-#   ansible.builtin.apt:
-#     name:
-#       - hyprland
-#       - hyprlock
-#       - hypridle
-#       - hyprpolkitagent
-#       - hyprpaper
-#       - hyprsysteminfo
-#       - waybar
-#       - SwayNotificationCenter
-#       - cliphist
-#       - grim
-#       - slurp
-#       - swappy
-#       - rofi-wayland
-#       - wlogout
-#       - Thunar
-#     state: present
-#   become: true
-
-  # Install com.sidevesh.Luminance from git
-
 - name: "Hypr | Install RedHat packages"
   when: ansible_os_family == 'RedHat'
-  ansible.builtin.dnf:
+  ansible.builtin.dnf5:
     name:
       - hyprland
       - hyprlock
@@ -64,7 +40,7 @@
       - slurp
       - swappy
       - rofi-wayland
-      - wlogout
+      - wayland-logout
       - Thunar
     state: present
   become: true
