@@ -7,8 +7,6 @@ local keymap = vim.keymap -- for conciseness
 -- general keymaps
 --------------------
 
-keymap.set("n", "<leader>ch", ":Fe ~/.config/nvim/lua/maccan/cheatcheat.md<CR>" , { desc = "Show CheatCheat in popup" })
-
 -- use jk to exit insert mode
 keymap.set("i", "jk", "<ESC>")
 

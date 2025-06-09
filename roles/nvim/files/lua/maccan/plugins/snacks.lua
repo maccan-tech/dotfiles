@@ -10,6 +10,25 @@ return {
       end,
       desc = "Search notifications",
     },
+    {
+      "<leader>ch",
+      function()
+        require("snacks").win({
+          file = vim.fn.expand("~/.config/nvim/lua/maccan/cheatcheat.md"),
+          filetype = 'markdown',   -- Sätt filtypen för korrekt syntax highlighting
+          width = 0.8,
+          height = 0.8,
+          wo = {
+            spell = false,
+            wrap = false,
+            signcolumn = "yes",
+            statuscolumn = " ",
+            conceallevel = 3,
+          },
+        })
+      end,
+      desc = "Show cheatcheat",
+    },
   },
   ---@type snacks.Config
   opts = {
