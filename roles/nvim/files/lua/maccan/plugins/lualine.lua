@@ -38,7 +38,8 @@ return {
       options = {
         -- theme = lualine_nord,
         -- theme = "catppuccin",
-        theme = "rose-pine",
+        -- theme = "rose-pine",
+        theme = "kanagawa",
       },
     })
   end,
