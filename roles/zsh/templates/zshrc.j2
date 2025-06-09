@@ -163,6 +163,15 @@ lazyg() {
 # Show fastfetch
 if [ -f /usr/bin/fastfetch ]; then fastfetch; fi
 
+# Set up fzf key bindings
+# ex. <ctrl> r to show history in fzf
+source <(fzf --zsh)
+
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
+
 # Auto load auto-completions
 autoload -U compinit; compinit
 

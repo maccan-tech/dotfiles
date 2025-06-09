@@ -6,6 +6,12 @@
   ansible.builtin.apt:
     name:
       - zsh
+      - tldr
+      - fd-find
+      - git
+      - trash-cli
+      - tree
+      - fzf
     state: present
   become: true
 
@@ -19,6 +25,7 @@
       - git
       - trash-cli
       - tree
+      - fzf
     state: present
   become: true
 
