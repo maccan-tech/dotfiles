@@ -42,6 +42,8 @@
       - rofi-wayland
       - wayland-logout
       - Thunar
+      - satty
+      - hyprshot
     state: present
   become: true
 

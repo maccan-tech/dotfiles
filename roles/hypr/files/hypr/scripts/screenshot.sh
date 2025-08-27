@@ -16,13 +16,23 @@ choice=$(echo -e "$options" | rofi -dmenu -i -no-show-icons -config ~/.config/ro
 
 case $choice in
     $option2)
-      grim -g "$(slurp)" - | swappy -f - 
-      notify-send "Screenshot" "saved in $save_dir" -u "normal"
+      pkill slurp || hyprshot -m ${1:-region} --raw |
+        satty --filename - \
+          --output-filename "$save_dir/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png" \
+          --early-exit \
+          --actions-on-enter save-to-clipboard \
+          --save-after-copy \
+          --copy-command 'wl-copy'
     ;;
     $option3)
       sleep 1
-      grim - | swappy -f -
-      notify-send "Screenshot" "saved in $save_dir" -u "normal"
+      grim - |
+        satty --filename - \
+          --output-filename "$save_dir/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png" \
+          --early-exit \
+          --actions-on-enter save-to-clipboard \
+          --save-after-copy \
+          --copy-command 'wl-copy'
     ;;
 esac
 u-l 4 -width 30 -p "Take Screenshot")
