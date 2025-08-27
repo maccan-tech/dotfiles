@@ -36,7 +36,7 @@
       - waybar
       - SwayNotificationCenter
       - cliphist
-      - grim
+      # - grim
       - slurp
       - swappy
       - rofi-wayland

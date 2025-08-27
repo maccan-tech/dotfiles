@@ -8,9 +8,10 @@ mkdir -p $swpy_dir
 echo -e "[Default]\nsave_dir=$save_dir\nsave_filename_format=$save_file" > $swpy_dir/config
 
 option2="Selected area"
-option3="Fullscreen (delay 1 sec)"
+option3="Window"
+option4="Fullscreen (delay 1 sec)"
 
-options="$option2\n$option3"
+options="$option2\n$option3\n$option4"
 
 choice=$(echo -e "$options" | rofi -dmenu -i -no-show-icons -config ~/.config/rofi/config-singlecol.rasi -l 4 -width 30 -p "Take Screenshot")
 
@@ -25,8 +26,17 @@ case $choice in
           --copy-command 'wl-copy'
     ;;
     $option3)
+      pkill slurp || hyprshot -m window --raw |
+        satty --filename - \
+          --output-filename "$save_dir/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png" \
+          --early-exit \
+          --actions-on-enter save-to-clipboard \
+          --save-after-copy \
+          --copy-command 'wl-copy'
+    ;;
+    $option4)
       sleep 1
-      grim - |
+      pkill slurp || hyprshot -m output -m active --raw |
         satty --filename - \
           --output-filename "$save_dir/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png" \
           --early-exit \
