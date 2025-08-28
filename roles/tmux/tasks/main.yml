@@ -12,7 +12,7 @@
 
 - name: TMUX | Dependencies RedHat
   when: ansible_os_family == 'RedHat'
-  ansible.builtin.dnf:
+  ansible.builtin.dnf5:
     name:
       - tmux
       - git

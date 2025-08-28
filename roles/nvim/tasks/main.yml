@@ -19,7 +19,7 @@
 
 - name: "Neovim | Dependencies RedHat"
   when: ansible_os_family == 'RedHat'
-  ansible.builtin.dnf:
+  ansible.builtin.dnf5:
     name:
       - git
       - make
@@ -43,7 +43,7 @@
 
 - name: "Neovim | Install RedHat"
   when: ansible_os_family == 'Debian'
-  ansible.builtin.dnf:
+  ansible.builtin.dnf5:
     name: neovim
     state: present
   become: true
