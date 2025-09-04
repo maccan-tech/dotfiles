@@ -20,44 +20,32 @@
 
 
 	"modules-left": [
-    "custom/padd",
-    "custom/l_end",
     "custom/appmenu",
-    "custom/r_end",
-
-    "custom/l_end",
-    "wlr/taskbar",
-    "custom/r_end",
-    "custom/padd"
+    "custom/padd",
+    "custom/split",
+    "wlr/taskbar"
   ],
 
 	"modules-center": [
-    "custom/padd",
-    "custom/l_end",
-    "hyprland/workspaces",
-    "custom/r_end",
-    "custom/padd"],
+    "hyprland/workspaces"
+    ],
 
 	"modules-right": [
-    "custom/padd",
-    "custom/l_end",
+    "custom/openbracket",
     "tray",
-    "custom/r_end",
-    "custom/l_end",
+    "custom/closebracket",
+    "custom/padd",
     "custom/luminance",
     "battery",
     "network",
     "bluetooth",
     "pulseaudio",
     //"pulseaudio#microphone",
-    "custom/r_end",
-    "custom/l_end",
+    "custom/padd",
     "custom/notification",
     "clock",
-    "custom/power",
-    "custom/r_end",
-    "custom/padd
-  "],
+    "custom/power"
+  ],
 
 
   // Load Modules
