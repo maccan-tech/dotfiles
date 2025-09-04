@@ -27,7 +27,9 @@
   ],
 
 	"modules-center": [
-    "hyprland/workspaces"
+    "custom/openbracket",
+    "hyprland/workspaces",
+    "custom/closebracket"
     ],
 
 	"modules-right": [
