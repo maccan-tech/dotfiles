@@ -1,3 +1,7 @@
+@define-color background #3A372F;
+@define-color primary #BFAA80;
+@define-color button-border #D08B57; 
+
 * {
     background-image: none;
     font-size: ${fntSize}px;
@@ -11,7 +15,7 @@ window {
 
 button {
     color: ${BtnCol};
-    background-color: @main-bg;
+    background-color: @background;
     outline-style: none;
     border: none;
     border-width: 0px;
@@ -24,17 +28,11 @@ button {
     animation: gradient_f 20s ease-in infinite;
 }
 
+button:hover,
 button:focus {
-    background-color: @wb-act-bg;
+    background-color: @primary;
+    border-color: @primary;
     background-size: 20%;
-}
-
-button:hover {
-    background-color: @wb-hvr-bg;
-    background-size: 25%;
-    border-radius: ${active_rad}px;
-    animation: gradient_f 20s ease-in infinite;
-    transition: all 0.3s cubic-bezier(.55,0.0,.28,1.682);
 }
 
 button:hover#lock {
