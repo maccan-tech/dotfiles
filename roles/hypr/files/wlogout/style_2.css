@@ -28,11 +28,14 @@ button {
     animation: gradient_f 20s ease-in infinite;
 }
 
-button:hover,
 button:focus {
     background-color: @primary;
     border-color: @primary;
     background-size: 20%;
+}
+button:hover {
+    background-color: #8D7AAE;
+    background-size: 40%;
 }
 
 button:hover#lock {
