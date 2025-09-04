@@ -52,7 +52,6 @@
         "format": " ",
         "exec": "echo ; echo  logout",
         "on-click": "~/.config/wlogout/logoutlaunch.sh 2",
-        //"interval" : 86400, // once every day
         "tooltip": true
     },
 
@@ -81,11 +80,11 @@
             "weeks-pos"     : "left",
             "on-scroll"     : 1,
             "format": {
-                 "months":     "<span color='#e0def4'><b>{}</b></span>",
-                 "days":       "<span color='#ea9a97'><b>{}</b></span>",
-                 "weeks":      "<span color='#9ccfd8'><b>{}</b></span>",
-                 "weekdays":   "<span color='#f6c177'><b>{}</b></span>",
-                 "today":      "<span color='#c4a7e7'><b><u>{}</u></b></span>"
+                 "months":     "<span color='#78997A'><b>{}</b></span>",
+                 "days":       "<span color='#DDD5C4'><b>{}</b></span>",
+                 "weeks":      "<span color='#7699A3'><b>{}</b></span>",
+                 "weekdays":   "<span color='#A0907A'><b>{}</b></span>",
+                 "today":      "<span color='#8D7AAE'><b><u>{}</u></b></span>"
             }
         },
         "actions":  {
