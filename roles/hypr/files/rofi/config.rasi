@@ -1,123 +1,187 @@
   * {
-        bg: #2a2a2a;
-        background-color: @bg;
-    }
+    bgold: #2a2a2a;
+    bg: #2C2A24;
+    background-color: @bg;
+    bg-primary: #2C2A24;
+    bg-secondary: #282828;
+    bg-tertiary: #3c3836;
+    accent-green: #78997A;
+    accent-orange: #D08B57;
+    accent-red: #B05A5A; 
+    accent-blue: #7699A3; 
+    accent-purple: #8D7AAE;
+    fg-primary: #ebdbb2;
+    fg-secondary: #d5c4a1;
+    fg-tertiary: #bdae93; 
+    fg-disabled: #665c54; 
+  }
 
-    configuration {
-	    show-icons: true;
-	    icon-theme: "Papirus";
-	    location: 0;
-	    font: "JetBrainsMono Nerd Font 12";	
-	    display-drun: "Launch:";
-    }
+  configuration {
+	  show-icons: true;
+	  icon-theme: "Papirus";
+	  location: 0;
+	  font: "JetBrainsMono Nerd Font 12";	
+	  // display-drun: "Launch:";
+	  modi: "window,run,drun";
+	  display-drun: "[apps]";
+	  display-window: "[windows]";
+	  display-run: "[run]";
+	  drun-display-format: "{icon} {name}";
+  }
 
-    window { 
-	    width: 35%;
-	    transparency: "real";
-	    orientation: vertical;
-	    border-colo: #FF8F40;
-      border-radius: 10px;
-    }
+  window { 
+    enabled: true;
+	  width: 800px;
+	  transparency: "real";
+    location: center;
+    anchor: center;
+	  orientation: vertical;
+    border-radius: 10px;
+    border: 3px solid;
+	  border-color: @accent-orange;
+    background-color: @bg-primary;
+  }
 
-    mainbox {
-	    children: [inputbar, listview];
-    }
+  mainbox {
+	  // children: [inputbar, listview];
+    enabled: true;
+    spacing: 0px;
+    background-color: transparent;
+    orientation: horizontal;
+    children: [ "imagebox", "listview" ];
+  }
 
+  imagebox {
+    padding:                     10px;
+    background-color:            transparent;
+    background-image:            url("~/wallpaper/cyy.png", height);
+    orientation:                 vertical;
+    children:                    [ "inputbar", "dummy", "mode-switcher" ];
+  }
 
-    // ELEMENT
-    // -----------------------------------
+  dummy {
+    background-color:            transparent;
+  }
 
-    element {
-	    padding: 4 12;
-	    text-color: #2a2a2a;
-        border-radius: 5px;
-    }
+  mode-switcher{
+    enabled:                     true;
+    spacing:                     10px;
+    background-color:            transparent;
+  }
 
-    element selected {
-	    text-color: #ffffff;
-	    background-color: #ffb454;
-    }
+  button {
+    padding: 7px;
+    border: 3px solid;
+    border-color: @accent-green;
+    border-radius: 10px;
+    background-color: @bg-secondary;
+    text-color: inherit;
+    cursor: pointer;
+    text-color: @fg-tertiary;
+  }
 
-    element-text {
-	    background-color: inherit;
-	    text-color: inherit;
-    }
+  button selected {
+    border: 3px solid;
+    border-color:	@accent-purple;
+    text-color: @fg-primary;
+    background-color: @bg-tertiary;
+  }
 
-    element-icon {
-	    size: 16 px;
-	    background-color: inherit;
-	    padding: 0 6 0 0;
-	    alignment: vertical;
-    }
+  element {
+    enabled:                     true;
+    spacing:                     15px;
+    padding:                     4px;
+    border-radius:               0px;
+    background-color:            transparent;
+    cursor:                      pointer;
+  }
+
+  element selected {
+    text-color: @fg-primary;
+	  background-color: @accent-orange;
+  }
+
+  element-text {
+    background-color: transparent;
+    text-color: inherit;
+    cursor: inherit;
+  }
+
+  element-icon {
+    background-color:            transparent;
+    text-color:                  inherit;
+    size:                        26px;
+    cursor:                      inherit;
+	  padding: 0 0 0 6;
+  }
 
 	element.selected.active {
-		background-color: #2a2a2a;
-		text-color: #bfbdb6;
+    text-color: @fg-primary;
+    text-color: @fg-primary;
 	}
  
 	element.alternate.normal {
-		background-color: #2a2a2a;
-		text-color: #bfbdb6;
+		background-color: inherit;
+    text-color: @fg-primary;
 	}
-
  
 	element.alternate.active {
-		background-color: #ff8f40;
-		text-color: #bfbdb6;
+		background-color: inherit;
+    text-color: @fg-primary;
 	}
 
 	element.selected.normal {
-		background-color: #ff8f40;
+		background-color: @accent-orange;
 		text-color: #2a2a2a;
 	}
- 
 
 	element.normal.active {
-		background-color: #2a2a2a;
-		text-color: #bfbdb6;
+		background-color: inherit;
+    text-color: @fg-primary;
 	}
- 
 
 	element.normal.normal {
-		background-color: #2a2a2a;
-		text-color: #bfbdb6;
+		background-color: inherit;
+    text-color: @fg-primary;
 	}
  
 	element.normal.urgent {
-		background-color: #f25d78;
-		text-color: #2a2a2a;
+		background-color: @accent-red;
+    text-color: @fg-primary;
 	}
 
-	
+  listview {
+    enabled: true;
+    columns: 1;
+    lines: 10;
+    cycle: true;
+    dynamic: true;
+    scrollbar: false;
+    layout: vertical;
+    reverse: false;
+    fixed-height: true;
+    fixed-columns: true;
+    spacing: 2px;
+    background-color: transparent;
+  }
 
-    listview {
-	    columns: 2;
-	    lines: 9;
-	    padding: 8 0;
-	    fixed-height: true;
-	    fixed-columns: true;
-	    fixed-lines: true;
-	    border: 0 10 6 10;
-    }
+  entry {
+	  text-color: #f27893;
+	  padding: 10 10 0 0;
+	  margin: 0 -2 0 0;
+  }
 
-    // INPUT BAR 
-    //------------------------------------------------
+  inputbar {
+	  padding: 0 0 0 0;
+	  margin: 0 0 0 0;
+    border-radius: 10px;
+    border: 3px solid;
+  } 
 
-    entry {
-	    text-color: #f27893;
-	    padding: 10 10 0 0;
-	    margin: 0 -2 0 0;
-    }
-
-    inputbar {
-	    padding: 0 0 0 0;
-	    margin: 0 0 0 0;
-    } 
-
-    prompt {
-	    text-color: #d2a6ff;
-	    padding: 10 6 0 10;
-	    margin: 0 -2 0 0;
-    }
+  prompt {
+	  text-color: #d2a6ff;
+	  padding: 10 6 0 10;
+	  margin: 0 -2 0 0;
+  }
 
 
