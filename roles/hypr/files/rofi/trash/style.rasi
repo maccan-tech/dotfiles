@@ -1,0 +1,125 @@
+  * {
+    bgold: #2a2a2a;
+    bg: #2C2A24;
+    background-color: @bg;
+    bg-primary: #2C2A24;
+    bg-secondary: #282828;
+    bg-tertiary: #3c3836;
+    accent-green: #78997A;
+    accent-orange: #D08B57;
+    accent-red: #B05A5A; 
+    accent-blue: #7699A3; 
+    accent-purple: #8D7AAE;
+    fg-primary: #ebdbb2;
+    fg-secondary: #d5c4a1;
+    fg-tertiary: #bdae93; 
+    fg-disabled: #665c54; 
+  }
+
+  configuration {
+	  show-icons: true;
+	  icon-theme: "Papirus";
+	  location: 0;
+	  font: "JetBrainsMono Nerd Font 12";	
+	  modi: "window,run,drun";
+	  display-drun: "[apps]";
+	  display-window: "[windows]";
+	  display-run: "[run]";
+	  drun-display-format: "{icon} {name}";
+  }
+
+  window { 
+    enabled: true;
+	  width: 800px;
+	  transparency: "real";
+    location: center;
+    anchor: center;
+	  orientation: vertical;
+    border-radius: 10px;
+    border: 3px solid;
+	  border-color: @accent-orange;
+    background-color: @bg-primary;
+  }
+
+  mainbox {
+    enabled: true;
+    background-color: transparent;
+  }
+
+  listview {
+    enabled: true;
+    columns: 1;
+    lines: 12;
+    cycle: true;
+    dynamic: true;
+    scrollbar: false;
+    layout: vertical;
+    reverse: false;
+    fixed-height: true;
+    fixed-columns: true;
+    background-color: transparent;
+  }
+
+  entry {
+	  text-color: #f27893;
+  }
+
+  inputbar {
+    border-radius: 10px;
+    border: 3px solid;
+  } 
+
+  prompt {
+	  text-color: #d2a6ff;
+  }
+  element {
+    enabled:                     true;
+    background-color:            transparent;
+    cursor:                      pointer;
+  }
+
+  element selected {
+    text-color: @fg-primary;
+	  background-color: @accent-orange;
+  }
+
+  element-text {
+    background-color: transparent;
+    text-color: inherit;
+    cursor: inherit;
+  }
+
+	element.selected.active {
+    text-color: @fg-primary;
+    text-color: @fg-primary;
+	}
+ 
+	element.alternate.normal {
+		background-color: inherit;
+    text-color: @fg-primary;
+	}
+ 
+	element.alternate.active {
+		background-color: inherit;
+    text-color: @fg-primary;
+	}
+
+	element.selected.normal {
+		background-color: @accent-orange;
+		text-color: #2a2a2a;
+	}
+
+	element.normal.active {
+		background-color: inherit;
+    text-color: @fg-primary;
+	}
+
+	element.normal.normal {
+		background-color: inherit;
+    text-color: @fg-primary;
+	}
+ 
+	element.normal.urgent {
+		background-color: @accent-red;
+    text-color: @fg-primary;
+	}
