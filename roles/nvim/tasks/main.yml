@@ -12,7 +12,6 @@
       - fd-find
       - gcc
       - nodejs
-      - neovim
       - figlet
     state: present
   become: true
@@ -29,7 +28,6 @@
       - gcc
       - gcc-c++
       - nodejs
-      - neovim
       - figlet
     state: present
   become: true
@@ -42,7 +40,7 @@
   become: true
 
 - name: "Neovim | Install RedHat"
-  when: ansible_facts['os_family'] == 'Debian'
+  when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.dnf5:
     name: neovim
     state: present
