@@ -2,7 +2,7 @@
 # vim: set filetype=yaml.ansible : #
 
 - name: "Neovim | Dependencies Debian"
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian'
   ansible.builtin.apt:
     name:
       - git
@@ -18,7 +18,7 @@
   become: true
 
 - name: "Neovim | Dependencies RedHat"
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.dnf5:
     name:
       - git
@@ -35,29 +35,29 @@
   become: true
 
 - name: "Neovim | Install Debian"
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian'
   ansible.builtin.apt:
     name: neovim
     state: present
   become: true
 
 - name: "Neovim | Install RedHat"
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian'
   ansible.builtin.dnf5:
     name: neovim
     state: present
   become: true
 
 - name: "Neovim | Config folder"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.file:
     mode: "0755"
-    path: "{{ ansible_user_dir }}/.config/nvim"
+    path: "{{ ansible_facts['user_dir'] }}/.config/nvim"
     state: directory
 
 - name: "Neovim | Copy config files"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.copy:
     src: "{{ role_path }}/files/"
-    dest: "{{ ansible_user_dir }}/.config/nvim"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/nvim"
     mode: "0644"

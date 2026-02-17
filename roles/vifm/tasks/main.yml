@@ -2,29 +2,29 @@
 # vim: set filetype=yaml.ansible : #
 
 - name: "Vifm | Install Debian"
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian'
   ansible.builtin.apt:
     name: vifm
     state: present
   become: true
 
 - name: "Vifm | Install RedHat"
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian'
   ansible.builtin.dnf5:
     name: vifm
     state: present
   become: true
 
 - name: "Vifm | Config folder"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.file:
     mode: "0755"
-    path: "{{ ansible_user_dir }}/.config/vifm"
+    path: "{{ ansible_facts['user_dir'] }}/.config/vifm"
     state: directory
 
 - name: "Vifm | Copy config files"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.copy:
     src: "{{ role_path }}/files/"
-    dest: "{{ ansible_user_dir }}/.config/vifm"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/vifm"
     mode: "0644"

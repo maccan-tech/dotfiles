@@ -2,27 +2,27 @@
 # vim: set filetype=yaml.ansible : #
 #
 - name: Hypr | Install dnf-plugins-core to handle copr
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.dnf:
     name: dnf-plugins-core
     state: present
   become: true
 
 - name: Hypr | Add solopasha/hyprland copr-repo
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.command: dnf copr enable solopasha/hyprland -y
   register: copr_result
   changed_when: "'already enabled' not in copr_result.stdout"
   become: true
 
 - name: Hypr | Update dnf cache
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.dnf:
     update_cache: true
   become: true
 
 - name: "Hypr | Install RedHat packages"
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.dnf5:
     name:
       - hyprland
@@ -48,41 +48,41 @@
   become: true
 
 - name: "Hypr | Copy config files"
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.copy:
     src: "{{ role_path }}/files/"
-    dest: "{{ ansible_user_dir }}/.config"
+    dest: "{{ ansible_facts['user_dir'] }}/.config"
     mode: "0644"
     directory_mode: "0755"
 
 - name: "Hypr | chmod script files"
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.file:
     path: "{{ item }}"
     mode: "a+x"
   with_fileglob:
-    - "{{ ansible_user_dir }}/.config/hypr/scripts/*"
+    - "{{ ansible_facts['user_dir'] }}/.config/hypr/scripts/*"
 
 - name: "Hypr | chmod gtk.sh file"
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/hypr/gtk.sh"
+    path: "{{ ansible_facts['user_dir'] }}/.config/hypr/gtk.sh"
     mode: "a+x"
 
 - name: "Hypr | chmod sratrhypr.sh file"
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/hypr/starthypr.sh"
+    path: "{{ ansible_facts['user_dir'] }}/.config/hypr/starthypr.sh"
     mode: "a+x"
 
 - name: "Hypr | chmod launch.sh file"
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/waybar/launch.sh"
+    path: "{{ ansible_facts['user_dir'] }}/.config/waybar/launch.sh"
     mode: "a+x"
 
 - name: "Hypr | chmod logoutlaunch.sh file"
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/wlogout/logoutlaunch.sh"
+    path: "{{ ansible_facts['user_dir'] }}/.config/wlogout/logoutlaunch.sh"
     mode: "a+x"

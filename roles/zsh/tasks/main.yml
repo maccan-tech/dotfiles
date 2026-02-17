@@ -2,7 +2,7 @@
 # vim: set filetype=yaml.ansible : #
 
 - name: ZSH | Dependencies Debian
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian'
   ansible.builtin.apt:
     name:
       - zsh
@@ -16,7 +16,7 @@
   become: true
 
 - name: ZSH | Dependencies RedHat
-  when: ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.dnf5:
     name:
       - zsh
@@ -33,7 +33,7 @@
   ansible.builtin.stat:
     path: ~/.oh-my-zsh
   register: stat_oh_my_zsh_result
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
 
 - name: ZSH | Cloning oh-my-zsh
   ansible.builtin.git:
@@ -42,7 +42,7 @@
     version: master
   when:
     - not stat_oh_my_zsh_result.stat.exists
-    - ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+    - ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
 
 - name: ZSH | Check oh-my-zsh folder owner
   ansible.builtin.file:
@@ -51,7 +51,7 @@
     owner: '{{ host_user }}'
     group: '{{ host_user }}'
     recurse: true
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
 
 - name: ZSH | Cloning zsh-autosuggestions
   ansible.builtin.git:
@@ -59,7 +59,7 @@
     dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     version: master
   # when: not stat_oh_my_zsh_result.stat.exists
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
 
 - name: ZSH | Cloning zsh-syntax-highlighting
   ansible.builtin.git:
@@ -67,53 +67,53 @@
     dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     version: master
   # when: not stat_oh_my_zsh_result.stat.exists
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
 
 - name: ZSH | Create zsh maccan theme
   ansible.builtin.copy:
     src: maccan.zsh-theme
     dest: ~/.oh-my-zsh/custom/themes/maccan.zsh-theme
     mode: "0644"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
 
 - name: ZSH | "Copy .zshrc"
   ansible.builtin.template:
     src: "zshrc.j2"
-    dest: "{{ ansible_user_dir }}/.zshrc"
+    dest: "{{ ansible_facts['user_dir'] }}/.zshrc"
     mode: "0644"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
 
 - name: ZSH | Set default shell for users
   become: true
   ansible.builtin.user:
     name: '{{ host_user }}'
     shell: /usr/bin/zsh
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
 
 - name: "ZSH | bin folder"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.file:
     mode: "0755"
-    path: "{{ ansible_user_dir }}/bin"
+    path: "{{ ansible_facts['user_dir'] }}/bin"
     state: directory
 
 - name: ZSH | Copy notetaker script
   ansible.builtin.copy:
     src: "notetaker"
-    dest: "{{ ansible_user_dir }}/bin/notetaker"
+    dest: "{{ ansible_facts['user_dir'] }}/bin/notetaker"
     mode: "0755"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
 
 - name: ZSH | Copy netinfo script
   ansible.builtin.copy:
     src: "ip_a_formating.awk"
-    dest: "{{ ansible_user_dir }}/bin/ip_a_formating.awk"
+    dest: "{{ ansible_facts['user_dir'] }}/bin/ip_a_formating.awk"
     mode: "0755"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
 
 - name: ZSH | Copy tmux script
   ansible.builtin.copy:
     src: "t"
-    dest: "{{ ansible_user_dir }}/bin/t"
+    dest: "{{ ansible_facts['user_dir'] }}/bin/t"
     mode: "0755"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
