@@ -40,7 +40,7 @@
   when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
 
 - name: TMUX | Install plugins
-  ansible.builtin.shell:
+  ansible.builtin.command:
     cmd: "{{ ansible_facts['user_dir'] }}/.tmux/plugins/tpm/bin/install_plugins"
-  register: script_run
-  changed_when: "'Installing' in script_run.stdout"
+  register: tmux_script_run
+  changed_when: "'Installing' in tmux_script_run.stdout"

@@ -10,10 +10,10 @@
 - name: NerdFonts | JetBrainsMono exists
   ansible.builtin.stat:
     path: "{{ ansible_facts['user_dir'] }}/.local/share/fonts/NerdFonts/JetBrainsMonoNerdFont-Regular.ttf"
-  register: stat_result
+  register: nerdfonts_stat_result
 
 - name: NerdFonts | Download JetBrainsMono
-  when: not stat_result.stat.exists
+  when: not nerdfonts_stat_result.stat.exists
   ansible.builtin.unarchive:
     src: "https://github.com/ryanoasis/nerd-fonts/releases/download/{{ nerdfonts_jetbrainsmono_version }}/JetBrainsMono.zip"
     dest: "{{ ansible_facts['user_dir'] }}/.local/share/fonts/NerdFonts/"

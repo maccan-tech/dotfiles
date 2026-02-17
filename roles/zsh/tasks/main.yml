@@ -32,7 +32,7 @@
 - name: ZSH | Check if .oh-my-zsh exists
   ansible.builtin.stat:
     path: ~/.oh-my-zsh
-  register: stat_oh_my_zsh_result
+  register: zsh_stat_oh_my_zsh_result
   when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
 
 - name: ZSH | Cloning oh-my-zsh
@@ -41,7 +41,7 @@
     dest: ~/.oh-my-zsh
     version: master
   when:
-    - not stat_oh_my_zsh_result.stat.exists
+    - not zsh_stat_oh_my_zsh_result.stat.exists
     - ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
 
 - name: ZSH | Check oh-my-zsh folder owner
@@ -58,7 +58,7 @@
     repo: https://github.com/zsh-users/zsh-autosuggestions
     dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     version: master
-  # when: not stat_oh_my_zsh_result.stat.exists
+  # when: not zsh_stat_oh_my_zsh_result.stat.exists
   when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
 
 - name: ZSH | Cloning zsh-syntax-highlighting
@@ -66,7 +66,7 @@
     repo: https://github.com/zsh-users/zsh-syntax-highlighting
     dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     version: master
-  # when: not stat_oh_my_zsh_result.stat.exists
+  # when: not zsh_stat_oh_my_zsh_result.stat.exists
   when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
 
 - name: ZSH | Create zsh maccan theme

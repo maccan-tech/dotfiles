@@ -11,8 +11,8 @@
 - name: Hypr | Add solopasha/hyprland copr-repo
   when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.command: dnf copr enable solopasha/hyprland -y
-  register: copr_result
-  changed_when: "'already enabled' not in copr_result.stdout"
+  register: hypr_copr_result
+  changed_when: "'already enabled' not in hypr_copr_result.stdout"
   become: true
 
 - name: Hypr | Update dnf cache
