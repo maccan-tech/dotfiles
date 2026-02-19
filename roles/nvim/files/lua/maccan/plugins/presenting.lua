@@ -1,4 +1,4 @@
 return {
-  "sotte/presenting.vim",
-  event = "VeryLazy",
+  "sotte/presenting.nvim",
+  cmd = "Presenting",
 }

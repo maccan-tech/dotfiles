@@ -1,44 +1,34 @@
 return {
   "akinsho/bufferline.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
-  after = "catppuccin",
-
+  event = "VeryLazy",
   config = function()
-    local bufferline = require("bufferline")
-    -- local mocha = require("catppuccin.palettes").get_palette "mocha"
-    local highlights = require('rose-pine.plugins.bufferline')
-    require('bufferline').setup({ highlights = highlights })
+    local colors = require("kanagawa.colors").setup({ theme = "wave" })
+    local palette = colors.palette
 
-    bufferline.setup({
+    require("bufferline").setup({
       options = {
         mode = "tabs",
-        -- separator_style = "slant",
+        separator_style = "slant",
         indicator = {
-          style = 'underline',
+          style = "underline",
         },
-        -- highlights = require("catppuccin.groups.integrations.bufferline").get {
-        -- styles = { "italic", "bold" },
-        --   custom = {
-        --     all = {
-        --         fill = { bg = "#000000" },
-        --     },
-        --     mocha = {
-        --         background = { fg = mocha.text },
-        --     },
-        --     latte = {
-        --         background = { fg = "#000000" },
-        --     },
-        --   },
-        -- },
-        -- highlights = highlights, -- for theme nord
-          -- offsets = {
-          -- {
-            -- filetype = "NvimTree",
-            -- text = "File Explorer",
-            -- highlight = "Directory",
-            -- separator = true -- use a "true" to enable the default, or set your own character
-          -- }
-        -- },
+      },
+      highlights = {
+        fill = { bg = palette.sumiInk0 },
+        background = { fg = palette.fujiGray, bg = palette.sumiInk2 },
+        buffer_selected = { fg = palette.fujiWhite, bg = palette.sumiInk4, bold = true },
+        separator = { fg = palette.sumiInk0, bg = palette.sumiInk2 },
+        separator_selected = { fg = palette.sumiInk0, bg = palette.sumiInk4 },
+        separator_visible = { fg = palette.sumiInk0, bg = palette.sumiInk2 },
+        tab_selected = { fg = palette.fujiWhite, bg = palette.sumiInk4, bold = true },
+        tab = { fg = palette.fujiGray, bg = palette.sumiInk2 },
+        tab_close = { bg = palette.sumiInk0 },
+        close_button = { fg = palette.fujiGray, bg = palette.sumiInk2 },
+        close_button_selected = { fg = palette.fujiWhite, bg = palette.sumiInk4 },
+        close_button_visible = { fg = palette.fujiGray, bg = palette.sumiInk2 },
+        modified = { fg = palette.carpYellow, bg = palette.sumiInk2 },
+        modified_selected = { fg = palette.carpYellow, bg = palette.sumiInk4 },
       },
     })
   end,

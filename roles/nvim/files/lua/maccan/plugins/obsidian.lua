@@ -1,5 +1,5 @@
 return {
-  "epwalsh/obsidian.nvim",
+  "obsidian-nvim/obsidian.nvim",
   version = "*",  -- recommended, use latest release instead of latest commit
   lazy = true,
   ft = "markdown",
@@ -23,10 +23,11 @@ return {
         path = "~/Nextcloud/Notes",
       },
     },
+    legacy_commands = false,
     templates = {
       folder = "~/Nextcloud/Notes/Templates",
       date_format = "%Y-%m-%d-%a",
       time_format = "%H:%M",
-  },
+    },
   },
 }

@@ -21,26 +21,18 @@ keymap.set("n", "<leader>+", "<C-a>") -- increment
 keymap.set("n", "<leader>-", "<C-x>") -- decrement
 
 -- window management
--- keymap.set("n", "<leader>sv", "<C-w>v") -- split window vertically
 keymap.set("n", "<leader>sv", ":vnew<CR>") -- split window vertically
--- keymap.set("n", "<leader>sh", "<C-w>s") -- split window horizontally
 keymap.set("n", "<leader>sh", ":hnew<CR>") -- split window horizontally
 keymap.set("n", "<leader>se", "<C-w>=") -- make split windows equal width & height
 keymap.set("n", "<leader>sx", ":close<CR>") -- close current split window
-keymap.set("n", "<leader>sq", ":close<CR>") -- close current split window
 
 keymap.set("n", "<leader>to", ":tabnew<CR>") -- open new tab
 keymap.set("n", "<leader>tx", ":tabclose<CR>") -- close current tab
-keymap.set("n", "<leader>tq", ":tabclose<CR>") -- close current tab
 keymap.set("n", "<tab>", ":tabnext<CR>") --  go to next tab
 keymap.set("n", "<S-tab>", ":tabprevious<CR>") --  go to previous tab
 
---Zenmode
-keymap.set("n", "<leader>z", ":ZenMode<CR>")
-
 -- Terminal
--- map <Leader>tt :new term://zsh<CR>
-keymap.set("n", "<leader>tt", ":new term://zsh<CR>") --  go to previous tab
+keymap.set("n", "<leader>tt", ":new term://zsh<CR>")
 
 -- splits navigation to leader + arrows
 keymap.set("n", "<leader><Left>", "<C-w>h")
@@ -71,6 +63,3 @@ keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>") -- list available 
 -- visual move lines
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-
--- Help search Telescope
-keymap.set("n", "<leader>h", ":Telescope help_tags") -- open new tab

@@ -4,7 +4,7 @@ return {
   lazy = false,
   keys = {
     {
-      "<leader>sn",
+      "<leader>nh",
       function()
         require("snacks").notifier.show_history()
       end,
@@ -14,8 +14,8 @@ return {
       "<leader>ch",
       function()
         require("snacks").win({
-          file = vim.fn.expand("~/.config/nvim/lua/maccan/cheatcheat.md"),
-          filetype = 'markdown',   -- Sätt filtypen för korrekt syntax highlighting
+          file = vim.fn.expand("~/.config/nvim/lua/maccan/cheatsheet.md"),
+          filetype = "markdown",
           width = 0.8,
           height = 0.8,
           wo = {
@@ -27,7 +27,7 @@ return {
           },
         })
       end,
-      desc = "Show cheatcheat",
+      desc = "Show cheatsheet",
     },
   },
   ---@type snacks.Config
