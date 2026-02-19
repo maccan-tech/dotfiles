@@ -43,6 +43,8 @@ return {
         "prettier", -- prettier formatter
         "stylua", -- lua formatter
         "eslint_d", -- js linter
+        "ansible-lint", -- ansible linter (required by ansiblels)
+        "yamlfmt", -- yaml formatter
       },
     })
   end,
