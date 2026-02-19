@@ -34,6 +34,7 @@ return {
   opts = {
     notifier = { enabled = true },
     image = { enabled = true },
+    input = { enabled = true },
     statuscolumn = {
       enabled = true,
       left = { "mark"},
