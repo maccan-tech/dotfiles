@@ -29,6 +29,12 @@
 *<leader><Up>*    Up
 *<leader><Right>* Right
 
+### Resize splits
+*<C-Left>*  Increase width
+*<C-Right>* Decrease width
+*<C-Up>*    Increase height
+*<C-Down>*  Decrease height
+
 ### Tab navigation
 *<space>to* tab open (open new tab)
 *<tab>*     go to next tab
@@ -49,8 +55,8 @@
 *<leader>fs* open string search
 *<leader>cs* clear search
 
-*:s/pattern/replace/g*  Substitute “pattern” by “replace” on the current line.
-*:%s/pattern/replace/g* Substitute “pattern” by “replace” in the current file.
+```:s/pattern/replace/g```  Substitute “pattern” by “replace” on the current line.
+```:%s/pattern/replace/g``` Substitute “pattern” by “replace” in the current file.
 
 *f4*   jump to next char '4' on this line
 *F4*   jump to previus char '4' on this line
@@ -62,12 +68,27 @@
 *<leader>qa* to startrecord macro in to macro buffer a
 *<leader>qb* to startrecord macro in to macro buffer b
 *<leader>q*  stop recording
-*@a* execute macro
-*10@a* execute macro 10 times
+```@a``` execute macro
+```10@a``` execute macro 10 times
+## Claude Code
+*<leader>ac* Toggle Claude Code terminal
+*<leader>af* Focus Claude Code terminal
+*<leader>ar* Resume previous Claude session
+*<leader>aC* Continue Claude session
+*<leader>am* Select Claude model
+*<leader>ab* Add current buffer to Claude context
+*<leader>as* Send selection to Claude (visual mode)
+*<leader>as* Add file from file tree (in NvimTree)
+*<leader>aa* Accept diff suggestion
+*<leader>ad* Deny diff suggestion
+
+## Presentations
+```Presenting```  Start a markdown presentation (navigate slides with n/p, quit with q)
+
 ## Misco
-*.*            repeat last command
-*di'*          delete inside '
-*da'*          delete around ' (di' and delete ')
+```.```            repeat last command
+```di'```          delete inside '
+```da'```          delete around ' (di' and delete ')
 *<leader>ca*   see available code actions
 *<leader>gcc*  comment/uncomment line
 *<leader>gc9j* comment/uncomment 9 rows

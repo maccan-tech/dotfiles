@@ -5,6 +5,15 @@ return {
   init = function()
     vim.g.loaded_netrw = 1
     vim.g.loaded_netrwPlugin = 1
+
+    -- Open nvim-tree when starting nvim with a directory
+    vim.api.nvim_create_autocmd("VimEnter", {
+      callback = function(data)
+        if vim.fn.isdirectory(data.file) == 1 then
+          require("nvim-tree.api").tree.open()
+        end
+      end,
+    })
   end,
   config = function()
     local nvimtree = require("nvim-tree")
