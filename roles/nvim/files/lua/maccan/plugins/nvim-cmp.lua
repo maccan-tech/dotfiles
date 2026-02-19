@@ -37,13 +37,13 @@ return {
         ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
         ["<C-e>"] = cmp.mapping.abort(), -- close completion window
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
-        ['<Down>'] = cmp.mapping(function(fallback)
+        ["<Down>"] = cmp.mapping(function(fallback)
           cmp.close()
-        	fallback()
+          fallback()
         end, { "i" }),
-        ['<Up>'] = cmp.mapping(function(fallback)
-        	cmp.close()
-        	fallback()
+        ["<Up>"] = cmp.mapping(function(fallback)
+          cmp.close()
+          fallback()
         end, { "i" }),
       }),
       -- sources for autocompletion

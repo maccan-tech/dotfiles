@@ -13,7 +13,6 @@ return {
         indent = { enable = true },
         ensure_installed = {
           "json",
-          "tsx",
           "yaml",
           "html",
           "css",

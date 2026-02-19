@@ -1,6 +1,6 @@
 return {
   "coder/claudecode.nvim",
-  dependencies = { "folke/snacks.nvim" },
+  dependencies = { "folke/which-key.nvim" },
   config = function()
     require("claudecode").setup()
     require("which-key").add({
@@ -24,5 +24,5 @@ return {
     -- Diff management
     { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
     { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
-  }
+  },
 }
