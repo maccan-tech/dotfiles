@@ -11,17 +11,21 @@
     - [nvim-tree](#nvim-tree)
   - [Search & Replace](#search-replace)
   - [Macro](#macro)
+  - [Claude Code](#claude-code)
+  - [LSP & Diagnostics](#lsp-diagnostics)
   - [Misco](#misco)
 <!--toc:end-->
 
 
 ## Cheatcheat & Help
-*<leader>ch* open this cheatcheat 
-*<leader>h* open Telescope help search 
+*<leader>ch* open this cheatcheat
+*<leader>fh* open Telescope help search
 
 ## Window navigation
 *<leader>sv* split window vertically
 *<leader>sh* split window horizontally
+*<leader>se* equalize split sizes
+*<leader>sx* close current split
 
 ### Split navigations
 *<leader><Left>*  Left
@@ -36,15 +40,17 @@
 *<C-Down>*  Decrease height
 
 ### Tab navigation
-*<space>to* tab open (open new tab)
-*<tab>*     go to next tab
-*<S-tab>*   go to previus tab
+*<leader>to* open new tab
+*<leader>tx* close current tab
+*<tab>*      go to next tab
+*<S-tab>*    go to previous tab
 
 ## Terminal
-*<leader>tt* Open Termina
+*<leader>tt* Open Terminal
 
 ## File explorer
 *<leader>e* open nvim-tree
+
 ### nvim-tree
 *<ctrl>t* Open the file in a new tab
 *<ctrl>v* Open the file in the buffer by dividing it vertically
@@ -52,24 +58,27 @@
 
 ## Search & Replace
 *<leader>ff* open file search
-*<leader>fs* open string search
+*<leader>fs* open string search (live grep)
+*<leader>fc* find string under cursor
+*<leader>fb* list open buffers
 *<leader>cs* clear search
 
-```:s/pattern/replace/g```  Substitute “pattern” by “replace” on the current line.
-```:%s/pattern/replace/g``` Substitute “pattern” by “replace” in the current file.
+```:s/pattern/replace/g```  Substitute "pattern" by "replace" on the current line.
+```:%s/pattern/replace/g``` Substitute "pattern" by "replace" in the current file.
 
 *f4*   jump to next char '4' on this line
-*F4*   jump to previus char '4' on this line
-*/yyy* to search for yyy then <Enter> to jump to to it.
-*cgn*  then type what you want to replce with then <esc> to go back to normal mode.
-*n*    to jump to next, *.* ro replace next string with same.
+*F4*   jump to previous char '4' on this line
+*/yyy* to search for yyy then <Enter> to jump to it.
+*cgn*  then type what you want to replace with then <esc> to go back to normal mode.
+*n*    to jump to next, *.* to replace next string with same.
 
 ## Macro
-*<leader>qa* to startrecord macro in to macro buffer a
-*<leader>qb* to startrecord macro in to macro buffer b
+*<leader>qa* to start recording macro into macro buffer a
+*<leader>qb* to start recording macro into macro buffer b
 *<leader>q*  stop recording
 ```@a``` execute macro
 ```10@a``` execute macro 10 times
+
 ## Claude Code
 *<leader>ac* Toggle Claude Code terminal
 *<leader>af* Focus Claude Code terminal
@@ -85,15 +94,20 @@
 ## Presentations
 ```Presenting```  Start a markdown presentation (navigate slides with n/p, quit with q)
 
+## LSP & Diagnostics
+*<leader>d*   show diagnostics for current line (floating window)
+*<leader>D*   show all buffer diagnostics (Telescope)
+*[d*          jump to previous diagnostic
+*]d*          jump to next diagnostic
+*<leader>ca*  see available code actions
+*<leader>rn*  smart rename
+
 ## Misco
 ```.```            repeat last command
 ```di'```          delete inside '
 ```da'```          delete around ' (di' and delete ')
-*<leader>ca*   see available code actions
+*<leader>+*    increment number by 1
+*<leader>-*    decrement number by 1
 *<leader>gcc*  comment/uncomment line
 *<leader>gc9j* comment/uncomment 9 rows
-*<ctrl>a*      increment by 1 
-*<leader>a*    aerial outline toggel (A code outline window for skimming and quick navigation)
-
-
-
+*<leader>a*    aerial outline toggle (code outline for skimming and quick navigation)

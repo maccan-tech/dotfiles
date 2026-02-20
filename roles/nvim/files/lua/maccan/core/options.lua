@@ -39,9 +39,22 @@ opt.splitbelow = true
 opt.iskeyword:append("-")
 opt.scrolloff = 10
 
--- filetypes
-vim.filetype.add({
-  extension = {
-    j2 = 'htmldjango',
+-- diagnostics
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = "●",
+    source = "if_many",
   },
+  float = {
+    border = "rounded",
+    source = true,
+  },
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
 })
+
+-- filetypes
+-- Glench/Vim-Jinja2-Syntax handles .j2 detection via ftdetect
+-- It auto-detects the host language from the filename (e.g. nginx.conf.j2 -> nginx+jinja2)
