@@ -108,15 +108,14 @@
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "󰤨 {essid}",
-        "format-ethernet": "󱘖 Wired",
+        "format-ethernet": "󱘖 {ifname}",
         "format-linked": "󱘖 {ifname} (No IP)",
         "format-disconnected": " Disconnected",
-        "format-alt": "󰤨 {signalStrength}%",
+        "on-click": "~/.local/bin/hyprltm-net",
         "on-click-right": "nm-connection-editor",
         "interval": 5,
-        "tooltip-format": "{ifname} via {gwaddr} 󰊗",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
-        "tooltip-format-ethernet": "{ifname} ",
+        "tooltip-format": "Interface: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}",
+        "tooltip-format-wifi": "SSID: {essid}\nSignal: {signaldBm}dBm ({signalStrength}%)\nFreq: {frequency}MHz",
         "tooltip-format-disconnected": "Disconnected",
     },
 

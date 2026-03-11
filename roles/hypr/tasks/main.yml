@@ -44,8 +44,48 @@
       - Thunar
       - satty
       - hyprshot
+      #- nmcli
+      - NetworkManager
+      - qrencode
     state: present
   become: true
+
+- name: "Hypr | Clone hyprltm-net"
+  ansible.builtin.git:
+    repo: "https://github.com/hyprltm/hyprltm-net.git"
+    dest: "{{ ansible_facts['user_dir'] }}/github/hyprltm-net"
+    version: "stable"
+    update: true
+
+- name: "Hypr | Create install directories for hyprltm-net"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "{{ ansible_facts['user_dir'] }}/.local/bin"
+    - "{{ ansible_facts['user_dir'] }}/.config/rofi/themes"
+
+- name: "Hypr | Install hyprltm-net executable"
+  ansible.builtin.copy:
+    src: "{{ ansible_facts['user_dir'] }}/github/hyprltm-net/hyprltm-net.sh"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/bin/hyprltm-net"
+    mode: "0755"
+    remote_src: true
+
+- name: "Hypr | Find hyprltm-net rofi themes"
+  ansible.builtin.find:
+    paths: "{{ ansible_facts['user_dir'] }}/github/hyprltm-net"
+    patterns: "*.rasi"
+  register: hyprltm_rasi_files
+
+- name: "Hypr | Install hyprltm-net rofi themes"
+  ansible.builtin.copy:
+    src: "{{ item.path }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.config/rofi/themes/"
+    mode: "0644"
+    remote_src: true
+  loop: "{{ hyprltm_rasi_files.files }}"
 
 - name: "Hypr | Copy config files"
   when: ansible_facts['os_family'] == 'RedHat'
