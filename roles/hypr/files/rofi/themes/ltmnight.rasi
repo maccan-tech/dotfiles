@@ -1,0 +1,46 @@
+// Nordic Mist (Dark) palette mapped to ltmnight variable names
+
+* {
+    ltmnight0:  #1E1F23; /* Background */
+    ltmnight1:  #2A2B30; /* Current Line / Secondary Background */
+    ltmnight2:  #CFC3B4; /* Foreground Text — Neutral */
+    ltmnight3:  #6B6460; /* Comment / Faded Foreground — Inactive */
+    ltmnight4:  #C97F7F; /* Red / Errors — Pink */
+    ltmnight5:  #D7A58F; /* Orange / Warnings — Peach */
+    ltmnight6:  #D6A65C; /* Yellow / Warnings — Yellow */
+    ltmnight7:  #9CAF9F; /* Green / Success — Sage */
+    ltmnight8:  #6FA7A6; /* Cyan / Info — Teal */
+    ltmnight9:  #9B7E9E; /* Purple / Accents — Purple */
+    ltmnight10: #B79AC8; /* Pink / Accents — Lavender */
+    ltmnight11: #B8A89A; /* Gray / Placeholders — Taupe */
+
+
+
+    // Rofi Color Mappings
+    background: rgba(30, 31, 35, 0.9);
+    foreground: @ltmnight2;
+
+    primary:    @ltmnight7;
+    accent:     @ltmnight5;
+    on-primary: @ltmnight0;
+
+    primary-fixed:    @ltmnight1;
+    on-primary-fixed: @ltmnight2;
+
+    selection:    rgba(42, 43, 48, 0.5);
+    on-selection: @ltmnight2;
+
+    error:    @ltmnight4;
+    on-error: @ltmnight2;
+
+    surface:    rgba(30, 31, 35, 0.9);
+    on-surface: @ltmnight2;
+
+    outline: @ltmnight3;
+    shadow:  rgba(0, 0, 0, 0.5);
+
+    highlight: @ltmnight6;
+
+    prompt:      @ltmnight11;
+    placeholder: @ltmnight11;
+}

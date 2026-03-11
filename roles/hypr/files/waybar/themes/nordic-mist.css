@@ -1,0 +1,27 @@
+/*
+ * Variant: Nordic Mist (Dark)
+ *
+ * Contract variables - required by all themes:
+ *   @bg-bar, @bg-module, @bg-hover, @bg-active
+ *   @text-primary, @text-secondary, @text-disabled, @text-on-accent
+ *   @accent-primary, @accent-secondary
+ *   @color-urgent, @color-warning, @color-ok
+ */
+
+/* @define-color bg-bar            rgba(26, 27, 31, 0.95); */
+@define-color bg-bar            rgba(0, 0, 0, 0);
+@define-color bg-module         #2A2B30;
+@define-color bg-hover          #333440;
+@define-color bg-active         #9CAF9F;
+
+@define-color text-primary      #CFC3B4;
+@define-color text-secondary    #B8A89A;
+@define-color text-disabled     #6B6460;
+@define-color text-on-accent    #1E1F23;
+
+@define-color accent-primary    #9CAF9F;
+@define-color accent-secondary  #D7A58F;
+
+@define-color color-urgent      #C97F7F;
+@define-color color-warning     #D6A65C;
+@define-color color-ok          #9CAF9F;

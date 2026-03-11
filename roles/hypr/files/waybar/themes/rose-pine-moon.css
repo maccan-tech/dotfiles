@@ -1,25 +1,26 @@
 /*
-* Variant: Rosé Pine Moon
-* Maintainer: DankChoir
-*/
+ * Variant: Rose Pine Moon
+ *
+ * Contract variables - required by all themes:
+ *   @bg-bar, @bg-module, @bg-hover, @bg-active
+ *   @text-primary, @text-secondary, @text-disabled, @text-on-accent
+ *   @accent-primary, @accent-secondary
+ *   @color-urgent, @color-warning, @color-ok
+ */
 
-@define-color base            #232136;
-@define-color surface         #2a273f;
-@define-color overlay         #393552;
+@define-color bg-bar            rgba(0, 0, 0, 0);
+@define-color bg-module         #2a273f;
+@define-color bg-hover          #393552;
+@define-color bg-active         #3e8fb0;
 
-@define-color muted           #6e6a86;
-@define-color subtle          #908caa;
-@define-color text            #e0def4;
+@define-color text-primary      #e0def4;
+@define-color text-secondary    #908caa;
+@define-color text-disabled     #6e6a86;
+@define-color text-on-accent    #232136;
 
-@define-color love            #eb6f92;
-@define-color gold            #f6c177;
-@define-color rose            #ea9a97;
-@define-color pine            #3e8fb0;
-@define-color foam            #9ccfd8;
-@define-color iris            #c4a7e7;
+@define-color accent-primary    #3e8fb0;
+@define-color accent-secondary  #9ccfd8;
 
-@define-color highlightLow    #2a283e;
-@define-color highlightMed    #44415a;
-@define-color highlightHigh   #56526e;
-
-@define-color bar-bg rgba(0, 0, 0, 0);
+@define-color color-urgent      #eb6f92;
+@define-color color-warning     #f6c177;
+@define-color color-ok          #9ccfd8;

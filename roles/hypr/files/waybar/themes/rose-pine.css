@@ -1,23 +1,26 @@
 /*
-* Variant: Rosé Pine
-* Maintainer: DankChoir
-*/
+ * Variant: Rose Pine
+ *
+ * Contract variables - required by all themes:
+ *   @bg-bar, @bg-module, @bg-hover, @bg-active
+ *   @text-primary, @text-secondary, @text-disabled, @text-on-accent
+ *   @accent-primary, @accent-secondary
+ *   @color-urgent, @color-warning, @color-ok
+ */
 
-@define-color base            #191724;
-@define-color surface         #1f1d2e;
-@define-color overlay         #26233a;
+@define-color bg-bar            rgba(0, 0, 0, 0);
+@define-color bg-module         #1f1d2e;
+@define-color bg-hover          #26233a;
+@define-color bg-active         #31748f;
 
-@define-color muted           #6e6a86;
-@define-color subtle          #908caa;
-@define-color text            #e0def4;
+@define-color text-primary      #e0def4;
+@define-color text-secondary    #908caa;
+@define-color text-disabled     #6e6a86;
+@define-color text-on-accent    #191724;
 
-@define-color love            #eb6f92;
-@define-color gold            #f6c177;
-@define-color rose            #ebbcba;
-@define-color pine            #31748f;
-@define-color foam            #9ccfd8;
-@define-color iris            #c4a7e7;
+@define-color accent-primary    #31748f;
+@define-color accent-secondary  #9ccfd8;
 
-@define-color highlightLow    #21202e;
-@define-color highlightMed    #403d52;
-@define-color highlightHigh   #524f67;
+@define-color color-urgent      #eb6f92;
+@define-color color-warning     #f6c177;
+@define-color color-ok          #9ccfd8;

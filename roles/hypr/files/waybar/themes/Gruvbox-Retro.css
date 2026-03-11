@@ -1,10 +1,27 @@
-@define-color bar-bg rgba(50, 50, 50, 0.95);
+/*
+ * Variant: Gruvbox Retro
+ *
+ * Contract variables - required by all themes:
+ *   @bg-bar, @bg-module, @bg-hover, @bg-active
+ *   @text-primary, @text-secondary, @text-disabled, @text-on-accent
+ *   @accent-primary, @accent-secondary
+ *   @color-urgent, @color-warning, @color-ok
+ */
 
-@define-color main-bg #475437;
-@define-color main-fg #b5cc97;
+/* @define-color bg-bar            rgba(50, 50, 50, 0.95); */
+@define-color bg-bar            rgba(0, 0, 0, 0);
+@define-color bg-module         #475437;
+@define-color bg-hover          #566347;
+@define-color bg-active         #668f31;
 
-@define-color wb-act-bg #668f31;
-@define-color wb-act-fg #c2d89c;
+@define-color text-primary      #b5cc97;
+@define-color text-secondary    #8a9870;
+@define-color text-disabled     #6f7c5a;
+@define-color text-on-accent    #1a2012;
 
-@define-color wb-hvr-bg #c6eb6f;
-@define-color wb-hvr-fg #c0fc47;
+@define-color accent-primary    #668f31;
+@define-color accent-secondary  #8ec07c;
+
+@define-color color-urgent      #cc5555;
+@define-color color-warning     #c8a800;
+@define-color color-ok          #8ec07c;
