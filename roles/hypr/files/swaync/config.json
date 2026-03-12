@@ -27,13 +27,20 @@
   "transition-time": 200,
   "hide-on-clear": false,
   "hide-on-action": true,
-  "script-fail-notify": true,
+  "script-fail-notify": false,
+  "scripts": {
+    "play-sound": {
+      "exec": "~/.config/swaync/scripts/notify_sound.sh",
+      "app-name": ".*",
+      "run-on": "receive"
+    }
+  },
   "widgets": [
-      "dnd",
       "buttons-grid",
       "mpris",
-      "volume", 
+      "volume",
       "backlight",
+      "dnd",
       "title",
       "notifications"
   ],
@@ -61,32 +68,51 @@
           "label": "󰃟"
       },
       "buttons-grid": {
+          "buttons-per-row": 3,
           "actions": [
               {
-                  "label": "󰐥",
-                  "command": "~/.config/wlogout/logoutlaunch.sh 2"
+                "label": "󰐥",
+                "tooltip": "Power menu",
+                "command": "~/.config/wlogout/logoutlaunch.sh 2"
               },
               {
-                  "label": "󰌾",
-                  "command": "bash -c hyprlock"
+                "label": "󰌾",
+                "tooltip": "Lock screen",
+                "command": "bash -c hyprlock"
               },
               {
-                  "label": "󰍃",
-                  "command": "hyprctl dispatch exit"
+                "label": "󰍃",
+                "tooltip": "Logout",
+                "command": "hyprctl dispatch exit"
               },
               {
-                  "label": "󰀝",
-                  "command": "bash -c $HOME/.config/hypr/scripts/AirplaneMode.sh"
+                "label": "",
+                "type": "toggle",
+                "active": true,
+                "command": "sh -c '~/.config/swaync/scripts/toggle_wifi.sh'",
+                "update-command": "sh -c 'set +e;[[ $(nmcli radio wifi) == \"enabled\" ]] && echo true || echo false'"
               },
               {
-                  "label": "󰝟",
-                  "command": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+                "label": "󰂯",
+                "type": "toggle",
+                "active": true,
+                "command": "sh -c '~/.config/swaync/scripts/toggle_bluetooth.sh'",
+                "update-command": "sh -c 'set +e;bluetoothctl show | grep -qF Powered:\\ yes && echo true || echo false'"
               },
               {
-                  "label": "󰂯",
-                  "command": "blueman-manager"
+                "label": "󰀝",
+                "tooltip": "Airplane mode",
+                "command": "bash -c $HOME/.config/hypr/scripts/AirplaneMode.sh"
+              },
+              {
+                "label": "󰝟",
+                "tooltip": "Toggle mute",
+                "type": "toggle",
+                "active": true,
+                "command": "swayosd-client --output-volume mute-toggle",
+                "update-command": "sh -c 'pactl get-sink-mute @DEFAULT_SINK@ | grep -q \"Mute: yes\" && echo true || echo false'"
               }
-          ]
+         ]
       }
   }
 }

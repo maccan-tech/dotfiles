@@ -1,0 +1,14 @@
+/*
+ * Variant: Nordic Mist (Dark)
+ *
+ * Contract variables - required by all swayosd themes:
+ *   @outline               - border color
+ *   @surface_container_low - base background color (alpha applied in style.css)
+ *   @primary               - icon, label, and progress fill color
+ *   @primary_container     - progress trough background (alpha applied in style.css)
+ */
+
+@define-color outline               #9CAF9F;
+@define-color surface_container_low #1E1F23;
+@define-color primary               #9CAF9F;
+@define-color primary_container     #2A2B30;

@@ -1,0 +1,17 @@
+/*
+ * Variant: Maccan
+ *
+ * Contract variables - required by all swaync themes:
+ *   @noti-bg          - notification/panel background (semi-transparent)
+ *   @noti-bg-alt      - widget/alternate background
+ *   @noti-bg-hover    - hover state background
+ *   @noti-border-color - border and accent color
+ *   @text-color       - primary text
+ */
+
+@define-color noti-bg             rgba(35, 33, 54, 0.8);
+@define-color noti-bg-alt         #2a273f;
+@define-color noti-bg-hover       #3e8fb0;
+@define-color noti-border-color   #3e8fb0;
+@define-color noti-close-bg       #f7768e;
+@define-color text-color          #c0b18b;

@@ -1,0 +1,17 @@
+/*
+ * Variant: Nordic Mist (Dark)
+ *
+ * Contract variables - required by all swaync themes:
+ *   @noti-bg          - notification/panel background (semi-transparent)
+ *   @noti-bg-alt      - widget/alternate background
+ *   @noti-bg-hover    - hover state background
+ *   @noti-border-color - border and accent color
+ *   @text-color       - primary text
+ */
+
+@define-color noti-bg             rgba(30, 31, 35, 0.85);
+@define-color noti-bg-alt         #2A2B30;
+@define-color noti-bg-hover       #9CAF9F;
+@define-color noti-border-color   #9CAF9F;
+@define-color noti-close-bg       #C97F7F;
+@define-color text-color          #CFC3B4;

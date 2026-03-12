@@ -8,11 +8,14 @@
     state: present
   become: true
 
-- name: Hypr | Add solopasha/hyprland copr-repo
+- name: Hypr | Add copr-repo
   when: ansible_facts['os_family'] == 'RedHat'
-  ansible.builtin.command: dnf copr enable solopasha/hyprland -y
-  register: hypr_copr_result
-  changed_when: "'already enabled' not in hypr_copr_result.stdout"
+  ansible.builtin.command: dnf copr enable {{ item.repo }} -y
+  args:
+    creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:{{ item.repo | replace('/', ':') }}.repo
+  loop:
+    - { repo: "solopasha/hyprland" }
+    - { repo: "erikreider/swayosd" }
   become: true
 
 - name: Hypr | Update dnf cache
@@ -47,7 +50,16 @@
       #- nmcli
       - NetworkManager
       - qrencode
+      - swayosd
     state: present
+  become: true
+
+- name: "Hypr | Enable and start swayosd-libinput-backend service"
+  when: ansible_facts['os_family'] == 'RedHat'
+  ansible.builtin.systemd:
+    name: swayosd-libinput-backend
+    state: started
+    enabled: true
   become: true
 
 - name: "Hypr | Clone hyprltm-net"
@@ -86,20 +98,22 @@
     mode: "0644"
     remote_src: true
   loop: "{{ hyprltm_rasi_files.files }}"
+  # Exclude files we maintain ourselves in roles/hypr/files/rofi/themes/
+  when: item.path | basename not in ['ltmnight.rasi']
 
 - name: "Hypr | Copy config files"
   when: ansible_facts['os_family'] == 'RedHat'
-  ansible.builtin.copy:
+  ansible.posix.synchronize:
     src: "{{ role_path }}/files/"
     dest: "{{ ansible_facts['user_dir'] }}/.config"
-    mode: "0644"
-    directory_mode: "0755"
+    archive: true
+    checksum: true
 
 - name: "Hypr | chmod script files"
   when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.file:
     path: "{{ item }}"
-    mode: "a+x"
+    mode: "0755"
   with_fileglob:
     - "{{ ansible_facts['user_dir'] }}/.config/hypr/scripts/*"
 
@@ -107,22 +121,22 @@
   when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.config/hypr/gtk.sh"
-    mode: "a+x"
+    mode: "0755"
 
 - name: "Hypr | chmod sratrhypr.sh file"
   when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.config/hypr/starthypr.sh"
-    mode: "a+x"
+    mode: "0755"
 
 - name: "Hypr | chmod launch.sh file"
   when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.config/waybar/launch.sh"
-    mode: "a+x"
+    mode: "0755"
 
 - name: "Hypr | chmod logoutlaunch.sh file"
   when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/.config/wlogout/logoutlaunch.sh"
-    mode: "a+x"
+    mode: "0755"
