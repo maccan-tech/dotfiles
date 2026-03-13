@@ -55,6 +55,8 @@
       - qt5-qtstyleplugins
       # Qt6 dark mode — qt6ct provides a color-scheme-aware platform theme for Qt6 apps
       - qt6ct
+      # Icon theme with proper light-colored systray icons for dark environments
+      - papirus-icon-theme
     state: present
   become: true
 
