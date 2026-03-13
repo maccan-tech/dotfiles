@@ -47,10 +47,13 @@
       - Thunar
       - satty
       - hyprshot
-      #- nmcli
+      # - nmcli
       - NetworkManager
       - qrencode
       - swayosd
+      # Qt5 dark mode — lets QT_QPA_PLATFORMTHEME=gtk3 work for Qt5 apps
+      # Qt6 reads color-scheme from gsettings natively, no extra package needed
+      - qt5-qtstyleplugins
     state: present
   become: true
 
