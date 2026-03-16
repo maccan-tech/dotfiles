@@ -117,3 +117,17 @@
     dest: "{{ ansible_facts['user_dir'] }}/bin/t"
     mode: "0755"
   when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
+
+- name: ZSH | Copy mount-usb script
+  ansible.builtin.copy:
+    src: "mount-usb"
+    dest: "{{ ansible_facts['user_dir'] }}/bin/mount-usb"
+    mode: "0755"
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
+
+- name: ZSH | Copy umount-usb script
+  ansible.builtin.copy:
+    src: "umount-usb"
+    dest: "{{ ansible_facts['user_dir'] }}/bin/umount-usb"
+    mode: "0755"
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'

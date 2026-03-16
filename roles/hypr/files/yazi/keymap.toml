@@ -130,6 +130,8 @@ keymap = [
 	{ on = [ "g", "c" ],       run = "cd ~/.config",     desc = "Go ~/.config" },
 	{ on = [ "g", "d" ],       run = "cd ~/Downloads",   desc = "Go ~/Downloads" },
   { on = [ "g", "u" ],       run = "cd /run/media/maccan", desc = "Go USB/media" },
+  { on = [ "g", "U" ], run = "shell 'kitty --title mount-usb ~/bin/mount-usb' --confirm", desc = "Mount USB" },
+  { on = [ "g", "x" ], run = "shell 'kitty --title mount-usb ~/bin/umount-usb' --confirm", desc = "Unmount USB" },
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Jump interactively" },
 	{ on = [ "g", "f" ],       run = "follow",           desc = "Follow hovered symlink" },
 

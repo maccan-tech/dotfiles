@@ -1,0 +1,4 @@
+#!/bin/bash
+# ~/bin/umount-usb
+MOUNT=$(lsblk -rno MOUNTPOINT | grep "^/run/media" | fzf --prompt="Unmount: ")
+[ -n "$MOUNT" ] && udisksctl unmount -b $(findmnt -n -o SOURCE "$MOUNT")

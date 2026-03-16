@@ -1,0 +1,18 @@
+#!/bin/bash
+# ~/bin/mount-usb
+DEVICE=$(lsblk -J -o NAME,TYPE,MOUNTPOINT,VENDOR,MODEL,LABEL,SIZE \
+  | python3 -c "
+import json, sys
+data = json.load(sys.stdin)
+for d in data['blockdevices']:
+    if d['type'] == 'disk' and not d['mountpoint'] and not any(x in d['name'] for x in ['nvme','zram','sr']):
+        vendor = (d.get('vendor') or '').strip().replace('\\\\x20',' ')
+        model  = (d.get('model')  or '').strip().replace('\\\\x20',' ')
+        label  = (d.get('label')  or '').strip()
+        size   = d.get('size','?')
+        name   = label or model or vendor or d['name']
+        print(f\"/dev/{d['name']:<10}  {name:<20} ({size})\")
+" \
+  | fzf --prompt="Mount: " \
+  | awk '{print $1}')
+[ -n "$DEVICE" ] && udisksctl mount -b "$DEVICE"
