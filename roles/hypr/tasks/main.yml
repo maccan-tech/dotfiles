@@ -45,6 +45,7 @@
       - rofi-wayland
       - wayland-logout
       - Thunar
+      - yazi
       - satty
       - hyprshot
       # - nmcli
