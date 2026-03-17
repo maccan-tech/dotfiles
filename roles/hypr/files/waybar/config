@@ -44,6 +44,7 @@
     "tray",
     "custom/r_end",
     "custom/l_end",
+    "power-profiles-daemon",
     "custom/luminance",
     "battery",
     "network",
