@@ -44,7 +44,7 @@ listview {
     fixed-height:  true;
     fixed-columns: true;
     fixed-lines:   true;
-    border:        0 10 6 10;
+    border:        0;
 }
 
 entry {
