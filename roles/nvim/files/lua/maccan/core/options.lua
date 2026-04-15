@@ -41,18 +41,15 @@ opt.scrolloff = 10
 
 -- diagnostics
 vim.diagnostic.config({
-  virtual_text = {
-    prefix = "●",
-    source = "if_many",
-  },
-  float = {
-    border = "rounded",
-    source = true,
-  },
-  signs = true,
-  underline = true,
-  update_in_insert = false,
-  severity_sort = true,
+	virtual_text = false,
+	float = {
+		border = "rounded",
+		source = true,
+	},
+	signs = true,
+	underline = true,
+	update_in_insert = false,
+	severity_sort = true,
 })
 
 -- filetypes
