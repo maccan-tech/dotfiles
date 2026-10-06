@@ -7,7 +7,6 @@
 
 * {
   font-family: "JetBrains Mono Nerd Font";
-  font-weight: bold;
 }
 
 .control-center .notification-row:focus,
@@ -22,18 +21,38 @@
   margin: 0px;
 }
 
-.notification {
+.notification-row .notification-background {
+  padding: 4px 8px;
+}
+
+.notification-row .notification-background .notification {
   background: @noti-bg;
-  border-radius: 20px;
-  border: none;
-  box-shadow: 0px 0px 4px alpha(@noti-border-color, 0.5);
+  border-radius: 14px;
+  border: 1px solid alpha(@noti-border-color, 0.25);
+  box-shadow: 0px 2px 8px alpha(black, 0.35);
+}
+
+/* swaync's built-in style paints critical notifications solid red;
+   use a muted accent border and a faint tint instead */
+.notification-row .notification-background .notification.critical {
+  background: mix(@noti-bg-alt, @noti-critical, 0.12);
+  border: 1px solid alpha(@noti-critical, 0.6);
+  border-left: 4px solid @noti-critical;
+}
+
+.notification-row .notification-background .notification.critical .summary {
+  color: @noti-critical;
 }
 
 .notification-content {
   background: transparent;
-  padding: 3px 10px 3px 6px;
-  border-radius: 20px;
+  padding: 6px 10px 6px 8px;
+  border-radius: 14px;
   margin: 0px;
+}
+
+.notification-content .image {
+  margin-right: 8px;
 }
 
 .notification-default-action {
@@ -43,7 +62,7 @@
 }
 
 .close-button {
-  background: @noti-close-bg;
+  background: alpha(@noti-close-bg, 0.7);
   color: @noti-bg;
   text-shadow: none;
   padding: 0;
@@ -131,7 +150,7 @@
 }
 
 .summary {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: bold;
   background: transparent;
   color: @text-color;
@@ -139,19 +158,19 @@
 }
 
 .time {
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 0.8rem;
+  font-weight: normal;
   background: transparent;
-  color: @text-color;
+  color: alpha(@text-color, 0.6);
   text-shadow: none;
   margin-right: 18px
 }
 
 .body {
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 0.9rem;
+  font-weight: normal;
   background: transparent;
-  color: @text-color;
+  color: alpha(@text-color, 0.8);
   text-shadow: none
 }
 

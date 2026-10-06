@@ -7,6 +7,7 @@
  *   @noti-bg-hover    - hover state background
  *   @noti-border-color - border and accent color
  *   @text-color       - primary text
+ *   @noti-critical    - accent for critical notifications
  */
 
 @define-color noti-bg             rgba(30, 31, 35, 0.85);
@@ -15,3 +16,4 @@
 @define-color noti-border-color   #9CAF9F;
 @define-color noti-close-bg       #C97F7F;
 @define-color text-color          #CFC3B4;
+@define-color noti-critical       #C97F7F;
