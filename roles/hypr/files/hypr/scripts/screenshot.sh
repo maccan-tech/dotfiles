@@ -13,7 +13,7 @@ option4="Fullscreen (delay 1 sec)"
 
 options="$option2\n$option3\n$option4"
 
-choice=$(echo -e "$options" | rofi -dmenu -i -no-show-icons -config ~/.config/rofi/config-singlecol.rasi -l 4 -width 30 -p "Take Screenshot")
+choice=$(echo -e "$options" | rofi -dmenu -i -no-show-icons -config ~/.config/rofi/config-singlecol.rasi -l 3 -p "Screenshot")
 
 case $choice in
     $option2)
@@ -45,5 +45,4 @@ case $choice in
           --copy-command 'wl-copy'
     ;;
 esac
-u-l 4 -width 30 -p "Take Screenshot")
 
