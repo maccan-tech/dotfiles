@@ -1,10 +1,13 @@
+/* Nordic Mist, same palette as waybar/themes/nordic-mist.css */
 @define-color bar-bg rgba(0, 0, 0, 0);
 
-@define-color main-bg #11111b;
-@define-color main-fg #cdd6f4;
+@define-color overlay-bg rgba(30, 31, 35, 0.60);
 
-@define-color wb-act-bg #a6adc8;
-@define-color wb-act-fg #313244;
+@define-color main-bg #2A2B30;
+@define-color main-fg #CFC3B4;
 
-@define-color wb-hvr-bg #3e8fb0;
-@define-color wb-hvr-fg #313244;
+@define-color wb-act-bg #9CAF9F;
+@define-color wb-act-fg #1E1F23;
+
+@define-color wb-hvr-bg #333440;
+@define-color wb-hvr-fg #CFC3B4;

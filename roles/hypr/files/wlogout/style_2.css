@@ -1,82 +1,94 @@
+/* 2x2 block of cards, Nordic Mist colors to match waybar. Card size,
+   centering, margins and radius come from logoutlaunch.sh. Cards touch each
+   other; only the outer corners of the block are rounded. A hovered card
+   drops its outer margin and grows outwards with all corners rounded. */
 * {
     background-image: none;
-    font-size: ${fntSize}px;
+    font-family: "JetBrainsMono Nerd Font";
+    font-weight: bold;
+    font-size: 18px;
 }
 
 @import "$HOME/.config/wlogout/theme.css";
 
 window {
-    background-color: transparent;
+    background-color: @overlay-bg;
 }
 
 button {
-    color: ${BtnCol};
+    color: @main-fg;
     background-color: @main-bg;
-    outline-style: none;
-    border: none;
-    border-width: 0px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 10%;
+    border: 2px solid @main-bg;
     border-radius: 0px;
+    padding: 0;
+    min-width: ${card_min}px;
+    min-height: ${card_min}px;
+    outline-style: none;
     box-shadow: none;
     text-shadow: none;
-    animation: gradient_f 20s ease-in infinite;
+    background-repeat: no-repeat;
+    background-position: center 40%;
+    background-size: 28%;
+    transition: all 0.2s ease;
 }
 
 button:focus {
-    background-color: @wb-act-bg;
-    background-size: 20%;
+    border-color: @wb-act-bg;
 }
 
 button:hover {
     background-color: @wb-hvr-bg;
-    background-size: 25%;
-    border-radius: ${active_rad}px;
-    animation: gradient_f 20s ease-in infinite;
-    transition: all 0.3s cubic-bezier(.55,0.0,.28,1.682);
+    border-color: @wb-act-bg;
+    min-width: ${hvr_card_min}px;
+    min-height: ${hvr_card_min}px;
+    background-size: 32%;
 }
 
-button:hover#lock {
-    border-radius: ${active_rad}px ${active_rad}px 0px ${active_rad}px;
-    margin : ${y_hvr}px 0px 0px ${x_hvr}px;
-}
-
-button:hover#logout {
-    border-radius: ${active_rad}px 0px ${active_rad}px ${active_rad}px;
-    margin : 0px 0px ${y_hvr}px ${x_hvr}px;
-}
-
-button:hover#shutdown {
-    border-radius: ${active_rad}px ${active_rad}px ${active_rad}px 0px;
-    margin : ${y_hvr}px ${x_hvr}px 0px 0px;
-}
-
-button:hover#reboot {
-    border-radius: 0px ${active_rad}px ${active_rad}px ${active_rad}px;
-    margin : 0px ${x_hvr}px ${y_hvr}px 0px;
-}
-
+/* Outer margins and corners per position (top right bottom left) */
 #lock {
-    background-image: image(url("$HOME/.config/wlogout/icons/lock_${BtnCol}.png"), url("/usr/share/wlogout/icons/lock.png"), url("/usr/local/share/wlogout/icons/lock.png"));
-    border-radius: ${button_rad}px 0px 0px 0px;
-    margin : ${y_mgn}px 0px 0px ${x_mgn}px;
-}
-
-#logout {
-    background-image: image(url("$HOME/.config/wlogout/icons/logout_${BtnCol}.png"), url("/usr/share/wlogout/icons/logout.png"), url("/usr/local/share/wlogout/icons/logout.png"));
-    border-radius: 0px 0px 0px ${button_rad}px;
-    margin : 0px 0px ${y_mgn}px ${x_mgn}px;
+    margin: ${inset}px 0px 0px ${inset}px;
+    border-radius: ${radius}px 0px 0px 0px;
+    background-image: image(url("$HOME/.config/wlogout/icons/lock_white.png"), url("/usr/share/wlogout/icons/lock.png"));
 }
 
 #shutdown {
-    background-image: image(url("$HOME/.config/wlogout/icons/shutdown_${BtnCol}.png"), url("/usr/share/wlogout/icons/shutdown.png"), url("/usr/local/share/wlogout/icons/shutdown.png"));
-    border-radius: 0px ${button_rad}px 0px 0px;
-    margin : ${y_mgn}px ${x_mgn}px 0px 0px;
+    margin: ${inset}px ${inset}px 0px 0px;
+    border-radius: 0px ${radius}px 0px 0px;
+    background-image: image(url("$HOME/.config/wlogout/icons/shutdown_white.png"), url("/usr/share/wlogout/icons/shutdown.png"));
+}
+
+#logout {
+    margin: 0px 0px ${inset}px ${inset}px;
+    border-radius: 0px 0px 0px ${radius}px;
+    background-image: image(url("$HOME/.config/wlogout/icons/logout_white.png"), url("/usr/share/wlogout/icons/logout.png"));
 }
 
 #reboot {
-    background-image: image(url("$HOME/.config/wlogout/icons/reboot_${BtnCol}.png"), url("/usr/share/wlogout/icons/reboot.png"), url("/usr/local/share/wlogout/icons/reboot.png"));
-    border-radius: 0px 0px ${button_rad}px 0px;
-    margin : 0px ${x_mgn}px ${y_mgn}px 0px;
+    margin: 0px ${inset}px ${inset}px 0px;
+    border-radius: 0px 0px ${radius}px 0px;
+    background-image: image(url("$HOME/.config/wlogout/icons/reboot_white.png"), url("/usr/share/wlogout/icons/reboot.png"));
+}
+
+/* Id selectors win over button:hover, so the hover margin/radius go here.
+   The corner at the centre of the block stays square, and the two corners
+   next to the neighbouring cards use ${inset} so the curve ends exactly
+   where the neighbour starts; otherwise a small gap shows. */
+#lock:hover, #shutdown:hover, #logout:hover, #reboot:hover {
+    margin: 0px;
+}
+
+#lock:hover {
+    border-radius: ${radius}px ${inset}px 0px ${inset}px;
+}
+
+#shutdown:hover {
+    border-radius: ${inset}px ${radius}px ${inset}px 0px;
+}
+
+#logout:hover {
+    border-radius: ${inset}px 0px ${inset}px ${radius}px;
+}
+
+#reboot:hover {
+    border-radius: 0px ${inset}px ${radius}px ${inset}px;
 }

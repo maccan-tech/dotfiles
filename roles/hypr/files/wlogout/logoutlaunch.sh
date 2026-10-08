@@ -44,13 +44,27 @@ case "${wlogoutStyle}" in
     export hvr=$((y_mon * 23 / hypr_scale))
     ;;
 2)
+    # Centered 2x2 block of cards touching each other. Each card has a margin
+    # of ${inset} on its two outer sides only; hover drops that margin and adds
+    # it to min-width/min-height, so the card grows outwards while its cell
+    # (and therefore the neighbouring cards) stays put
     wlColms=2
-    export x_mgn=$((x_mon * 35 / hypr_scale))
-    export y_mgn=$((y_mon * 25 / hypr_scale))
-    export x_hvr=$((x_mon * 32 / hypr_scale))
-    export y_hvr=$((y_mon * 20 / hypr_scale))
+    x_log=$((x_mon * 100 / hypr_scale))
+    y_log=$((y_mon * 100 / hypr_scale))
+    card=$((y_log * 20 / 100))
+    border=2
+    export inset=16
+    export radius=24
+    # min-width/min-height exclude the border
+    export card_min=$((card - 2 * border))
+    export hvr_card_min=$((card_min + inset))
+    cell=$((card + inset))
+    side=$(((x_log - wlColms * cell) / 2))
+    vert=$(((y_log - 2 * cell) / 2))
+    wlSpacing=(-c 0 -r 0 -L "${side}" -R "${side}" -T "${vert}" -B "${vert}")
     ;;
 esac
+[ "${#wlSpacing[@]}" -eq 0 ] && wlSpacing=(-c 0 -r 0 -m 0)
 
 #// scale font size
 
@@ -86,4 +100,4 @@ wlStyle="$(envsubst <"${wlTmplt}")"
 
 #// launch wlogout
 
-wlogout -b "${wlColms}" -c 0 -r 0 -m 0 --layout "${wLayout}" --css <(echo "${wlStyle}") --protocol layer-shell
+wlogout -b "${wlColms}" "${wlSpacing[@]}" --layout "${wLayout}" --css <(echo "${wlStyle}") --protocol layer-shell
