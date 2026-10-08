@@ -14,7 +14,7 @@
   args:
     creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:{{ item.repo | replace('/', ':') }}.repo
   loop:
-    - { repo: "solopasha/hyprland" }
+    - { repo: "lionheartp/Hyprland" }
     - { repo: "erikreider/swayosd" }
     - { repo: "lihaohong/yazi" }
   become: true
