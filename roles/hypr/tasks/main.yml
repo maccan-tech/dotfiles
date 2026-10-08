@@ -39,6 +39,8 @@
       - hyprcursor
       - hyprsysteminfo
       - hyprland-guiutils
+      - ImageMagick
+      - jq
       - SwayNotificationCenter
       - cliphist
       - slurp
@@ -122,6 +124,41 @@
     dest: "{{ ansible_facts['user_dir'] }}/.config"
     archive: true
     checksum: true
+    # Wallpapers are pictures, not config; they go to ~/Pictures/Wallpapers
+    rsync_opts:
+      - "--exclude=/wallpaper/"
+
+- name: "Hypr | Copy wallpapers"
+  when: ansible_facts['os_family'] == 'RedHat'
+  ansible.builtin.copy:
+    src: "wallpaper/"
+    dest: "{{ ansible_facts['user_dir'] }}/Pictures/Wallpapers/"
+    mode: "0644"
+    directory_mode: "0755"
+
+- name: "Hypr | Create wallpaper state directory"
+  when: ansible_facts['os_family'] == 'RedHat'
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.local/state/wallpaper"
+    state: directory
+    mode: "0755"
+
+- name: "Hypr | Check current wallpaper link"
+  when: ansible_facts['os_family'] == 'RedHat'
+  ansible.builtin.stat:
+    path: "{{ ansible_facts['user_dir'] }}/.local/state/wallpaper/current"
+  register: hypr_current_wallpaper
+
+# hyprpaper.conf and hyprlock.conf read this link; only set a default so a
+# wallpaper chosen with Alt+W is kept
+- name: "Hypr | Set default wallpaper"
+  when:
+    - ansible_facts['os_family'] == 'RedHat'
+    - not hypr_current_wallpaper.stat.exists
+  ansible.builtin.file:
+    src: "{{ ansible_facts['user_dir'] }}/Pictures/Wallpapers/fog_forest_mono.png"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/state/wallpaper/current"
+    state: link
 
 # Hyprland 0.55+ uses hyprland.lua; synchronize does not delete files, so the
 # legacy hyprlang config would otherwise linger next to the Lua config
