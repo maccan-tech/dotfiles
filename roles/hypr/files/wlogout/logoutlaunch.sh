@@ -32,7 +32,9 @@ fi
 
 x_mon=$(hyprctl -j monitors | jq '.[] | select(.focused==true) | .width')
 y_mon=$(hyprctl -j monitors | jq '.[] | select(.focused==true) | .height')
-hypr_scale=$(hyprctl -j monitors | jq '.[] | select (.focused == true) | .scale' | sed 's/\.//')
+# Scale as a percentage (1.25 -> 125). Computed in jq because newer Hyprland
+# prints whole scales as "1" instead of "1.00", which broke stripping the dot
+hypr_scale=$(hyprctl -j monitors | jq '.[] | select (.focused == true) | .scale * 100 | round')
 #// scale config layout and style
 
 case "${wlogoutStyle}" in
