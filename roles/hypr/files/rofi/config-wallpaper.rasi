@@ -1,8 +1,8 @@
-@theme "~/.config/rofi/themes/nordic-mist.rasi"
+@theme "~/.config/rofi/shared.rasi"
 
-/* Wallpaper picker (hypr/scripts/wallpaper-grid.sh): grid of square
-   thumbnails. The highlighted card gets a green frame instead of a filled
-   background, and the current wallpaper is marked with a subtle frame. */
+/* Wallpaper picker (hypr/scripts/wallpaper-grid.sh, Alt+W): grid of square
+   thumbnails. Look comes from shared.rasi; the current wallpaper is the
+   "active" row, marked with a subtle frame. */
 
 configuration {
     show-icons: true;
@@ -10,94 +10,39 @@ configuration {
 }
 
 window {
-    width:            1360px;
-    border-radius:    12px;
-    padding:          12px;
-}
-
-mainbox {
-    children: [ inputbar, listview ];
-    spacing:  12px;
-    padding:  0px;
-}
-
-inputbar {
-    children:         [ prompt, entry ];
-    spacing:          10px;
-    padding:          10px 14px;
-    border-radius:    8px;
-    background-color: @cur;
-}
-
-prompt {
-    text-color:       @grn;
-    background-color: transparent;
-}
-
-entry {
-    placeholder:       "Search...";
-    placeholder-color: @cmt;
-    background-color:  transparent;
+    width: 1360px;
 }
 
 listview {
-    columns:      5;
-    lines:        2;
-    border:       0px;
-    spacing:      12px;
-    padding:      0px;
-    fixed-height: true;
+    columns:       5;
+    lines:         2;
+    spacing:       12px;
+    fixed-height:  true;
     fixed-columns: true;
-    cycle:        false;
-    flow:         horizontal;
+    cycle:         false;
+    flow:          horizontal;
 }
 
 element {
-    orientation:      vertical;
-    spacing:          8px;
-    padding:          8px;
-    border:           3px;
-    border-radius:    12px;
-    border-color:     transparent;
-    background-color: @bg;
-    cursor:           pointer;
+    orientation:   vertical;
+    spacing:       8px;
+    padding:       8px;
+    border:        3px;
+    border-radius: 12px;
 }
 
 element-icon {
     size:             240px;
     border-radius:    8px;
-    background-color: transparent;
     horizontal-align: 0.5;
 }
 
 element-text {
     font:             "JetBrainsMono Nerd Font 10";
     horizontal-align: 0.5;
-    background-color: transparent;
-    text-color:       inherit;
 }
 
-/* Override the filled highlight from the theme */
+/* Unselected names are dimmed so the thumbnails stand out */
 element normal.normal, element alternate.normal {
-    background-color: @bg;
-    text-color:       @cmt;
-}
-
-element selected.normal {
-    background-color: @cur;
-    border-color:     @grn;
-    text-color:       @fgd;
-}
-
-/* Current wallpaper */
-element normal.active, element alternate.active {
-    background-color: @bg;
-    border-color:     @cmt;
-    text-color:       @fgd;
-}
-
-element selected.active {
-    background-color: @cur;
-    border-color:     @grn;
-    text-color:       @grn;
+    text-color: @cmt;
 }

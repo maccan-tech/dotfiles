@@ -1,63 +1,21 @@
-@theme "~/.config/rofi/themes/nordic-mist.rasi"
+@theme "~/.config/rofi/shared.rasi"
+
+/* Single column text menus: keybindings (Alt+Shift+K), screenshot (Alt+P),
+   brightness. Look comes from shared.rasi. */
 
 configuration {
-    show-icons:   true;
-    icon-theme:   "Papirus";
-    location:     0;
-    font:         "JetBrainsMono Nerd Font 12";
-    display-drun: "Launch:";
+    show-icons: false;
+    location:   0;
+    font:       "JetBrainsMono Nerd Font 12";
 }
 
 window {
-    width:        35%;
-    transparency: "real";
-    orientation:  vertical;
-    border-radius: 10px;
-}
-
-mainbox {
-    children: [inputbar, listview];
-}
-
-element {
-    padding:       4 12;
-    border-radius: 5px;
-}
-
-element-text {
-    background-color: inherit;
-    text-color:       inherit;
-}
-
-element-icon {
-    size:             16px;
-    background-color: inherit;
-    padding:          0 6 0 0;
-    alignment:        vertical;
+    width: 35%;
 }
 
 listview {
-    columns:       1;
-    lines:         9;
-    scrollbar:     false;
-    padding:       8 0;
-    fixed-height:  true;
-    fixed-columns: true;
-    fixed-lines:   true;
-    border:        0;
-}
-
-entry {
-    padding: 10 10 0 0;
-    margin:  0 -2 0 0;
-}
-
-inputbar {
-    padding: 0 0 0 0;
-    margin:  0 0 0 0;
-}
-
-prompt {
-    padding: 10 6 0 10;
-    margin:  0 -2 0 0;
+    columns:      1;
+    lines:        9;
+    fixed-height: false;
+    dynamic:      true;
 }

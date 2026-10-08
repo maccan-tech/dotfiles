@@ -1,0 +1,25 @@
+@theme "~/.config/rofi/shared.rasi"
+
+/* Network menu (hyprltm-net, Alt+N). Selected through
+   ~/.config/hyprltm/hyprltm-net.conf so it does not depend on the theme
+   files hyprltm-net ships. Look comes from shared.rasi. */
+
+configuration {
+    show-icons: false;
+    font:       "JetBrainsMono Nerd Font 12";
+}
+
+window {
+    width: 35%;
+}
+
+listview {
+    columns:      1;
+    lines:        12;
+    fixed-height: false;
+    dynamic:      true;
+}
+
+element {
+    children: [ element-text ];
+}

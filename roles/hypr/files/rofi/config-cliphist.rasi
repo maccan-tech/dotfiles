@@ -1,1 +1,28 @@
-@theme "~/.config/rofi/themes/nordic-mist.rasi"
+@theme "~/.config/rofi/shared.rasi"
+
+/* Clipboard history (Alt+C). Look comes from shared.rasi. */
+
+configuration {
+    show-icons: false;
+    location:   0;
+    font:       "JetBrainsMono Nerd Font 12";
+}
+
+window {
+    width: 45%;
+}
+
+entry {
+    placeholder: "Search clipboard...";
+}
+
+listview {
+    columns:      1;
+    lines:        10;
+    fixed-height: true;
+}
+
+element-text {
+    /* Long entries are cut instead of wrapping onto several lines */
+    font: "JetBrainsMono Nerd Font 11";
+}

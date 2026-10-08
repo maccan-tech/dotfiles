@@ -11,7 +11,7 @@ option5="100 %"
 # options passed to variable
 options="$option0\n$option1\n$option2\n$option3\n$option4\n$option5"
 
-selected="$(echo -e "$options" | rofi -lines 5 -dmenu -p "Backlight")"
+selected="$(echo -e "$options" | rofi -dmenu -i -l 6 -config ~/.config/rofi/config-singlecol.rasi -p "Backlight")"
 case $selected in
     $option0)
       brightnessctl set 2%;;

@@ -1,0 +1,129 @@
+/* Shared look for all rofi menus: Nordic Mist colors, search field and
+   messages in their own cards, framed highlight instead of a filled one.
+   Each config-*.rasi imports this and only sets size/layout. */
+
+@import "~/.config/rofi/themes/nordic-mist.rasi"
+
+* {
+    /* Used by hyprltm-net (Alt+N) for status messages */
+    message-background: @cur;
+    message-border:     @cur;
+    message-text:       @fgd;
+    error-message:      @red;
+    warning-message:    @ora;
+    success-message:    @grn;
+    info-message:       @cya;
+}
+
+window {
+    transparency:  "real";
+    location:      center;
+    border:        3px;
+    border-color:  @grn;
+    border-radius: 12px;
+    padding:       12px;
+}
+
+mainbox {
+    children: [ inputbar, message, listview ];
+    spacing:  12px;
+    padding:  0px;
+    border:   0px;
+}
+
+inputbar {
+    children:         [ prompt, entry ];
+    spacing:          10px;
+    padding:          10px 14px;
+    border-radius:    8px;
+    background-color: @cur;
+}
+
+prompt {
+    text-color:       @grn;
+    background-color: transparent;
+}
+
+entry {
+    placeholder:       "Search...";
+    placeholder-color: @cmt;
+    text-color:        @fgd;
+    background-color:  transparent;
+}
+
+message {
+    padding:          10px 14px;
+    border:           2px;
+    border-radius:    8px;
+    border-color:     @message-border;
+    background-color: @message-background;
+}
+
+textbox {
+    text-color:       @message-text;
+    background-color: transparent;
+}
+
+listview {
+    border:    0px;
+    spacing:   4px;
+    padding:   0px;
+    scrollbar: false;
+}
+
+element {
+    spacing:          10px;
+    padding:          6px 10px;
+    border:           2px;
+    border-radius:    8px;
+    border-color:     transparent;
+    background-color: @bg;
+    cursor:           pointer;
+}
+
+element-icon {
+    background-color: transparent;
+    vertical-align:   0.5;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+    highlight:        bold #D6A65C;
+    vertical-align:   0.5;
+}
+
+/* Override the filled highlight from the theme */
+element normal.normal, element alternate.normal {
+    background-color: @bg;
+    text-color:       @fgd;
+}
+
+element selected.normal {
+    background-color: @cur;
+    border-color:     @grn;
+    text-color:       @fgd;
+}
+
+element normal.active, element alternate.active {
+    background-color: @bg;
+    border-color:     @cmt;
+    text-color:       @grn;
+}
+
+element selected.active {
+    background-color: @cur;
+    border-color:     @grn;
+    text-color:       @grn;
+}
+
+element normal.urgent, element alternate.urgent {
+    background-color: @bg;
+    text-color:       @red;
+}
+
+element selected.urgent {
+    background-color: @cur;
+    border-color:     @red;
+    text-color:       @red;
+}
