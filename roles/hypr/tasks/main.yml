@@ -38,6 +38,7 @@
       - hyprutils
       - hyprcursor
       - hyprsysteminfo
+      - hyprsunset
       - hyprland-guiutils
       - ImageMagick
       - jq
