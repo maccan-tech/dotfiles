@@ -1,0 +1,15 @@
+------------------------------
+-- General window layout and colors
+------------------------------
+
+hl.config({
+    general = {
+        gaps_in     = 4,
+        gaps_out    = 8,
+        border_size = 1,
+        col = {
+            active_border = "rgba(cc5500ff)",
+        },
+        layout = "dwindle",
+    },
+})

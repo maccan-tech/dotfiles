@@ -112,6 +112,26 @@
     archive: true
     checksum: true
 
+# Hyprland 0.55+ uses hyprland.lua; synchronize does not delete files, so the
+# legacy hyprlang config would otherwise linger next to the Lua config
+- name: "Hypr | Remove legacy hyprlang config files"
+  when: ansible_facts['os_family'] == 'RedHat'
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config/hypr/{{ item }}"
+    state: absent
+  loop:
+    - "hyprland.conf"
+    - "conf/animations.conf"
+    - "conf/autostart.conf"
+    - "conf/decoration.conf"
+    - "conf/environment.conf"
+    - "conf/keybindings.conf"
+    - "conf/keyboard.conf"
+    - "conf/layouts.conf"
+    - "conf/misc.conf"
+    - "conf/window.conf"
+    - "conf/windowrules.conf"
+
 - name: "Hypr | chmod script files"
   when: ansible_facts['os_family'] == 'RedHat'
   ansible.builtin.file:
