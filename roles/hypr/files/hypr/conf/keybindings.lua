@@ -38,7 +38,7 @@ hl.bind(key("J"), hl.dsp.focus({ direction = "d" }), { description = "Focus down
 
 hl.bind(key("PRINT"), hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh"), { description = "Screenshot" })
 hl.bind(key("P"), hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh"), { description = "Screenshot" })
-hl.bind(key("CTRL + Q"), hl.dsp.exec_cmd("wlogout"), { description = "Logout menu" })
+hl.bind(key("CTRL + Q"), hl.dsp.exec_cmd("~/.config/wlogout/logoutlaunch.sh 2"), { description = "Logout menu" })
 hl.bind(key("W"), hl.dsp.exec_cmd("~/.config/hypr/scripts/wallpaper-grid.sh"), { description = "Choose wallpaper" })
 hl.bind(key("SPACE"), hl.dsp.exec_cmd(menu), { description = "App launcher" })
 hl.bind(key("SHIFT + B"), hl.dsp.exec_cmd("sh -c '~/.config/waybar/launch.sh; pkill swaync; swaync & pkill swayosd-server; swayosd-server &'"), { description = "Restart waybar, swaync and swayosd" })
