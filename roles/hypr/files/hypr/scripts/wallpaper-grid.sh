@@ -55,8 +55,16 @@ CONFIG_DIR="$HOME/.config/hypr"
 mkdir -p "$CONFIG_DIR"
 CONFIG_FILE="$CONFIG_DIR/hyprpaper.conf"
 
-echo "preload = $WALLPAPER_PATH" > "$CONFIG_FILE"
-echo "wallpaper = $MONITOR,$WALLPAPER_PATH" >> "$CONFIG_FILE"
+cat > "$CONFIG_FILE" <<EOF
+wallpaper {
+    monitor = $MONITOR
+    path = $WALLPAPER_PATH
+    fit_mode = cover
+}
+
+splash = false
+ipc = off
+EOF
 
 killall hyprpaper 2>/dev/null
 hyprpaper &
