@@ -39,7 +39,6 @@
       - hyprcursor
       - hyprsysteminfo
       - hyprland-guiutils
-      - waybar
       - SwayNotificationCenter
       - cliphist
       - slurp
@@ -55,6 +54,18 @@
       - swayosd
       - papirus-icon-theme
     state: present
+  become: true
+
+# waybar 0.15.0 sends hyprlang dispatch commands, so clicking a workspace
+# does nothing with the Lua config. Fixed upstream (Waybar PR #5013/#5231)
+# but not yet released; waybar-git from the lionheartp copr has the fix and
+# conflicts with waybar, hence allowerasing.
+- name: "Hypr | Install waybar-git (replaces waybar)"
+  when: ansible_facts['os_family'] == 'RedHat'
+  ansible.builtin.dnf5:
+    name: "waybar-git"
+    state: present
+    allowerasing: true
   become: true
 
 - name: "Hypr | Enable and start swayosd-libinput-backend service"
