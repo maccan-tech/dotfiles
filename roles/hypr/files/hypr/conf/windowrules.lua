@@ -7,6 +7,10 @@ local function rule(match, effects)
     hl.window_rule(effects)
 end
 
+-- Ignore maximize requests from apps (kitty asks to be maximized on open,
+-- which covered the whole workspace instead of tiling)
+rule({ class = ".*" }, { suppress_event = "maximize" })
+
 -- rule({ class = ".*" }, { opacity = "0.89 override 0.89 override" }) -- Applies transparency to EVERY WINDOW
 rule({ class = "^(Thorium-browser)$" }, { opacity = "0.90 0.80" })
 rule({ class = "^(Thorium-browser)$", title = "(YouTube)(.*)$" }, { opacity = "1.0 override 1.0" })
