@@ -38,6 +38,7 @@
       - hyprutils
       - hyprcursor
       - hyprsysteminfo
+      - hyprland-guiutils
       - waybar
       - SwayNotificationCenter
       - cliphist
