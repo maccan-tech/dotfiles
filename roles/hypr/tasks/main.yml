@@ -94,12 +94,17 @@
     - "{{ ansible_facts['user_dir'] }}/.local/bin"
     - "{{ ansible_facts['user_dir'] }}/.config/rofi/themes"
 
+# hyprltm-net >= 0.5 sources modules/*.sh next to its own path, so run it
+# from the clone instead of copying the script on its own. The script is not
+# executable in the repo, hence the bash wrapper.
 - name: "Hypr | Install hyprltm-net executable"
   ansible.builtin.copy:
-    src: "{{ ansible_facts['user_dir'] }}/github/hyprltm-net/hyprltm-net.sh"
+    content: |
+      #!/bin/sh
+      exec bash "{{ ansible_facts['user_dir'] }}/github/hyprltm-net/hyprltm-net.sh" "$@"
     dest: "{{ ansible_facts['user_dir'] }}/.local/bin/hyprltm-net"
     mode: "0755"
-    remote_src: true
+    follow: false
 
 - name: "Hypr | Find hyprltm-net rofi themes"
   ansible.builtin.find:
