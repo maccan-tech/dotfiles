@@ -48,6 +48,7 @@ hl.bind(key("SHIFT + E"), hl.dsp.exec_cmd(fileManager2), { description = "File m
 hl.bind(key("N"), hl.dsp.exec_cmd("~/.local/bin/hyprltm-net"), { description = "Network menu" })
 hl.bind(key("C"), hl.dsp.exec_cmd("~/.config/hypr/scripts/cliphist.sh"), { description = "Clipboard history" }) -- Show clipboard history
 hl.bind(key("I"), hl.dsp.exec_cmd("hyprsysteminfo"), { description = "System info" })
+hl.bind(key("SHIFT + S"), hl.dsp.exec_cmd("~/.config/hypr/scripts/settings.sh"), { description = "Settings" })
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
