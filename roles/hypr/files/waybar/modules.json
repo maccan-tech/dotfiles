@@ -154,7 +154,7 @@
         "tooltip": false
     },
     "custom/appmenu": {
-        "format": " ",
+        "format": "",
         "tooltip": false,
         // Control center: a popup menu, items are defined in control-center.xml
         "menu": "on-click",
@@ -182,26 +182,6 @@
             "reboot": "systemctl reboot",
             "shutdown": "systemctl poweroff"
         }
-    },
-
-// modules for padding //
-
-    "custom/l_end": {
-        "format": " ",
-        "interval" : "once",
-        "tooltip": false
-    },
-
-    "custom/r_end": {
-        "format": " ",
-        "interval" : "once",
-        "tooltip": false
-    },
-
-    "custom/padd": {
-        "format": "  ",
-        "interval" : "once",
-        "tooltip": false
     },
 
   "power-profiles-daemon": {

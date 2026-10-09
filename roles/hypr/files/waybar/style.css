@@ -37,118 +37,106 @@ tooltip {
   padding-right: 3px;
 }
 
-#workspaces button {
+/* -----------------------------------------------------
+ * Pills: each group of modules is one fully rounded pill.
+ * A large radius is clamped by GTK to half the height,
+ * so the ends stay round whatever the bar size.
+ * ----------------------------------------------------- */
+#custom-appmenu,
+#taskbar,
+#workspaces,
+#tray,
+#system,
+#session {
+  color: @text-primary;
+  background: @bg-module;
+  border-radius: 99px;
+  margin: 4px 3px;
+  padding: 0px 4px;
+}
+
+/* Space to the screen edges */
+#custom-appmenu {
+  margin-left: 6px;
+}
+
+#session {
+  margin-right: 6px;
+}
+
+/* Modules inside a group are drawn by the group's pill */
+#power-profiles-daemon,
+#custom-luminance,
+#battery,
+#network,
+#bluetooth,
+#pulseaudio,
+#custom-notification,
+#clock,
+#custom-power {
+  color: @text-primary;
+  background: transparent;
+  padding: 0px 6px;
+}
+
+/* The logo is a circle of its own */
+#custom-appmenu {
+  /* The Nerd Font glyph sits right of its own center; more padding on the
+     right puts the logo in the middle of the pill */
+  padding: 0px 13px 0px 9px;
+}
+
+/* -----------------------------------------------------
+ * Highlights: a circle (or pill for text) behind the
+ * active item, inside its pill
+ * ----------------------------------------------------- */
+#workspaces button,
+#taskbar button {
+  color: @text-primary;
+  background: transparent;
   box-shadow: none;
   text-shadow: none;
+  border-radius: 99px;
+  min-width: 20px;
   padding: 0px;
-  border-radius: 7px;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  padding-left: 3px;
-  padding-right: 3px;
-  color: @text-primary;
-  transition: all 0.5s cubic-bezier(.55, -0.68, .48, 1.682);
-}
-
-#workspaces button.active {
-  background: @bg-active;
-  color: @text-on-accent;
-  margin-left: 3px;
-  padding-left: 8px;
-  padding-right: 8px;
-  margin-right: 3px;
-  transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
-}
-
-#workspaces button:hover {
-  background: @bg-hover;
-  color: @text-on-accent;
-  padding-left: 3px;
-  padding-right: 3px;
-  transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
+  margin: 3px 1px;
+  transition: all 0.3s ease;
 }
 
 #taskbar button {
-  box-shadow: none;
-  text-shadow: none;
-  padding: 0px;
-  border-radius: 9px;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  padding-left: 3px;
-  padding-right: 3px;
-  color: @text-primary;
-  transition: all 0.5s cubic-bezier(.55, -0.68, .48, 1.682);
+  min-width: 22px;
+  margin: 2px 1px;
 }
 
+#workspaces button.active,
 #taskbar button.active {
   background: @bg-active;
   color: @text-on-accent;
-  margin-left: 3px;
-  padding-left: 12px;
-  padding-right: 12px;
-  margin-right: 3px;
-  transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
 }
 
+#workspaces button:hover,
 #taskbar button:hover {
   background: @bg-hover;
   color: @text-primary;
-  padding-left: 3px;
-  padding-right: 3px;
-  transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
 }
 
-#custom-notification,
-#battery,
-#bluetooth,
-#custom-luminance,
-#clock,
-#network,
-#custom-power,
-#pulseaudio,
-#taskbar,
-#tray,
-#workspaces,
-#custom-appmenu,
-#custom-l_end,
-#custom-r_end {
-  color: @text-primary;
-  background: @bg-module;
-  opacity: 1;
-  margin: 4px 0px 4px 0px;
-  padding-left: 4px;
-  padding-right: 4px;
+#workspaces button.active:hover,
+#taskbar button.active:hover {
+  background: @bg-active;
+  color: @text-on-accent;
 }
 
-#workspaces,
-#taskbar {
-  padding: 0px;
+#workspaces button.urgent {
+  background: @color-urgent;
+  color: @text-on-accent;
 }
 
-#power-profiles-daemon {
-  color: @text-primary;
-  background: @bg-module;
-  margin: 4px 0px 4px 0px;
-  padding-left: 0px;
-  padding-right: 10px;
-}
-
-#custom-appmenu {
-  padding-left: 10px;
-  font-size: 12px;
-}
-
-#custom-r_end {
-  border-radius: 0px 9px 9px 0px;
-  margin-right: 5px;
-  padding-right: 3px;
-}
-
-#custom-l_end {
-  border-radius: 9px 0px 0px 9px;
-  margin-left: 5px;
-  padding-left: 3px;
+/* The time stands out in a pill of its own, like the active workspace */
+#clock {
+  background: @bg-hover;
+  border-radius: 99px;
+  margin: 3px 2px;
+  padding: 0px 10px;
 }
 
 /* Control center menu (custom/appmenu, control-center.xml) */

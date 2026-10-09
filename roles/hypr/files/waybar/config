@@ -17,46 +17,42 @@
   "passthrough": false,
 
 
-	"modules-left": [
-    "custom/padd",
-    "custom/l_end",
+  // Each group is drawn as one rounded pill (style.css)
+  "modules-left": [
     "custom/appmenu",
-    "custom/r_end",
-
-    "custom/l_end",
-    "wlr/taskbar",
-    "custom/r_end",
-    "custom/padd"
+    "wlr/taskbar"
   ],
 
-	"modules-center": [
-    "custom/padd",
-    "custom/l_end",
-    "hyprland/workspaces",
-    "custom/r_end",
-    "custom/padd"],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
 
-	"modules-right": [
-    "custom/padd",
-    "custom/l_end",
+  "modules-right": [
     "tray",
-    "custom/r_end",
-    "custom/l_end",
-    "power-profiles-daemon",
-    "custom/luminance",
-    "battery",
-    "network",
-    "bluetooth",
-    "pulseaudio",
-    "custom/r_end",
-    "custom/l_end",
-    "custom/notification",
-    "clock",
-    "custom/power",
-    "custom/r_end",
-    "custom/padd"
+    "group/system",
+    "group/session"
   ],
 
+  "group/system": {
+    "orientation": "inherit",
+    "modules": [
+      "power-profiles-daemon",
+      "custom/luminance",
+      "battery",
+      "network",
+      "bluetooth",
+      "pulseaudio"
+    ]
+  },
+
+  "group/session": {
+    "orientation": "inherit",
+    "modules": [
+      "custom/notification",
+      "clock",
+      "custom/power"
+    ]
+  },
 
   // Load Modules
   "include": ["~/.config/waybar/modules.json"],

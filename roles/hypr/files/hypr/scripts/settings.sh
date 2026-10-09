@@ -717,18 +717,17 @@ write_waybar_config() {
         echo "  border-radius: ${radius}px;"
         echo "}"
         if [ "$size" -lt 32 ] && [ "$position" = "top" -o "$position" = "bottom" ]; then
-            # Same module list as style.css; smaller margins fit a thin bar
+            # Same pills as style.css; smaller margins fit a thin bar
             cat << 'EOF2'
 
-#custom-notification, #battery, #bluetooth, #custom-luminance, #clock,
-#network, #custom-power, #pulseaudio, #taskbar, #tray, #workspaces,
-#custom-appmenu, #custom-l_end, #custom-r_end, #power-profiles-daemon {
+#custom-appmenu, #taskbar, #workspaces, #tray, #system, #session {
   margin-top: 2px;
   margin-bottom: 2px;
 }
 
 #workspaces button,
-#taskbar button {
+#taskbar button,
+#clock {
   margin-top: 1px;
   margin-bottom: 1px;
 }
