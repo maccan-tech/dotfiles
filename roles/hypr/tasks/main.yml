@@ -57,6 +57,15 @@
       - qrencode
       - swayosd
       - papirus-icon-theme
+      # qt6ct.conf and QT_QPA_PLATFORMTHEME=qt6ct make Qt apps dark
+      - qt6ct
+      # Used by scripts and key bindings
+      - playerctl
+      - brightnessctl
+      - wl-clipboard
+      # Screen sharing and file pickers
+      - xdg-desktop-portal-hyprland
+      - xdg-desktop-portal-gtk
       - cargo
       # Needed to build bluetui
       - dbus-devel
@@ -84,6 +93,20 @@
     path: "{{ ansible_facts['user_dir'] }}/.local"
     locked: true
     state: present
+
+# XCURSOR_THEME in hypr/conf/environment.lua; not packaged for Fedora
+- name: "Hypr | Create icon directory"
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.local/share/icons"
+    state: directory
+    mode: "0755"
+
+- name: "Hypr | Install Bibata cursor theme"
+  ansible.builtin.unarchive:
+    src: "https://github.com/ful1e5/Bibata_Cursor/releases/download/{{ hypr_bibata_version }}/Bibata-Modern-Classic.tar.xz"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/share/icons"
+    remote_src: true
+    creates: "{{ ansible_facts['user_dir'] }}/.local/share/icons/Bibata-Modern-Classic"
 
 - name: "Hypr | Enable and start swayosd-libinput-backend service"
   when: ansible_facts['os_family'] == 'RedHat'
