@@ -58,6 +58,17 @@ for i = 1, 10 do
     hl.bind(key("SHIFT + " .. k), hl.dsp.window.move({ workspace = i, follow = true }), { description = "Move window to workspace " .. i })
 end
 
+-- Alt+Tab: focus the next window on the workspace and raise it, so a
+-- floating window does not stay hidden behind others
+hl.bind(key("TAB"), function()
+    hl.dispatch(hl.dsp.window.cycle_next())
+    hl.dispatch(hl.dsp.window.alter_zorder({ mode = "top" }))
+end, { description = "Next window" })
+hl.bind(key("SHIFT + TAB"), function()
+    hl.dispatch(hl.dsp.window.cycle_next({ next = false }))
+    hl.dispatch(hl.dsp.window.alter_zorder({ mode = "top" }))
+end, { description = "Previous window" })
+
 hl.bind(key("CTRL + left"), hl.dsp.focus({ workspace = "e-1" }), { description = "Previous workspace" })
 hl.bind(key("CTRL + right"), hl.dsp.focus({ workspace = "e+1" }), { description = "Next workspace" })
 hl.bind(key("mouse_down"), hl.dsp.focus({ workspace = "e+1" }), { description = "Next workspace" })
@@ -80,6 +91,13 @@ hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("swayosd-client --brightness lo
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("swayosd-client --output-volume mute-toggle"), { description = "Toggle mute" })
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("swayosd-client --output-volume lower"), { repeating = true, description = "Volume down" })
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("swayosd-client --output-volume raise"), { repeating = true, description = "Volume up" })
+
+-- Media controls; locked so they also work on the lock screen
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("swayosd-client --playerctl play-pause"), { locked = true, description = "Play/pause" })
+hl.bind("XF86AudioPause", hl.dsp.exec_cmd("swayosd-client --playerctl play-pause"), { locked = true, description = "Play/pause" })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("swayosd-client --playerctl next"), { locked = true, description = "Next track" })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("swayosd-client --playerctl prev"), { locked = true, description = "Previous track" })
+hl.bind("XF86AudioStop", hl.dsp.exec_cmd("swayosd-client --playerctl stop"), { locked = true, description = "Stop playback" })
 
 -- -----------------------------------------------------
 -- Passthrough SUPER KEY to Virtual Machine
