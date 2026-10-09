@@ -8,6 +8,10 @@
  *   @noti-border-color - border and accent color
  *   @text-color       - primary text
  *   @noti-critical    - accent for critical notifications
+ *
+ * swaync's own stylesheet colors many elements (grouped notifications,
+ * action buttons, focus) through the CSS variables in :root below; without
+ * them those parts keep swaync's grey and white defaults.
  */
 
 @define-color noti-bg             rgba(30, 31, 35, 0.85);
@@ -17,3 +21,19 @@
 @define-color noti-close-bg       #C97F7F;
 @define-color text-color          #CFC3B4;
 @define-color noti-critical       #C97F7F;
+
+:root {
+  --cc-bg: rgba(30, 31, 35, 0.85);
+  --noti-border-color: rgba(156, 175, 159, 0.25);
+  /* Used as rgba(var(--noti-bg), var(--noti-bg-alpha)) */
+  --noti-bg: 30, 31, 35;
+  --noti-bg-alpha: 0.85;
+  --noti-bg-darker: #1E1F23;
+  --noti-bg-hover: #333440;
+  --noti-bg-focus: rgba(42, 43, 48, 0.6);
+  --noti-close-bg: rgba(201, 127, 127, 0.7);
+  --noti-close-bg-hover: #C97F7F;
+  --text-color: #CFC3B4;
+  --text-color-disabled: #6B6460;
+  --bg-selected: #9CAF9F;
+}

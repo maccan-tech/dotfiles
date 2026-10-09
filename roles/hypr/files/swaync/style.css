@@ -1,5 +1,4 @@
-/* ----------- 💫 https://github.com/JaKooLit 💫 -------- */
-/* swaync colors - wallust from waybar.css */
+/* swaync notifications and control center (Nordic Mist) */
 
 /* Theme: uncomment one */
 /* @import "themes/maccan.css"; */
@@ -85,10 +84,9 @@
 }
 
 
-.notification-default-action:hover,
-.notification-action:hover {
+.notification-default-action:hover {
   color: @text-color;
-  background: @noti-bg
+  background: alpha(@noti-bg-alt, 0.6);
 }
 
 
@@ -102,14 +100,15 @@
   border-bottom-right-radius: 7px
 }
 
-.notification-action:first-child {
-  border-bottom-left-radius: 10px;
-  background: @noti-bg
+/* Action buttons below a notification ("Open", "Dismiss", ...) */
+.notification-action > button {
+  background: @noti-bg-alt;
+  color: @text-color;
+  border-radius: 12px;
 }
 
-.notification-action:last-child {
-  border-bottom-right-radius: 10px;
-  background: @noti-bg-alt
+.notification-action > button:hover {
+  background: mix(@noti-bg-alt, @text-color, 0.1);
 }
 
 .inline-reply {
@@ -140,12 +139,14 @@
 }
 
 .inline-reply-button:hover {
-  background: @noti-bg-hover
+  background: @noti-bg-hover;
+  color: @noti-bg-alt;
 }
 
 .body-image {
   margin-top: 6px;
   color: @text-color;
+  background-color: transparent;
   border-radius: 20px
 }
 
@@ -211,7 +212,7 @@
   color: @noti-close-bg;
   border-radius: 20px;
   background: transparent;
-  border: 0.5px solid @noti-border-color;
+  border: 1px solid alpha(@noti-close-bg, 0.5);
 }
 
 /* clear button */
@@ -226,13 +227,19 @@
   margin: 5px;
   border-radius: 20px;
   font-size: 1rem;
-  color: @noti-border-color;
+  color: @text-color;
+}
+
+/* Same size as the "Notifications" title */
+.widget-dnd>label {
+  color: @text-color;
+  font-size: 1.5rem;
 }
 
 .widget-dnd>switch {
   border-radius: 20px;
-  border: 1px solid @noti-border-color;
-  background: @noti-border-color;
+  border: 1px solid alpha(@text-color, 0.2);
+  background: @noti-bg;
 }
 
 .widget-dnd>switch:checked {
@@ -241,75 +248,13 @@
 }
 
 .widget-dnd>switch slider {
-  background: @noti-bg;
+  background: @text-color;
   border-radius: 20px
 }
 
 .widget-dnd>switch:checked slider {
   background: @noti-bg;
   border-radius: 20px
-}
-
-.widget-label {
-  margin: 5px;
-}
-
-.widget-label>label {
-  font-size: 1rem;
-  color: @text-color;
-}
-
-.widget-mpris {
-  color: @text-color;
-  background: @noti-bg;
-  padding: 3px 6px;
-  margin: 5px;
-  border-radius: 20px;
-}
-
-.widget-mpris>box>button {
-  border-radius: 20px;
-}
-
-.widget-mpris-player {
-  padding: 3px 6px;
-  margin: 5px;
-}
-
-.widget-mpris-title {
-  font-weight: 100;
-  font-size: 1rem
-}
-
-.widget-mpris-subtitle {
-  font-size: 0.75rem
-}
-
-.widget-buttons-grid {
-  font-size: large;
-  color: @noti-border-color;
-  padding: 2px;
-  margin: 5px;
-  border-radius: 20px;
-  background: @noti-bg-alt;
-}
-
-.widget-buttons-grid>flowbox>flowboxchild>button {
-  margin: 1px;
-  background: @noti-bg;
-  border-radius: 20px;
-  color: @text-color
-}
-
-/* individual buttons */
-.widget-buttons-grid>flowbox>flowboxchild>button:hover {
-  background: @text-color;
-  color: @noti-bg-hover
-}
-
-.widget-buttons-grid>flowbox>flowboxchild>button:checked {
-  background: @noti-border-color;
-  color: @noti-bg;
 }
 
 .widget-menubar>box>.menu-button-bar>button {
@@ -322,20 +267,6 @@
   background: transparent
 }
 
-.widget-volume {
-  background: @noti-bg-alt;
-  padding: 2px;
-  margin: 10px 10px 5px 10px;
-  border-radius: 20px;
-  font-size: x-large;
-  color: @text-color
-}
-
-.widget-volume>box>button {
-  background: @noti-border-color;
-  border: none
-}
-
 .per-app-volume {
   background-color: @noti-bg;
   padding: 4px 8px 8px;
@@ -344,29 +275,229 @@
   color: @text-color
 }
 
+/* -----------------------------------------------------
+ * Quick settings at the top of the control center:
+ * thick rounded sliders and large tiles
+ * ----------------------------------------------------- */
+.widget-volume,
 .widget-backlight {
+  background: transparent;
+  padding: 0px;
+  margin: 14px 12px 4px 12px;
+  font-size: large;
+  color: @text-color;
+}
+
+.widget-volume>box>label,
+.widget-backlight>label {
+  min-width: 36px;
+}
+
+.widget-volume scale,
+.widget-backlight scale {
+  padding: 0px;
+  margin: 0px;
+}
+
+.widget-volume trough,
+.widget-backlight trough {
+  min-height: 40px;
+  border-radius: 14px;
   background: @noti-bg-alt;
-  padding: 5px;
-  margin: 10px 10px 5px 10px;
-  border-radius: 20px;
-  font-size: x-large;
-  color: @text-color
 }
 
-.low {
-  background: @noti-bg;
-  padding: 0px;
-  border-radius: 20px;
+.widget-volume highlight,
+.widget-backlight highlight {
+  border-radius: 14px;
+  background: @noti-border-color;
 }
 
-.normal {
-  background: @noti-bg;
-  padding: 0px;
-  border-radius: 20px;
+/* A thin bar marks the value instead of a round knob */
+.widget-volume slider,
+.widget-backlight slider {
+  min-width: 4px;
+  min-height: 28px;
+  margin: 0px;
+  border-radius: 2px;
+  background: @text-color;
+  box-shadow: none;
 }
 
-.critical {
-  background: red;
+/* Per-app volume toggle next to the slider */
+.widget-volume>box>button {
+  min-width: 40px;
+  min-height: 40px;
+  margin: 0px 0px 0px 8px;
   padding: 0px;
-  border-radius: 20px;
+  border-radius: 14px;
+  background: @noti-bg-alt;
+  color: @text-color;
+}
+
+.widget-volume>box>button:hover {
+  background: mix(@noti-bg-alt, @text-color, 0.1);
+}
+
+.widget-buttons-grid {
+  background: transparent;
+  padding: 0px;
+  margin: 6px 9px;
+  font-size: large;
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button {
+  min-height: 52px;
+  margin: 3px;
+  padding: 0px 14px;
+  border-radius: 18px;
+  background: @noti-bg-alt;
+  color: @text-color;
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button:hover {
+  background: mix(@noti-bg-alt, @text-color, 0.1);
+  color: @text-color;
+}
+
+/* Toggles that are on */
+.widget-buttons-grid>flowbox>flowboxchild>button:checked,
+.widget-buttons-grid>flowbox>flowboxchild>button.active {
+  background: @noti-border-color;
+  color: @noti-bg-alt;
+}
+
+/* Wi-Fi and Bluetooth are split buttons: the tile toggles, the narrow
+   chevron next to it opens the settings (hyprltm-net, bluetui) */
+.widget-buttons-grid:not(.quick):not(.quick-labels)>flowbox>flowboxchild:nth-child(odd)>button {
+  min-width: 130px;
+  margin-right: 0px;
+  border-radius: 18px 4px 4px 18px;
+}
+
+.widget-buttons-grid:not(.quick):not(.quick-labels)>flowbox>flowboxchild:nth-child(even)>button {
+  min-width: 20px;
+  margin-left: 2px;
+  padding: 0px 8px;
+  border-radius: 4px 18px 18px 4px;
+}
+
+/* Round quick toggles below the Wi-Fi and Bluetooth tiles. Their names are
+   a separate row of text below (quick-labels), so the icons can be larger
+   than the text. The columns are about 102px wide in the 450px panel; the
+   side margins keep the buttons round. */
+.widget-buttons-grid.quick {
+  margin: 4px 9px 0px 9px;
+  font-size: xx-large;
+}
+
+.widget-buttons-grid.quick>flowbox>flowboxchild>button {
+  min-width: 64px;
+  min-height: 64px;
+  margin: 3px 19px 0px 19px;
+  padding: 0px;
+  border-radius: 99px;
+}
+
+.widget-buttons-grid.quick-labels {
+  margin: 0px 9px 6px 9px;
+  font-size: small;
+}
+
+.widget-buttons-grid.quick-labels>flowbox>flowboxchild>button,
+.widget-buttons-grid.quick-labels>flowbox>flowboxchild>button:hover {
+  min-width: 90px;
+  min-height: 0px;
+  margin: 0px;
+  padding: 4px 0px 0px 0px;
+  background: transparent;
+  color: alpha(@text-color, 0.8);
+}
+
+/* -----------------------------------------------------
+ * Media card: album art, title and round controls on a
+ * plain card instead of the blurred album art
+ * ----------------------------------------------------- */
+.widget-mpris {
+  background: transparent;
+  padding: 0px;
+  margin: 0px;
+}
+
+.widget-mpris .widget-mpris-player {
+  margin: 6px 12px;
+  border-radius: 18px;
+  background: @noti-bg-alt;
+  box-shadow: none;
+}
+
+.widget-mpris .widget-mpris-player .mpris-background {
+  opacity: 0;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay {
+  padding: 12px;
+  background: transparent;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-album-art {
+  border-radius: 12px;
+  box-shadow: none;
+  -gtk-icon-size: 64px;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-title {
+  color: @text-color;
+  font-weight: bold;
+  font-size: medium;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-subtitle {
+  color: alpha(@text-color, 0.7);
+  font-size: small;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay > box > button {
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 99px;
+  background: transparent;
+  color: @text-color;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay > box > button:hover {
+  background: mix(@noti-bg-alt, @text-color, 0.1);
+}
+
+/* Play/pause stands out as a filled circle */
+.widget-mpris .widget-mpris-player .mpris-overlay > box > button:nth-child(2) {
+  background: @noti-border-color;
+  color: @noti-bg-alt;
+}
+
+/* Arrows to switch between players */
+.widget-mpris > box > button {
+  background: transparent;
+  color: @text-color;
+}
+
+/* -----------------------------------------------------
+ * Grouped notifications (several from the same app)
+ * ----------------------------------------------------- */
+.notification-group {
+  border-radius: 14px;
+}
+
+.notification-group:focus {
+  background: transparent;
+}
+
+.notification-group .notification-group-headers,
+.notification-group .notification-group-buttons {
+  color: @text-color;
+}
+
+.notification-group .notification-group-buttons button {
+  background: @noti-bg-alt;
+  color: @text-color;
+  border-radius: 99px;
 }

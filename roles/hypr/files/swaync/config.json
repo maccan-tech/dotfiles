@@ -14,7 +14,7 @@
   "notification-inline-replies": false,
   "notification-icon-size": 32,
   "notification-body-image-height": 100,
-  "notification-body-image-width": 100,
+  "notification-body-image-width": 200,
   "notification-window-width": 360,
   "timeout": 6,
   "timeout-low": 3,
@@ -23,7 +23,7 @@
   "control-center-width": 450,
   "control-center-height": 720,
   "keyboard-shortcuts": true,
-  "image-visibility": "when available",
+  "image-visibility": "when-available",
   "transition-time": 200,
   "hide-on-clear": false,
   "hide-on-action": true,
@@ -36,83 +36,128 @@
     }
   },
   "widgets": [
-      "buttons-grid",
-      "mpris",
-      "volume",
-      "backlight",
-      "dnd",
-      "title",
-      "notifications"
+    "backlight",
+    "volume",
+    "buttons-grid",
+    "buttons-grid#quick",
+    "buttons-grid#quick-labels",
+    "mpris",
+    "dnd",
+    "title",
+    "notifications"
   ],
   "widget-config": {
-      "title": {
-          "text": "Notifications",
-          "clear-all-button": true,
-          "button-text": "Clear"
-      },
-      "dnd": {
-          "text": "Do Not Disturb"
-      },
-      "label": {
-          "max-lines": 1,
-          "text": "Notification"
-      },
-      "mpris": {
-          "image-size": 10,
-          "image-radius": 0
-      },
-      "volume": {
-          "label": "󰕾"
-      },
-      "backlight": {
-          "label": "󰃟"
-      },
-      "buttons-grid": {
-          "buttons-per-row": 3,
-          "actions": [
-              {
-                "label": "󰐥",
-                "tooltip": "Power menu",
-                "command": "~/.config/wlogout/logoutlaunch.sh 2"
-              },
-              {
-                "label": "󰌾",
-                "tooltip": "Lock screen",
-                "command": "bash -c hyprlock"
-              },
-              {
-                "label": "󰍃",
-                "tooltip": "Logout",
-                "command": "hyprctl dispatch exit"
-              },
-              {
-                "label": "",
-                "type": "toggle",
-                "active": true,
-                "command": "sh -c '~/.config/swaync/scripts/toggle_wifi.sh'",
-                "update-command": "sh -c 'set +e;[[ $(nmcli radio wifi) == \"enabled\" ]] && echo true || echo false'"
-              },
-              {
-                "label": "󰂯",
-                "type": "toggle",
-                "active": true,
-                "command": "sh -c '~/.config/swaync/scripts/toggle_bluetooth.sh'",
-                "update-command": "sh -c 'set +e;bluetoothctl show | grep -qF Powered:\\ yes && echo true || echo false'"
-              },
-              {
-                "label": "󰀝",
-                "tooltip": "Airplane mode",
-                "command": "bash -c $HOME/.config/hypr/scripts/AirplaneMode.sh"
-              },
-              {
-                "label": "󰝟",
-                "tooltip": "Toggle mute",
-                "type": "toggle",
-                "active": true,
-                "command": "swayosd-client --output-volume mute-toggle",
-                "update-command": "sh -c 'pactl get-sink-mute @DEFAULT_SINK@ | grep -q \"Mute: yes\" && echo true || echo false'"
-              }
-         ]
-      }
+    "title": {
+      "text": "Notifications",
+      "clear-all-button": true,
+      "button-text": "Clear"
+    },
+    "dnd": {
+      "text": "Do Not Disturb"
+    },
+    "mpris": {
+      "show-album-art": "always",
+      "autohide": true
+    },
+    "volume": {
+      "label": "󰕾",
+      "show-per-app": true,
+      "show-per-app-icon": true,
+      "show-per-app-label": false,
+      "expand-button-label": "󰓃",
+      "collapse-button-label": "󰅃"
+    },
+    "backlight": {
+      "label": "󰃟"
+    },
+    "buttons-grid": {
+      "buttons-per-row": 4,
+      "actions": [
+        {
+          "label": "󰖩   Wi-Fi",
+          "type": "toggle",
+          "active": false,
+          "command": "~/.config/swaync/scripts/toggle_wifi.sh",
+          "update-command": "~/.config/swaync/scripts/toggle_state.sh wifi",
+          "tooltip": "Wi-Fi"
+        },
+        {
+          "label": "󰅂",
+          "tooltip": "Network settings",
+          "command": "swaync-client -cp && ~/.local/bin/hyprltm-net"
+        },
+        {
+          "label": "󰂯   Bluetooth",
+          "type": "toggle",
+          "active": false,
+          "command": "~/.config/swaync/scripts/toggle_bluetooth.sh",
+          "update-command": "~/.config/swaync/scripts/toggle_state.sh bluetooth",
+          "tooltip": "Bluetooth"
+        },
+        {
+          "label": "󰅂",
+          "tooltip": "Bluetooth devices",
+          "command": "swaync-client -cp && kitty --class bluetui -e bluetui"
+        }
+      ]
+    },
+    "buttons-grid#quick": {
+      "buttons-per-row": 4,
+      "actions": [
+        {
+          "label": "󰀝",
+          "tooltip": "Airplane mode",
+          "type": "toggle",
+          "command": "~/.config/swaync/scripts/toggle_airplanemode.sh",
+          "update-command": "~/.config/swaync/scripts/toggle_state.sh airplane",
+          "active": false
+        },
+        {
+          "label": "󰖁",
+          "tooltip": "Mute sound",
+          "type": "toggle",
+          "command": "swayosd-client --output-volume mute-toggle",
+          "update-command": "~/.config/swaync/scripts/toggle_state.sh sound",
+          "active": false
+        },
+        {
+          "label": "󰍭",
+          "tooltip": "Mute microphone",
+          "type": "toggle",
+          "command": "swayosd-client --input-volume mute-toggle",
+          "update-command": "~/.config/swaync/scripts/toggle_state.sh mic",
+          "active": false
+        },
+        {
+          "label": "󰖔",
+          "tooltip": "Night light",
+          "type": "toggle",
+          "command": "~/.config/hypr/scripts/settings.sh nightlight-toggle",
+          "update-command": "~/.config/swaync/scripts/toggle_state.sh nightlight",
+          "active": false
+        }
+      ]
+    },
+    "buttons-grid#quick-labels": {
+      "buttons-per-row": 4,
+      "actions": [
+        {
+          "label": "Airplane",
+          "command": ""
+        },
+        {
+          "label": "Silence",
+          "command": ""
+        },
+        {
+          "label": "Mic off",
+          "command": ""
+        },
+        {
+          "label": "Night",
+          "command": ""
+        }
+      ]
+    }
   }
 }
