@@ -54,6 +54,9 @@ end
 
 rule({ class = "^(com.nextcloud.desktopclient.nextcloud)$" }, { float = true, size = { 530, 630 } })
 
+-- bluetui runs in kitty, started from the settings menu and waybar
+rule({ class = "^(bluetui)$" }, { float = true, size = { 900, 600 }, center = true })
+
 -- mount/unmount scripts for yazi
 rule({ title = "(mount-usb)" }, { float = true, size = { 500, 200 }, center = true })
 rule({ title = "(unmount-usb)" }, { float = true, size = { 500, 200 }, center = true })

@@ -9,7 +9,8 @@
 #
 # Sections: Display (scale, resolution, rotation, adaptive sync, night light),
 # Appearance (gaps, borders, rounding, opacity, blur, shadows, animations),
-# Power and idle (hypridle timeouts, power profile).
+# Power and idle (hypridle timeouts, power profile),
+# Network, sound and bluetooth (default audio devices, launches the apps).
 
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/hypr"
 MONITORS_STATE="$STATE_DIR/monitors.json"
@@ -745,16 +746,74 @@ power_menu() {
 }
 
 # ----------------------------------------------------------------------------
+# Network, sound and bluetooth
+# ----------------------------------------------------------------------------
+
+# audio_devices <sinks|sources>: "name<TAB>description" per device, without
+# the monitor sources that mirror each output
+audio_devices() {
+    pactl -f json list "$1" | jq -r '.[] | select(.name | endswith(".monitor") | not)
+        | "\(.name)\t\(.description)"'
+}
+
+# audio_default <sink|source>: description of the current default device
+audio_default() {
+    local name
+    name=$(pactl "get-default-$1")
+    audio_devices "$1s" | awk -F '\t' -v n="$name" '$1 == n { print $2 }'
+}
+
+# choose_audio <sink|source> <label>
+choose_audio() {
+    local kind="$1" label="$2" names=() rows=() current active=-1 i
+    current=$(pactl "get-default-$kind")
+    while IFS=$'\t' read -r name description; do
+        names+=("$name")
+        rows+=("$description")
+        [ "$name" = "$current" ] && active=$((${#names[@]} - 1))
+    done < <(audio_devices "${kind}s")
+    if [ "${#names[@]}" -eq 0 ]; then
+        show_message "$label" "No audio devices found"
+        return
+    fi
+    i=$(rofi_menu "$label" "$active" "${rows[@]}") || return
+    [ "$i" = "$active" ] && return
+    pactl "set-default-$kind" "${names[$i]}"
+}
+
+# The apps run on their own; the settings menu closes when one is opened
+connections_menu() {
+    local i
+    while true; do
+        i=$(rofi_menu "Network, sound and bluetooth" -1 \
+            "$(row "Network" "Alt+N")" \
+            "$(row "Sound output" "$(audio_default sink)")" \
+            "$(row "Sound input" "$(audio_default source)")" \
+            "$(row "Mixer" "pavucontrol")" \
+            "$(row "Bluetooth" "bluetui")") || return
+        case "$i" in
+            0) setsid -f "$HOME/.local/bin/hyprltm-net" > /dev/null 2>&1; exit ;;
+            1) choose_audio sink "Sound output" ;;
+            2) choose_audio source "Sound input" ;;
+            3) setsid -f pavucontrol > /dev/null 2>&1; exit ;;
+            4) setsid -f kitty --class bluetui -e bluetui > /dev/null 2>&1; exit ;;
+        esac
+    done
+}
+
+# ----------------------------------------------------------------------------
 # Main menu
 # ----------------------------------------------------------------------------
 
 main_menu() {
     local i
-    while i=$(rofi_menu "Settings" -1 "󰍹  Display" "󰏘  Appearance" "󰐥  Power and idle"); do
+    while i=$(rofi_menu "Settings" -1 "󰍹  Display" "󰏘  Appearance" "󰐥  Power and idle" \
+        "󰛳  Network, sound and bluetooth"); do
         case "$i" in
             0) choose_display ;;
             1) appearance_menu ;;
             2) power_menu ;;
+            3) connections_menu ;;
         esac
     done
 }

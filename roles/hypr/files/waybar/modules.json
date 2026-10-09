@@ -125,6 +125,7 @@
         "tooltip-format": " {device_alias}",
         "tooltip-format-connected": "{device_enumerate}",
         "tooltip-format-enumerate-connected": " {device_alias}",
+        "on-click": "kitty --class bluetui -e bluetui",
         "on-click-right": "blueman-manager",
         "format-no-controller": ""
     },

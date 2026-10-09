@@ -56,6 +56,9 @@
       - qrencode
       - swayosd
       - papirus-icon-theme
+      - cargo
+      # Needed to build bluetui
+      - dbus-devel
     state: present
   become: true
 
@@ -70,6 +73,16 @@
     state: present
     allowerasing: true
   become: true
+
+# Bluetooth TUI opened from the settings menu (Alt+Shift+S) and waybar.
+# Installed into ~/.local so the binary ends up in ~/.local/bin, which is on PATH.
+- name: "Hypr | Install bluetui with cargo"
+  when: ansible_facts['os_family'] == 'RedHat'
+  community.general.cargo:
+    name: "bluetui"
+    path: "{{ ansible_facts['user_dir'] }}/.local"
+    locked: true
+    state: present
 
 - name: "Hypr | Enable and start swayosd-libinput-backend service"
   when: ansible_facts['os_family'] == 'RedHat'
