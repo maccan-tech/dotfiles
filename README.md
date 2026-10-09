@@ -30,6 +30,6 @@ Available roles
 * zsh
 * nerdfonts
 * kitty
-* nvim
+* [nvim](roles/nvim/README.md)
 * tmux
 * vifm
