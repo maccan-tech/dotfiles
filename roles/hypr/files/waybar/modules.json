@@ -184,6 +184,17 @@
         }
     },
 
+  // Stay awake: while on, the screen does not dim, lock or turn off
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰅶",
+      "deactivated": "󰛊"
+    },
+    "tooltip-format-activated": "Stay awake: on",
+    "tooltip-format-deactivated": "Stay awake: off"
+  },
+
   "power-profiles-daemon": {
     "format": "{icon}",
     "tooltip": true,

@@ -65,6 +65,7 @@ tooltip {
 }
 
 /* Modules inside a group are drawn by the group's pill */
+#idle_inhibitor,
 #power-profiles-daemon,
 #custom-luminance,
 #battery,
@@ -77,6 +78,11 @@ tooltip {
   color: @text-primary;
   background: transparent;
   padding: 0px 6px;
+}
+
+/* Stay awake stands out while it is on */
+#idle_inhibitor.activated {
+  color: @accent-primary;
 }
 
 /* The logo is a circle of its own */
