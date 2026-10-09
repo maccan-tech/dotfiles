@@ -13,6 +13,7 @@
 # Keyboard and mouse (layout, key repeat, pointer, scrolling, touchpad),
 # Power and idle (hypridle timeouts, power profile),
 # Notifications (do not disturb, notification sound),
+# System (time zone, online time sync, language, regional formats),
 # Network, sound and bluetooth (default audio devices, launches the apps).
 
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/hypr"
@@ -1128,6 +1129,113 @@ connections_menu() {
 }
 
 # ----------------------------------------------------------------------------
+# System (timedatectl, localectl; polkit asks for the password)
+# ----------------------------------------------------------------------------
+
+# Locale variables for dates, numbers, money, paper size and units; set
+# together as "Formats", separate from the language (LANG)
+FORMAT_VARS=(LC_TIME LC_NUMERIC LC_MONETARY LC_PAPER LC_MEASUREMENT)
+
+# locale_var <name>: value from /etc/locale.conf, empty when not set
+locale_var() {
+    sed -n "s/^$1=//p" /etc/locale.conf 2> /dev/null | tr -d '"'
+}
+
+formats_locale() {
+    local value
+    value=$(locale_var LC_TIME)
+    echo "${value:-$(locale_var LANG)}"
+}
+
+# set_locale <VAR=value>...: keeps the other variables in /etc/locale.conf,
+# since localectl set-locale replaces the whole file
+set_locale() {
+    local -A vars
+    local line args=() k
+    while IFS= read -r line; do
+        [[ $line == *=* ]] && vars[${line%%=*}]=$(tr -d '"' <<< "${line#*=}")
+    done < /etc/locale.conf
+    for line in "$@"; do
+        vars[${line%%=*}]=${line#*=}
+    done
+    for k in "${!vars[@]}"; do
+        args+=("$k=${vars[$k]}")
+    done
+    if localectl set-locale "${args[@]}"; then
+        show_message "Language and formats" "Applies the next time you log in"
+    else
+        show_message "Language and formats" "Could not change the locale"
+    fi
+}
+
+choose_timezone() {
+    local current zones=() active=-1 i
+    current=$(timedatectl show -p Timezone --value)
+    mapfile -t zones < <(timedatectl list-timezones)
+    for i in "${!zones[@]}"; do
+        [ "${zones[$i]}" = "$current" ] && active=$i
+    done
+    i=$(rofi_menu "Time zone" "$active" "${zones[@]}") || return
+    [ "$i" = "$active" ] && return
+    timedatectl set-timezone "${zones[$i]}" ||
+        show_message "Time zone" "Could not change the time zone"
+}
+
+choose_ntp() {
+    local current active i
+    current=$(timedatectl show -p NTP --value)
+    if [ "$current" = "yes" ]; then active=0; else active=1; fi
+    i=$(rofi_menu "Sync time online" "$active" "On" "Off") || return
+    [ "$i" = "$active" ] && return
+    timedatectl set-ntp "$([ "$i" = "0" ] && echo true || echo false)" ||
+        show_message "Sync time online" "Could not change time sync"
+}
+
+# choose_locale <label> <current>: prints the chosen locale
+choose_locale() {
+    local locales=() active=-1 i
+    mapfile -t locales < <(localectl list-locales)
+    for i in "${!locales[@]}"; do
+        [ "${locales[$i]}" = "$2" ] && active=$i
+    done
+    i=$(rofi_menu "$1" "$active" "${locales[@]}") || return 1
+    [ "$i" = "$active" ] && return 1
+    echo "${locales[$i]}"
+}
+
+choose_language() {
+    local value
+    value=$(choose_locale "Language" "$(locale_var LANG)") || return
+    set_locale "LANG=$value"
+}
+
+choose_formats() {
+    local value v args=()
+    value=$(choose_locale "Formats (date, numbers, units)" "$(formats_locale)") || return
+    for v in "${FORMAT_VARS[@]}"; do
+        args+=("$v=$value")
+    done
+    set_locale "${args[@]}"
+}
+
+system_menu() {
+    local i
+    while true; do
+        i=$(rofi_menu "System" -1 \
+            "$(row "Time zone" "$(timedatectl show -p Timezone --value)")" \
+            "$(row "Sync time online" "$(on_off "$([ "$(timedatectl show -p NTP --value)" = yes ] && echo true)")")" \
+            "$(row "Language" "$(locale_var LANG)")" \
+            "$(row "Formats" "$(formats_locale)")") || return
+        case "$i" in
+            0) choose_timezone ;;
+            1) choose_ntp ;;
+            2) choose_language ;;
+            3) choose_formats ;;
+        esac
+    done
+}
+
+# ----------------------------------------------------------------------------
 # Main menu
 # ----------------------------------------------------------------------------
 
@@ -1135,7 +1243,8 @@ main_menu() {
     local i
     while i=$(rofi_menu "Settings" -1 "󰍹  Display" "󰏘  Appearance" "󰕮  Status bar" \
         "󰌌  Keyboard and mouse" "󰐥  Power and idle" \
-        "󰂚  Notifications" "󰛳  Network, sound and bluetooth"); do
+        "󰂚  Notifications" "󰛳  Network, sound and bluetooth" \
+        "󰒓  System"); do
         case "$i" in
             0) choose_display ;;
             1) appearance_menu ;;
@@ -1144,6 +1253,7 @@ main_menu() {
             4) power_menu ;;
             5) notifications_menu ;;
             6) connections_menu ;;
+            7) system_menu ;;
         esac
     done
 }
@@ -1159,6 +1269,7 @@ if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
         power) power_menu ;;
         notifications) notifications_menu ;;
         network) connections_menu ;;
+        system) system_menu ;;
         nightlight-toggle) toggle_nightlight ;;
         *) main_menu ;;
     esac
