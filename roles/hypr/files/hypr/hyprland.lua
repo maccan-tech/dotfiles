@@ -19,6 +19,7 @@ require("conf/layouts")
 require("conf/misc")
 require("conf/keybindings")
 require("conf/windowrules")
+require("conf/layerrules")
 require("conf/animations")
 
 -- Settings chosen in the settings menu (Alt+Shift+S, scripts/settings.sh).
