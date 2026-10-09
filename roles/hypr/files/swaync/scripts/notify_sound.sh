@@ -8,6 +8,12 @@ if [[ "$SWAYNC_HINT_SUPPRESS_SOUND" == "true" ]]; then
   exit 0
 fi
 
+# Sound can be turned off in the settings menu (Alt+Shift+S > Notifications)
+SETTINGS="${XDG_STATE_HOME:-$HOME/.local/state}/hypr/settings.json"
+if [[ -f "$SETTINGS" ]] && [[ "$(jq -r '.notifications.sound' "$SETTINGS")" == "false" ]]; then
+  exit 0
+fi
+
 SOUND="${HOME}/.config/swaync/sounds/chord.wav"
 
 if [[ "$(swaync-client --get-dnd)" == "false" ]]; then

@@ -12,6 +12,7 @@
 # Status bar (waybar position, always on top, size, floating, background),
 # Keyboard and mouse (layout, key repeat, pointer, scrolling, touchpad),
 # Power and idle (hypridle timeouts, power profile),
+# Notifications (do not disturb, notification sound),
 # Network, sound and bluetooth (default audio devices, launches the apps).
 
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/hypr"
@@ -1028,6 +1029,49 @@ power_menu() {
 }
 
 # ----------------------------------------------------------------------------
+# Notifications (swaync)
+# ----------------------------------------------------------------------------
+
+# Notification sound on/off; swaync/scripts/notify_sound.sh reads it.
+# false is a real value, so no "//"
+notification_sound() {
+    jq -r 'if .notifications.sound == false then "false" else "true" end' "$GLOBAL_STATE"
+}
+
+choose_dnd() {
+    local current active i
+    current=$(swaync-client --get-dnd)
+    if [ "$current" = "true" ]; then active=0; else active=1; fi
+    i=$(rofi_menu "Do not disturb" "$active" "On" "Off") || return
+    [ "$i" = "$active" ] && return
+    if [ "$i" = "0" ]; then swaync-client --dnd-on > /dev/null; else swaync-client --dnd-off > /dev/null; fi
+}
+
+choose_notification_sound() {
+    local current active i tmp
+    current=$(notification_sound)
+    if [ "$current" = "true" ]; then active=0; else active=1; fi
+    i=$(rofi_menu "Notification sound" "$active" "On" "Off") || return
+    [ "$i" = "$active" ] && return
+    tmp=$(mktemp)
+    jq --argjson v "$([ "$i" = "0" ] && echo true || echo false)" '.notifications.sound = $v' \
+        "$GLOBAL_STATE" > "$tmp" && mv "$tmp" "$GLOBAL_STATE"
+}
+
+notifications_menu() {
+    local i
+    while true; do
+        i=$(rofi_menu "Notifications" -1 \
+            "$(row "Do not disturb" "$(on_off "$(swaync-client --get-dnd)")")" \
+            "$(row "Sound" "$(on_off "$(notification_sound)")")") || return
+        case "$i" in
+            0) choose_dnd ;;
+            1) choose_notification_sound ;;
+        esac
+    done
+}
+
+# ----------------------------------------------------------------------------
 # Network, sound and bluetooth
 # ----------------------------------------------------------------------------
 
@@ -1091,14 +1135,15 @@ main_menu() {
     local i
     while i=$(rofi_menu "Settings" -1 "󰍹  Display" "󰏘  Appearance" "󰕮  Status bar" \
         "󰌌  Keyboard and mouse" "󰐥  Power and idle" \
-        "󰛳  Network, sound and bluetooth"); do
+        "󰂚  Notifications" "󰛳  Network, sound and bluetooth"); do
         case "$i" in
             0) choose_display ;;
             1) appearance_menu ;;
             2) waybar_menu ;;
             3) input_menu ;;
             4) power_menu ;;
-            5) connections_menu ;;
+            5) notifications_menu ;;
+            6) connections_menu ;;
         esac
     done
 }
@@ -1112,6 +1157,7 @@ if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
         statusbar) waybar_menu ;;
         input) input_menu ;;
         power) power_menu ;;
+        notifications) notifications_menu ;;
         network) connections_menu ;;
         nightlight-toggle) toggle_nightlight ;;
         *) main_menu ;;
