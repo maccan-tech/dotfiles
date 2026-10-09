@@ -10,7 +10,30 @@ return {
 				clear_suggestion = "<C-]>",
 				accept_word = "<C-j>",
 			},
-			ignore_filetypes = { "gitcommit", "TelescopePrompt" },
+			-- buffer contents are sent to Supermaven's servers, keep notes and secrets local
+			ignore_filetypes = { "gitcommit", "TelescopePrompt", "markdown", "text", "dotenv" },
+			-- checked on BufEnter, stops Supermaven while a sensitive file is focused
+			condition = function()
+				local path = vim.api.nvim_buf_get_name(0)
+				for _, pattern in ipairs({
+					"/%.env$",
+					"/%.env%.[^/]*$",
+					"%.pem$",
+					"%.key$",
+					"%.vault$",
+					"/id_[^/]*$",
+					"/%.ssh/",
+					"/%.gnupg/",
+					"/%.netrc$",
+					"secret",
+					"credential",
+				}) do
+					if path:find(pattern) then
+						return true
+					end
+				end
+				return false
+			end,
 			color = {
 				suggestion_color = "#808080",
 			},
