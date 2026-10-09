@@ -30,23 +30,21 @@
 			"active": "",
 			"default": ""
         },
-        "persistent_workspaces": {
+        "persistent-workspaces": {
              "*": 1
         }       
     },
 
     "custom/power": {
         "format": "",
-        "exec": "echo ; echo  logout",
-        "on-click": "~/.config/wlogout/logoutlaunch.sh 2",
-        //"interval" : 86400, // once every day
-        "tooltip": true
+        "tooltip-format": "Logout",
+        "on-click": "~/.config/wlogout/logoutlaunch.sh 2"
     },
 
   	"wlr/taskbar": {
   		"format": "{icon}",
   		"icon-size": 18,
-  		"icon-theme": "Tela-circle-dracula",
+  		"icon-theme": "Papirus",
           "spacing": 0,
   		"tooltip-format": "{title}",
   		"on-click": "activate",
@@ -69,17 +67,15 @@
             "weeks-pos"     : "left",
             "on-scroll"     : 1,
             "format": {
-                 "months":     "<span color='#e0def4'><b>{}</b></span>",
-                 "days":       "<span color='#ea9a97'><b>{}</b></span>",
-                 "weeks":      "<span color='#9ccfd8'><b>{}</b></span>",
-                 "weekdays":   "<span color='#f6c177'><b>{}</b></span>",
-                 "today":      "<span color='#c4a7e7'><b><u>{}</u></b></span>"
+                 "months":     "<span color='#CFC3B4'><b>{}</b></span>",
+                 "days":       "<span color='#B8A89A'><b>{}</b></span>",
+                 "weeks":      "<span color='#6FA7A6'><b>{:%V}</b></span>",
+                 "weekdays":   "<span color='#D6A65C'><b>{}</b></span>",
+                 "today":      "<span color='#9CAF9F'><b><u>{}</u></b></span>"
             }
         },
         "actions":  {
              "on-click-right": "mode",
-             "on-scroll-up": "tz_up",
-             "on-scroll-down": "tz_down",
              "on-scroll-up": "shift_up",
              "on-scroll-down": "shift_down"
         }
@@ -152,23 +148,6 @@
         "on-scroll-down": "swayosd-client --output-volume lower"
     },
 
-    "pulseaudio#microphone": {
-        "format": "{format_source}",
-        "format-source": "",
-        "format-source-muted": "",
-        "on-click": "pavucontrol -t 4",
-        //"on-click-middle": "~/.config/hypr/scripts/volumecontrol.sh -i m",
-        //"on-scroll-up": "~/.config/hypr/scripts/volumecontrol.sh -i i",
-        //"on-scroll-down": "~/.config/hypr/scripts/volumecontrol.sh -i d",
-        "tooltip-format": "{format_source} {source_desc} // {source_volume}%",
-        "scroll-step": 5
-    },
-    "backlight": {
-        // "device": "intel_backlight",
-        "format": "{percent}% {icon}",
-        "format-icons": ["", ""]
-    },
-
     "custom/luminance": {
         "format": "󰃞 ",
         "on-click": "~/.config/hypr/scripts/luminance.sh",
@@ -189,30 +168,6 @@
     },
 
     "custom/r_end": {
-        "format": " ",
-        "interval" : "once",
-        "tooltip": false
-    },
-
-    "custom/sl_end": {
-        "format": " ",
-        "interval" : "once",
-        "tooltip": false
-    },
-
-    "custom/sr_end": {
-        "format": " ",
-        "interval" : "once",
-        "tooltip": false
-    },
-
-    "custom/rl_end": {
-        "format": " ",
-        "interval" : "once",
-        "tooltip": false
-    },
-
-    "custom/rr_end": {
         "format": " ",
         "interval" : "once",
         "tooltip": false

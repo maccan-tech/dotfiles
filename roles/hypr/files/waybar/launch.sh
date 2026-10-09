@@ -3,9 +3,13 @@
 # Start Waybar
 ##############################
 
-# ----------------------------------------------------- 
-# Quit running waybar instances
-# ----------------------------------------------------- 
-killall waybar
+# -----------------------------------------------------
+# Quit running waybar instances and wait until they are gone, otherwise the
+# new bar can start next to the old one
+# -----------------------------------------------------
+pkill -x waybar
+while pgrep -x waybar > /dev/null; do
+    sleep 0.1
+done
 
-LC_TIME="sv_SE.utf8" waybar &
+LC_TIME="sv_SE.utf8" exec waybar

@@ -12,11 +12,9 @@
 
   "layer": "top",
   "position": "top",
-  "mod": "dock",
-  "height": 31,
+  "height": 32,
   "exclusive": true,
   "passthrough": false,
-  "gtk-layer-shell": true,
 
 
 	"modules-left": [
@@ -50,15 +48,14 @@
     "network",
     "bluetooth",
     "pulseaudio",
-    //"pulseaudio#microphone",
     "custom/r_end",
     "custom/l_end",
     "custom/notification",
     "clock",
     "custom/power",
     "custom/r_end",
-    "custom/padd
-  "],
+    "custom/padd"
+  ],
 
 
   // Load Modules
