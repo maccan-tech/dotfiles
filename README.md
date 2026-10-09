@@ -26,6 +26,7 @@ If you only want to run specific roles use tags.
 ```
 
 Available roles
+* [hypr](roles/hypr/README.md)
 * zsh
 * nerdfonts
 * kitty
