@@ -163,6 +163,7 @@
             "apps": "~/.config/hypr/scripts/applauncher.sh",
             "screenshot": "~/.config/hypr/scripts/screenshot.sh",
             "clipboard": "~/.config/hypr/scripts/cliphist.sh",
+            "emoji": "~/.config/hypr/scripts/emoji.sh",
             "wallpaper": "~/.config/hypr/scripts/wallpaper-grid.sh",
             "nightlight": "~/.config/hypr/scripts/settings.sh nightlight-toggle",
             "dnd": "swaync-client -d -sw",

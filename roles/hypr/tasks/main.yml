@@ -63,6 +63,9 @@
       - playerctl
       - brightnessctl
       - wl-clipboard
+      # Emoji picker (hypr/scripts/emoji.sh); wtype types the chosen emoji
+      - rofimoji
+      - wtype
       # Screen sharing and file pickers
       - xdg-desktop-portal-hyprland
       - xdg-desktop-portal-gtk

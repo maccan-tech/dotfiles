@@ -1,0 +1,19 @@
+@theme "~/.config/rofi/shared.rasi"
+
+/* Emoji picker (hypr/scripts/emoji.sh, Alt+.). Look comes from shared.rasi. */
+
+configuration {
+    show-icons: false;
+    location:   0;
+    font:       "JetBrainsMono Nerd Font 13";
+}
+
+window {
+    width: 35%;
+}
+
+listview {
+    columns:      1;
+    lines:        10;
+    fixed-height: true;
+}

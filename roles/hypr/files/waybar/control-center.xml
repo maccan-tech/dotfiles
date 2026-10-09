@@ -32,6 +32,11 @@
               </object>
             </child>
             <child>
+              <object class="GtkMenuItem" id="emoji">
+                <property name="label">Emoji</property>
+              </object>
+            </child>
+            <child>
               <object class="GtkMenuItem" id="wallpaper">
                 <property name="label">Wallpaper</property>
               </object>
