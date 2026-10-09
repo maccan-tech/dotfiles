@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Control center menu, opened by clicking the logo on the left of waybar
+  (custom/appmenu in modules.json). Item ids map to commands in that
+  module's "menu-actions".
+-->
+<interface>
+  <object class="GtkMenu" id="menu">
+    <child>
+      <object class="GtkMenuItem" id="apps">
+        <property name="label">Applications</property>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkSeparatorMenuItem"/>
+    </child>
+
+    <child>
+      <object class="GtkMenuItem">
+        <property name="label">Quick Actions</property>
+        <child type="submenu">
+          <object class="GtkMenu">
+            <child>
+              <object class="GtkMenuItem" id="screenshot">
+                <property name="label">Screenshot</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="clipboard">
+                <property name="label">Clipboard history</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="wallpaper">
+                <property name="label">Wallpaper</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="nightlight">
+                <property name="label">Night light on/off</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="dnd">
+                <property name="label">Do not disturb on/off</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkMenuItem">
+        <property name="label">Appearance</property>
+        <child type="submenu">
+          <object class="GtkMenu">
+            <child>
+              <object class="GtkMenuItem" id="appearance_wallpaper">
+                <property name="label">Wallpaper</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="appearance">
+                <property name="label">Appearance</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="statusbar">
+                <property name="label">Status bar</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkMenuItem">
+        <property name="label">Power Settings</property>
+        <child type="submenu">
+          <object class="GtkMenu">
+            <child>
+              <object class="GtkMenuItem" id="profile_performance">
+                <property name="label">Performance</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="profile_balanced">
+                <property name="label">Balanced</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="profile_power_saver">
+                <property name="label">Power saver</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkSeparatorMenuItem"/>
+    </child>
+
+    <child>
+      <object class="GtkMenuItem" id="settings">
+        <property name="label">Settings</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="keybinds">
+        <property name="label">Keybinds</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="sysinfo">
+        <property name="label">System Info</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="syshealth">
+        <property name="label">System Health</property>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkSeparatorMenuItem"/>
+    </child>
+
+    <child>
+      <object class="GtkMenuItem">
+        <property name="label">Power</property>
+        <child type="submenu">
+          <object class="GtkMenu">
+            <child>
+              <object class="GtkMenuItem" id="lock">
+                <property name="label">Lock</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="logout">
+                <property name="label">Logout</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="suspend">
+                <property name="label">Suspend</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="reboot">
+                <property name="label">Reboot</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="shutdown">
+                <property name="label">Shutdown</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

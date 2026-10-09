@@ -155,8 +155,33 @@
     },
     "custom/appmenu": {
         "format": " ",
-        "on-click": "~/.config/hypr/scripts/applauncher.sh",
-        "tooltip": false
+        "tooltip": false,
+        // Control center: a popup menu, items are defined in control-center.xml
+        "menu": "on-click",
+        "menu-file": "~/.config/waybar/control-center.xml",
+        "menu-actions": {
+            "apps": "~/.config/hypr/scripts/applauncher.sh",
+            "screenshot": "~/.config/hypr/scripts/screenshot.sh",
+            "clipboard": "~/.config/hypr/scripts/cliphist.sh",
+            "wallpaper": "~/.config/hypr/scripts/wallpaper-grid.sh",
+            "nightlight": "~/.config/hypr/scripts/settings.sh nightlight-toggle",
+            "dnd": "swaync-client -d -sw",
+            "appearance_wallpaper": "~/.config/hypr/scripts/wallpaper-grid.sh",
+            "appearance": "~/.config/hypr/scripts/settings.sh appearance",
+            "statusbar": "~/.config/hypr/scripts/settings.sh statusbar",
+            "profile_performance": "powerprofilesctl set performance",
+            "profile_balanced": "powerprofilesctl set balanced",
+            "profile_power_saver": "powerprofilesctl set power-saver",
+            "settings": "~/.config/hypr/scripts/settings.sh",
+            "keybinds": "~/.config/hypr/scripts/keybindings.sh",
+            "sysinfo": "hyprsysteminfo",
+            "syshealth": "kitty --class btop -e btop",
+            "lock": "loginctl lock-session",
+            "logout": "wayland-logout",
+            "suspend": "systemctl suspend",
+            "reboot": "systemctl reboot",
+            "shutdown": "systemctl poweroff"
+        }
     },
 
 // modules for padding //

@@ -351,11 +351,28 @@ choose_nightlight() {
     local i
     i=$(rofi_menu "Night light" "$active" "${rows[@]}") || return
     apply_nightlight "${values[$i]}"
+    save_nightlight "${values[$i]}"
+}
 
+# Remembers the last temperature used so toggling turns it back on with it
+save_nightlight() {
     local tmp
     tmp=$(mktemp)
-    jq --argjson t "${values[$i]}" '.nightlight = $t' "$GLOBAL_STATE" > "$tmp" && mv "$tmp" "$GLOBAL_STATE"
+    jq --argjson t "$1" '.nightlight = $t | if $t > 0 then .nightlight_last = $t else . end' \
+        "$GLOBAL_STATE" > "$tmp" && mv "$tmp" "$GLOBAL_STATE"
     write_settings_lua
+}
+
+# Night light on/off, e.g. from the waybar control center menu
+toggle_nightlight() {
+    local temp
+    if [ "$(saved_nightlight)" = "0" ]; then
+        temp=$(jq -r '.nightlight_last // 4000' "$GLOBAL_STATE")
+    else
+        temp=0
+    fi
+    apply_nightlight "$temp"
+    save_nightlight "$temp"
 }
 
 reset_monitor() {
@@ -991,5 +1008,16 @@ main_menu() {
     done
 }
 
-# Only open the menu when run directly, so the functions can be sourced
-[[ ${BASH_SOURCE[0]} == "$0" ]] && main_menu
+# Only open the menu when run directly, so the functions can be sourced.
+# An argument opens one section directly, e.g. from the waybar control center.
+if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
+    case "${1:-}" in
+        display) choose_display ;;
+        appearance) appearance_menu ;;
+        statusbar) waybar_menu ;;
+        power) power_menu ;;
+        network) connections_menu ;;
+        nightlight-toggle) toggle_nightlight ;;
+        *) main_menu ;;
+    esac
+fi

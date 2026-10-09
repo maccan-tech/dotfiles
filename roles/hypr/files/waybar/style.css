@@ -150,3 +150,35 @@ tooltip {
   margin-left: 5px;
   padding-left: 3px;
 }
+
+/* Control center menu (custom/appmenu, control-center.xml) */
+menu {
+  background: @text-on-accent;
+  border: 1px solid @bg-hover;
+  border-radius: 9px;
+  padding: 6px;
+}
+
+menu menuitem {
+  color: @text-primary;
+  font-size: 12px;
+  font-weight: normal;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+menu menuitem:hover {
+  background: @bg-module;
+  color: @accent-primary;
+}
+
+menu menuitem arrow {
+  color: @text-disabled;
+  min-width: 12px;
+}
+
+menu separator {
+  background: @bg-hover;
+  min-height: 1px;
+  margin: 4px 8px;
+}

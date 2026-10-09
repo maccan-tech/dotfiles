@@ -38,6 +38,7 @@
       - hyprutils
       - hyprcursor
       - hyprsysteminfo
+      - btop
       - hyprsunset
       - hyprland-guiutils
       - ImageMagick
