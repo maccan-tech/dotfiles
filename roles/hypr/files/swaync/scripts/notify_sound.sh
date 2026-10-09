@@ -8,7 +8,7 @@ if [[ "$SWAYNC_HINT_SUPPRESS_SOUND" == "true" ]]; then
   exit 0
 fi
 
-SOUND="${HOME}/.config/swaync/sounds/Chord.wav"
+SOUND="${HOME}/.config/swaync/sounds/chord.wav"
 
 if [[ "$(swaync-client --get-dnd)" == "false" ]]; then
   if command -v paplay >/dev/null 2>&1 && [ -f "$SOUND" ]; then
