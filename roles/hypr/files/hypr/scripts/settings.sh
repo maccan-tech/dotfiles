@@ -10,6 +10,7 @@
 # Sections: Display (scale, resolution, rotation, adaptive sync, night light),
 # Appearance (gaps, borders, rounding, opacity, blur, shadows, animations),
 # Status bar (waybar position, always on top, size, floating, background),
+# Keyboard and mouse (layout, key repeat, pointer, scrolling, touchpad),
 # Power and idle (hypridle timeouts, power profile),
 # Network, sound and bluetooth (default audio devices, launches the apps).
 
@@ -438,10 +439,11 @@ option_name() {
     echo "${key/:col:/:col.}"
 }
 
-# Current value as JSON: number, true/false or "rgba(rrggbbaa)"
+# Current value as JSON: number, true/false, "rgba(rrggbbaa)" or a string
 get_option() {
     hyprctl -j getoption "$(option_name "$1")" | jq -c '
-        if has("css") then (.css | split(" ")[0] | tonumber)
+        if has("str") then (.str | if . == "[[EMPTY]]" then "" else . end)
+        elif has("css") then (.css | split(" ")[0] | tonumber)
         elif has("gradient") then (.gradient | split(" ")[0]
             | "rgba(" + .[2:] + .[0:2] + ")")
         elif has("float") then (.float * 1000 | round / 1000)
@@ -593,7 +595,8 @@ reset_appearance() {
     i=$(rofi_menu "Reset appearance to defaults?" -1 "Reset" "Cancel") || return
     [ "$i" = "0" ] || return
     tmp=$(mktemp)
-    jq 'del(.config, .animations)' "$GLOBAL_STATE" > "$tmp" && mv "$tmp" "$GLOBAL_STATE"
+    jq '.config |= with_entries(select(.key | startswith("input."))) | del(.animations)' \
+        "$GLOBAL_STATE" > "$tmp" && mv "$tmp" "$GLOBAL_STATE"
     write_settings_lua
     # Reload so the values from the Ansible-managed config apply again
     hyprctl reload > /dev/null
@@ -811,6 +814,97 @@ waybar_menu() {
 }
 
 # ----------------------------------------------------------------------------
+# Keyboard and mouse (hl.config input options, applied live)
+# ----------------------------------------------------------------------------
+
+KB_LAYOUTS=(se us gb de no dk fi)
+KB_LAYOUT_NAMES=("Swedish" "English (US)" "English (UK)" "German" "Norwegian" "Danish" "Finnish")
+# An empty accel_profile is libinput's default for the device
+ACCEL_PROFILES=("" flat adaptive)
+ACCEL_PROFILE_NAMES=("Default" "Flat" "Adaptive")
+
+has_touchpad() {
+    hyprctl -j devices | jq -e '.mice[] | select(.name | test("touchpad"; "i"))' > /dev/null
+}
+
+# string_name <key> <values array name> <names array name>
+string_name() {
+    local current i
+    local -n values="$2" names="$3"
+    current=$(get_option "$1" | jq -r .)
+    for i in "${!values[@]}"; do
+        [ "${values[$i]}" = "$current" ] && { echo "${names[$i]}"; return; }
+    done
+    echo "$current"
+}
+
+# choose_string <key> <label> <values array name> <names array name>
+choose_string() {
+    local key="$1" label="$2" current active=-1 i
+    local -n values="$3" names="$4"
+    current=$(get_option "$key" | jq -r .)
+    for i in "${!values[@]}"; do
+        [ "${values[$i]}" = "$current" ] && active=$i
+    done
+    i=$(rofi_menu "$label" "$active" "${names[@]}") || return
+    [ "$i" = "$active" ] && return
+    set_option "$key" "$(jq -n --arg v "${values[$i]}" '$v')"
+}
+
+reset_input() {
+    local i tmp
+    i=$(rofi_menu "Reset keyboard and mouse to defaults?" -1 "Reset" "Cancel") || return
+    [ "$i" = "0" ] || return
+    tmp=$(mktemp)
+    jq '.config |= with_entries(select(.key | startswith("input.") | not))' \
+        "$GLOBAL_STATE" > "$tmp" && mv "$tmp" "$GLOBAL_STATE"
+    write_settings_lua
+    # Reload so the values from the Ansible-managed config apply again
+    hyprctl reload > /dev/null
+}
+
+input_menu() {
+    local i rows actions
+    while true; do
+        rows=(
+            "$(row "Keyboard layout" "$(string_name input.kb_layout KB_LAYOUTS KB_LAYOUT_NAMES)")"
+            "$(row "Key repeat rate" "$(get_option input.repeat_rate)/s")"
+            "$(row "Key repeat delay" "$(get_option input.repeat_delay) ms")"
+            "$(row "Numlock at start" "$(on_off "$(get_option input.numlock_by_default)")")"
+            "$(row "Mouse sensitivity" "$(get_option input.sensitivity)")"
+            "$(row "Mouse acceleration" "$(string_name input.accel_profile ACCEL_PROFILES ACCEL_PROFILE_NAMES)")"
+            "$(row "Natural scroll" "$(on_off "$(get_option input.natural_scroll)")")"
+        )
+        actions=(layout rate delay numlock sensitivity accel scroll)
+        if has_touchpad; then
+            rows+=(
+                "$(row "Touchpad scroll" "$(on_off "$(get_option input.touchpad.natural_scroll)")")"
+                "$(row "Tap to click" "$(on_off "$(get_option input.touchpad.tap_to_click)")")"
+                "$(row "Off while typing" "$(on_off "$(get_option input.touchpad.disable_while_typing)")")"
+            )
+            actions+=(touchpad_scroll tap typing)
+        fi
+        rows+=("Reset to defaults")
+        actions+=(reset)
+
+        i=$(rofi_menu "Keyboard and mouse" -1 "${rows[@]}") || return
+        case "${actions[$i]}" in
+            layout) choose_string input.kb_layout "Keyboard layout" KB_LAYOUTS KB_LAYOUT_NAMES ;;
+            rate) choose_number input.repeat_rate "Key repeat rate (per second)" 15 20 25 30 35 40 50 ;;
+            delay) choose_number input.repeat_delay "Key repeat delay (ms)" 200 250 300 400 500 600 ;;
+            numlock) choose_bool input.numlock_by_default "Numlock at start" ;;
+            sensitivity) choose_number input.sensitivity "Mouse sensitivity" -0.75 -0.5 -0.25 0 0.25 0.5 0.75 ;;
+            accel) choose_string input.accel_profile "Mouse acceleration" ACCEL_PROFILES ACCEL_PROFILE_NAMES ;;
+            scroll) choose_bool input.natural_scroll "Natural scroll" ;;
+            touchpad_scroll) choose_bool input.touchpad.natural_scroll "Touchpad natural scroll" ;;
+            tap) choose_bool input.touchpad.tap_to_click "Tap to click" ;;
+            typing) choose_bool input.touchpad.disable_while_typing "Touchpad off while typing" ;;
+            reset) reset_input ;;
+        esac
+    done
+}
+
+# ----------------------------------------------------------------------------
 # Power and idle (hypridle, power-profiles-daemon)
 # ----------------------------------------------------------------------------
 
@@ -995,14 +1089,16 @@ connections_menu() {
 
 main_menu() {
     local i
-    while i=$(rofi_menu "Settings" -1 "󰍹  Display" "󰏘  Appearance" "󰕮  Status bar" "󰐥  Power and idle" \
+    while i=$(rofi_menu "Settings" -1 "󰍹  Display" "󰏘  Appearance" "󰕮  Status bar" \
+        "󰌌  Keyboard and mouse" "󰐥  Power and idle" \
         "󰛳  Network, sound and bluetooth"); do
         case "$i" in
             0) choose_display ;;
             1) appearance_menu ;;
             2) waybar_menu ;;
-            3) power_menu ;;
-            4) connections_menu ;;
+            3) input_menu ;;
+            4) power_menu ;;
+            5) connections_menu ;;
         esac
     done
 }
@@ -1014,6 +1110,7 @@ if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
         display) choose_display ;;
         appearance) appearance_menu ;;
         statusbar) waybar_menu ;;
+        input) input_menu ;;
         power) power_menu ;;
         network) connections_menu ;;
         nightlight-toggle) toggle_nightlight ;;
