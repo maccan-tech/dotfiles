@@ -6,8 +6,10 @@ return {
     { "antosha417/nvim-lsp-file-operations", config = true },
   },
   config = function()
-    local cmp_nvim_lsp = require("cmp_nvim_lsp")
-    local capabilities = cmp_nvim_lsp.default_capabilities()
+    -- advertise nvim-cmp completion capabilities to every server
+    vim.lsp.config("*", {
+      capabilities = require("cmp_nvim_lsp").default_capabilities(),
+    })
 
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
@@ -33,7 +35,6 @@ return {
     })
 
     vim.lsp.config("ansiblels", {
-      capabilities = capabilities,
       settings = {
         ansible = {
           ansibleLint = {
@@ -44,37 +45,19 @@ return {
       },
     })
 
-    vim.lsp.config("marksman", {
-      capabilities = capabilities,
-    })
-
     vim.lsp.config("lua_ls", {
-      capabilities = capabilities,
       settings = {
         Lua = {
+          runtime = { version = "LuaJIT" },
           diagnostics = {
             globals = { "vim" },
           },
           workspace = {
-            library = {
-              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-              [vim.fn.stdpath("config") .. "/lua"] = true,
-            },
+            checkThirdParty = false,
+            library = { vim.env.VIMRUNTIME },
           },
         },
       },
-    })
-
-    vim.lsp.config("html", {
-      capabilities = capabilities,
-    })
-
-    vim.lsp.config("cssls", {
-      capabilities = capabilities,
-    })
-
-    vim.lsp.config("pyright", {
-      capabilities = capabilities,
     })
 
     vim.lsp.enable({ "ansiblels", "marksman", "lua_ls", "html", "cssls", "pyright" })

@@ -28,6 +28,8 @@
       - gcc
       - gcc-c++
       - nodejs
+      # nvim-treesitter (main) compiles parsers with tree-sitter-cli >= 0.26
+      - tree-sitter-cli
       - figlet
     state: present
   become: true
@@ -52,6 +54,23 @@
     mode: "0755"
     path: "{{ ansible_facts['user_dir'] }}/.config/nvim"
     state: directory
+
+- name: "Neovim | Find deployed lua files"
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
+  ansible.builtin.find:
+    paths: "{{ ansible_facts['user_dir'] }}/.config/nvim/lua"
+    recurse: true
+  register: nvim_deployed_files
+
+# copy never deletes, so plugin specs removed from the role would keep loading
+- name: "Neovim | Remove lua files no longer in the role"
+  when: (role_path ~ '/files/' ~ (item.path | relpath(ansible_facts['user_dir'] ~ '/.config/nvim'))) is not exists
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ nvim_deployed_files.files }}"
+  loop_control:
+    label: "{{ item.path }}"
 
 - name: "Neovim | Copy config files"
   when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'

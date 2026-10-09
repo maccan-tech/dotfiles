@@ -1,7 +1,7 @@
 return {
-  "williamboman/mason.nvim",
+  "mason-org/mason.nvim",
   dependencies = {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
   },
   config = function()
@@ -34,8 +34,8 @@ return {
         "lua_ls",
         "pyright",
       },
-      -- auto-install configured servers (with lspconfig)
-      automatic_installation = true, -- not the same as ensure_installed
+      -- servers are enabled explicitly with vim.lsp.enable() in lspconfig.lua
+      automatic_enable = false,
     })
 
     mason_tool_installer.setup({

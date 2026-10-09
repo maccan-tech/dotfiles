@@ -53,5 +53,5 @@ vim.diagnostic.config({
 })
 
 -- filetypes
--- Glench/Vim-Jinja2-Syntax handles .j2 detection via ftdetect
--- It auto-detects the host language from the filename (e.g. nginx.conf.j2 -> nginx+jinja2)
+-- HiPhish/jinja.vim handles .j2 detection via ftdetect
+-- It auto-detects the host language from the filename (e.g. zshrc.j2 -> zsh.jinja)

@@ -1,6 +1,6 @@
 return {
   -- Active colorscheme
-  { "rebelot/kanagawa.nvim", lazy = false },
+  { "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
 
   -- Available but not active -- set colorscheme in lazy.lua to switch
   { "sho-87/kanagawa-paper.nvim", lazy = true, opts = {} },
