@@ -42,7 +42,8 @@
       "battery",
       "network",
       "bluetooth",
-      "pulseaudio"
+      "pulseaudio",
+      "pulseaudio/slider"
     ]
   },
 
