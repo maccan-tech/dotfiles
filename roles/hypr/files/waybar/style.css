@@ -85,6 +85,29 @@ tooltip {
   color: @accent-primary;
 }
 
+/* Unread notifications: the bell gets the theme's urgent color */
+#custom-notification.notification,
+#custom-notification.dnd-notification,
+#custom-notification.inhibited-notification,
+#custom-notification.dnd-inhibited-notification {
+  color: @color-urgent;
+}
+
+/* Bluetooth that is turned off is dimmed */
+#bluetooth.off,
+#bluetooth.disabled {
+  color: @text-disabled;
+}
+
+/* Low battery: warning at 30%, critical at 20% (states in modules.json) */
+#battery.warning:not(.charging) {
+  color: @color-warning;
+}
+
+#battery.critical:not(.charging) {
+  color: @color-urgent;
+}
+
 /* Volume slider: a flat bar without the GTK knob */
 #pulseaudio-slider {
   padding: 0px 6px 0px 0px;
