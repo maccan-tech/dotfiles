@@ -853,6 +853,29 @@ choose_string() {
     set_option "$key" "$(jq -n --arg v "${values[$i]}" '$v')"
 }
 
+right_click_name() {
+    if [ "$(get_option input.touchpad.clickfinger_behavior)" = "true" ]; then
+        echo "Two fingers"
+    else
+        echo "Bottom right corner"
+    fi
+}
+
+# clickfinger_behavior false uses libinput button areas (bottom right is
+# right click), true uses the number of fingers (two fingers is right click)
+choose_right_click() {
+    local current active i
+    current=$(get_option input.touchpad.clickfinger_behavior)
+    if [ "$current" = "true" ]; then active=1; else active=0; fi
+    i=$(rofi_menu "Touchpad right click" "$active" "Bottom right corner" "Two fingers") || return
+    [ "$i" = "$active" ] && return
+    if [ "$i" = "1" ]; then
+        set_option input.touchpad.clickfinger_behavior true
+    else
+        set_option input.touchpad.clickfinger_behavior false
+    fi
+}
+
 reset_input() {
     local i tmp
     i=$(rofi_menu "Reset keyboard and mouse to defaults?" -1 "Reset" "Cancel") || return
@@ -882,9 +905,10 @@ input_menu() {
             rows+=(
                 "$(row "Touchpad scroll" "$(on_off "$(get_option input.touchpad.natural_scroll)")")"
                 "$(row "Tap to click" "$(on_off "$(get_option input.touchpad.tap_to_click)")")"
+                "$(row "Right click" "$(right_click_name)")"
                 "$(row "Off while typing" "$(on_off "$(get_option input.touchpad.disable_while_typing)")")"
             )
-            actions+=(touchpad_scroll tap typing)
+            actions+=(touchpad_scroll tap right_click typing)
         fi
         rows+=("Reset to defaults")
         actions+=(reset)
@@ -900,6 +924,7 @@ input_menu() {
             scroll) choose_bool input.natural_scroll "Natural scroll" ;;
             touchpad_scroll) choose_bool input.touchpad.natural_scroll "Touchpad natural scroll" ;;
             tap) choose_bool input.touchpad.tap_to_click "Tap to click" ;;
+            right_click) choose_right_click ;;
             typing) choose_bool input.touchpad.disable_while_typing "Touchpad off while typing" ;;
             reset) reset_input ;;
         esac

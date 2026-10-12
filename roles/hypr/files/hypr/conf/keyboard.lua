@@ -13,7 +13,9 @@ hl.config({
         touchpad = {
             natural_scroll       = false,
             disable_while_typing = true,
-            clickfinger_behavior = true,
+            -- false: press the bottom right corner to right click.
+            -- true: click with two fingers to right click.
+            clickfinger_behavior = false,
             scroll_factor        = 0.5,
         },
         sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
